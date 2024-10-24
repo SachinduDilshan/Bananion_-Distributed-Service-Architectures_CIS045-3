@@ -2,10 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
-
 const app = express();
 const PORT = 5173;
-
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -26,16 +24,14 @@ db.connect((err) => {
   console.log("Connected to MySQL database Bananadb");
 });
 
-// Registration route (same as before)
 app.post("/register", (req, res) => {
   const { name, age, password } = req.body;
 
-  // Basic validation
+ 
   if (!name || !age || !password) {
     return res.status(400).json({ success: false, message: "All fields are required" });
   }
 
-  // Check if user already exists
   const checkUserQuery = "SELECT * FROM users WHERE name = ?";
   db.query(checkUserQuery, [name], (err, result) => {
     if (err) {
@@ -47,7 +43,6 @@ app.post("/register", (req, res) => {
       return res.status(400).json({ success: false, message: "User already exists" });
     }
 
-    // Insert new user
     const insertUserQuery = "INSERT INTO users (name, age, password) VALUES (?, ?, ?)";
     db.query(insertUserQuery, [name, age, password], (err, result) => {
       if (err) {
