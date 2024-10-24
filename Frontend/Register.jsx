@@ -54,22 +54,23 @@ function RegistrationForm() {
         <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
         <div className="form-group mb-3">
           <label htmlFor="name">Name</label>
-          <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input type="text" placeholder='Your name, please...' className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="age">Age</label>
-          <input type="number" className="form-control" id="age" value={age} onChange={(e) => setAge(e.target.value)} required />
+          <input type="number" placeholder='How old are you...' className="form-control" id="age" value={age} onChange={(e) => setAge(e.target.value)} required />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="password">Password</label>
-          <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" placeholder='Enter a secure password...' className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="confirmPassword">Confirm Password</label>
-          <input type="password" className="form-control" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          <input type="password" placeholder='Type your password again...' className="form-control" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
         </div>
-        <button type="submit" style={{ backgroundColor:  'rgb(24, 24, 111)', color:'white' }} className="btn custom-register-btn">Register</button>
+        <button type="submit" style={{ backgroundColor:  'rgb(52, 52, 155)', color:'white' }} className="btn custom-register-btn">Register</button>
       </form>
+      <h6 className="text-center mt-3">Already Registered?<a href='login.jsx'> Login Now</a> </h6>
     </div>
   );
 }

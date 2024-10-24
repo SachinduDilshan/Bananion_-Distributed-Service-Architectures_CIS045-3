@@ -1,31 +1,70 @@
 body {
-  background-image: url('assets/13969336.jpg'); /* Replace with the actual path to your image */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  height: 100vh; /* Ensure the body takes full height */
-  margin: 0; /* Remove default margin */
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; 
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('assets/13969336.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.6; 
+  z-index: -1; 
+}
+
+
+.logo-container {
+  position: absolute;
+  top: 10%; 
+  left: 50%; 
+  transform: translateX(-50%);
+  z-index: 1; 
+}
+
+
+.logo-container img {
+  width: 1500px; 
+  height: auto;
+}
+
+.registration-form {
+  position: relative;
+  padding: 20px;
+  margin: 0 auto;
+  width: 50%; /* Adjust form width */
+  height: 400px; /* Adjust form height */
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  border-radius: 8px;
+  margin-top: 50px; /* Adjust space between the logo and the form */
+  z-index: 2; /* Ensure the form appears in front of the background */
 }
 
 .text-center{
-  color: rgb(24, 24, 111);
+  color: rgb(52, 52, 155);
   font-family: "DynaPuff", system-ui;
 }
 
-.logo-container img {
-  width: 120px; /* Set the desired width */
-  height: auto; /* Maintain aspect ratio */
-  margin-left: 4px; /* Maintain existing margin */
+.text-center .mt-3{
+  margin-top: 20px;
 }
 
-/* You can also add this to your existing CSS for the registration form */
 .registration-form {
   font-family: "DynaPuff", system-ui;
+  color: rgb(52, 52, 155);
   position: relative;
-  padding: 20px 20px 60px; /* Add padding to create space for the button */
-  height: 400px; /* Set a fixed height for the form */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for aesthetics */
-  background-color: rgba(255, 255, 255, 0.99); /* Set the opacity (0.7 means 70% opacity) */
+  padding: 20px 20px 60px; 
+  height: 400px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: rgba(255, 255, 255, 0.99); 
 }
 
 .custom-register-btn {
@@ -40,7 +79,7 @@ body {
 
 .registration-form {
   position: relative;
-  padding-bottom: 60px; /* Space for the button */
+  padding-bottom: 60px; 
 }
 
 
