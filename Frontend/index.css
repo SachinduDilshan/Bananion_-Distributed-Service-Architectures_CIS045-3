@@ -23,29 +23,16 @@ body::before {
 
 .logo-container {
   position: absolute;
-  top: 10%; 
+  top: 4%; 
   left: 50%; 
   transform: translateX(-50%);
-  z-index: 1; 
+  z-index: 2; 
 }
 
 
 .logo-container img {
   width: 1500px; 
   height: auto;
-}
-
-.registration-form {
-  position: relative;
-  padding: 20px;
-  margin: 0 auto;
-  width: 50%; /* Adjust form width */
-  height: 400px; /* Adjust form height */
-  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  border-radius: 8px;
-  margin-top: 50px; /* Adjust space between the logo and the form */
-  z-index: 2; /* Ensure the form appears in front of the background */
 }
 
 .text-center{
@@ -62,9 +49,11 @@ body::before {
   color: rgb(52, 52, 155);
   position: relative;
   padding: 20px 20px 60px; 
-  height: 400px; 
+  height: 475px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   background-color: rgba(255, 255, 255, 0.99); 
+  margin-top: 50px; 
+  z-index: 2; 
 }
 
 .custom-register-btn {
@@ -77,9 +66,8 @@ body::before {
   transform: translateX(-50%); 
 }
 
-.registration-form {
-  position: relative;
-  padding-bottom: 60px; 
+.myName{
+  font-size: x-small;
 }
 
 
