@@ -55,7 +55,7 @@ function Register() {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit} style={{ width: '800px' }}>
+      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit}>
         <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
         <div className="form-group mb-3">
           <label htmlFor="name">Name</label>

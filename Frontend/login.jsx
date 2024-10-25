@@ -43,8 +43,8 @@ function Login() {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit} style={{ width: '800px' }}>
-        <h2 className="text-center mb-4">Welcome Back! Log In</h2>
+      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit} style={{height: '320px' }}>
+        <h2 className="text-center mb-4">Welcome Back! Log In To Play!</h2>
         <div className="form-group mb-3">
           <label htmlFor="name">Name</label>
           <input type="text" placeholder='Your name...' className="form-control" name="name" value={loginData.name} onChange={handleChange} required />
@@ -53,6 +53,7 @@ function Login() {
           <label htmlFor="password">Password</label>
           <input type="password" placeholder='Your password...' className="form-control" name="password" value={loginData.password} onChange={handleChange} required />
         </div>
+        
         <button type="submit" style={{ backgroundColor:  'rgb(52, 52, 155)', color:'white' }} className="btn custom-register-btn">Login</button>
       </form>
 
