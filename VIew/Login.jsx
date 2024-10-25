@@ -1,41 +1,30 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [loginData, setLoginData] = useState({
-    name: "",
-    password: "",
-  });
-
-  const navigate = useNavigate()
+  const [loginData, setLoginData] = useState({ name: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setLoginData(prevData => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: loginData.name, password: loginData.password }),
         credentials: 'include',
       });
 
       if (response.ok) {
         alert("Login successful");
-        // Redirect or other logic after login success
         navigate("/home");
       } else {
         alert("Failed to log in. Please try again.");
@@ -62,12 +51,13 @@ function Login() {
         <button type="submit" style={{ backgroundColor: 'rgb(52, 52, 155)', color: 'white' }} className="btn custom-register-btn">Login</button>
       </form>
 
-      <br></br>
+      <br />
 
       <h6 className="text-center mt-3">Don't have an account? <Link to="/register">Register here</Link></h6>
-      <br></br>
+      <br />
       <h6 className="myName">K.G.S.D. Abeyrathne | 2425049 </h6>
     </div>
+
   );
 }
 

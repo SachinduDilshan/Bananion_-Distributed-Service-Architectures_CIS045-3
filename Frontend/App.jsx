@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RegistrationForm from "./Register.jsx"; 
-import LoginForm from "./login.jsx";
-import Home from "./Home.jsx";
+import Home from "./Home.jsx"; // Ensure you have a Home component
+import Register from "../VIew/Register.jsx";
+import Login from "../VIew/Login.jsx"; // Adjust the path as necessary
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );
