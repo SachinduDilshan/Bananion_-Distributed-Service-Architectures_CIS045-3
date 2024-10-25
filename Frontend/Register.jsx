@@ -20,7 +20,7 @@ function Register() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");

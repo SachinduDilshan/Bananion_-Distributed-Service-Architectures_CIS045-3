@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: "http://localhost:5173",
-  credentials: true, 
+  credentials: true,
 }));
 
 const db = mysql.createConnection({
@@ -35,7 +35,7 @@ app.use(session({
 
 app.use((req, res, next) => {
   if (!req.session) {
-    return next(new Error('Session is not initialized')); 
+    return next(new Error('Session is not initialized'));
   }
   next();
 });

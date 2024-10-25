@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/home.css'; // Ensure you have this CSS file in the specified path
+import './Styles/home.css';
 
 function Home() {
-  const [user, setUser] = useState(null); // State to store user data
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,20 +14,20 @@ function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: 'include' // Ensure session or cookie is sent
+          credentials: 'include'
         });
 
-        // Handle valid user session
+
         if (response.ok) {
           const data = await response.json();
-          setUser(data); // Set the user data fetched from the backend
+          setUser(data);
         } else if (response.status === 401 || response.status === 403) {
-          // Redirect to login if not authenticated
+
           navigate('/');
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        navigate('/'); // Redirect to login page on error
+        navigate('/');
       }
     };
 
@@ -41,7 +41,7 @@ function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include', // Ensure session or cookie is sent
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -59,7 +59,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div className="home-content"> {/* Wrap the content in a div for styling */}
+      <div className="home-content">
         <h1 className="welcome-text">Welcome {user.name}!</h1>
 
         <button className="custom-btn" onClick={() => navigate('/play')}>Lets Play!</button>
