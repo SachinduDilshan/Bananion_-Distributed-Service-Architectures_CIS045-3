@@ -1,20 +1,21 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-const app = express();
-app.use(express.json()); 
+const session = require('express-session');
 
+const app = express();
+app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: "http://localhost:5173",
+  credentials: true, 
 }));
-
 
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "Bananiondb", 
+  database: "bananiondb",
 });
 
 db.connect((err) => {
@@ -25,6 +26,21 @@ db.connect((err) => {
   }
 });
 
+app.use(session({
+  secret: 'mykey',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
+
+app.use((req, res, next) => {
+  if (!req.session) {
+    return next(new Error('Session is not initialized')); 
+  }
+  next();
+});
+
+/*================================Register=======================*/
 app.post("/register", (req, res) => {
   const { name, age, password } = req.body;
 
@@ -43,32 +59,72 @@ app.post("/register", (req, res) => {
   });
 });
 
-
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
 /*================================Login=======================*/
-
 app.post("/login", (req, res) => {
   const { name, password } = req.body;
-
-  if (!name || !password) {
-    return res.status(400).json({ message: "Both fields are required" });
-  }
 
   const query = "SELECT * FROM users WHERE name = ? AND password = ?";
   db.query(query, [name, password], (err, result) => {
     if (err) {
-      console.error("Error during login:", err);
+      console.error("Database error:", err);
       return res.status(500).json({ message: "Database error" });
     }
 
     if (result.length > 0) {
+      // Set the userId in session after successful login
+      req.session.uid = result[0].uid;  // Ensure this matches your database schema
       res.status(200).json({ message: "Login successful" });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
   });
 });
+
+/*================================User Data===========================*/
+app.get("/user", (req, res) => {
+  // Check if session contains user ID
+  const uid = req.session.uid;
+
+  if (!uid) {
+    // If no session exists, respond with a 401 Unauthorized status
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  // Query the database for the user's information
+  const query = "SELECT * FROM users WHERE uid = ?"; // Ensure the field 'id' matches your schema
+  db.query(query, [uid], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    if (result.length > 0) {
+      // Return the user data if found
+      res.status(200).json(result[0]);
+    } else {
+      // If no user is found in the database
+      res.status(404).json({ message: "User not found" });
+    }
+  });
+});
+
+
+/*==========================LOg out=========================*/
+app.post("/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).json({ message: "Failed to log out" });
+    }
+    res.status(200).json({ message: "Logged out successfully" });
+  });
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
+
+
+

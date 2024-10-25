@@ -58,7 +58,7 @@ function Register() {
       <form className="registration-form p-4 border rounded" onSubmit={handleSubmit}>
         <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
         <div className="form-group mb-3">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="username">Name</label>
           <input type="text" placeholder='Your name, please...' className="form-control" name="name" value={formData.name} onChange={handleChange} required />
         </div>
         <div className="form-group mb-3">
