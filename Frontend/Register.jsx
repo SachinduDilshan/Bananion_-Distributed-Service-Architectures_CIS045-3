@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import './Styles/regist.css';
 
@@ -78,7 +78,7 @@ function Register() {
 
       <br></br>
 
-      <h6 className="text-center mt-3">Already Registered? <Link to="/login">Login here</Link></h6>
+      <h6 className="text-center mt-3">Already Registered? <Link to="/">Login here</Link></h6>
       <br></br>
       <h6 className="myName">K.G.S.D. Abeyrathne | 2425049 </h6>
     </div>
