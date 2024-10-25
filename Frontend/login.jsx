@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -32,6 +33,7 @@ function Login() {
       if (response.ok) {
         alert("Login successful");
         // Redirect or other logic after login success
+        navigate("/home"); 
       } else {
         alert("Failed to log in. Please try again.");
       }
@@ -44,7 +46,7 @@ function Login() {
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
       <form className="registration-form p-4 border rounded" onSubmit={handleSubmit} style={{height: '320px' }}>
-        <h2 className="text-center mb-4">Welcome Back! Log In To Play!</h2>
+        <h2 className="text-center mb-4"> Log In To Play!</h2>
         <div className="form-group mb-3">
           <label htmlFor="name">Name</label>
           <input type="text" placeholder='Your name...' className="form-control" name="name" value={loginData.name} onChange={handleChange} required />

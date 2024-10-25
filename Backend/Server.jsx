@@ -2,20 +2,19 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const app = express();
-app.use(express.json()); // Ensure you can handle JSON requests
+app.use(express.json()); 
 
 
 app.use(cors({
-  origin: "http://localhost:5173", // Adjust this to the frontend's URL
+  origin: "http://localhost:5173", 
 }));
 
 
-// Database connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "Bananiondb", // Your actual database name
+  database: "Bananiondb", 
 });
 
 db.connect((err) => {
