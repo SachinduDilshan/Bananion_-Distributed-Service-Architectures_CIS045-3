@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";          
+import "./regist.css";          
 import RegistrationForm from "./Register.jsx";  
 
 function App() {

@@ -1,7 +1,7 @@
 // Frontend/Register.jsx
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import './index'; // Custom styles if needed
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import './regist.css';
 
 function Register() {
   const [formData, setFormData] = useState({
