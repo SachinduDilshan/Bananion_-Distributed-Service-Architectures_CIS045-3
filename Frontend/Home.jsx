@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../VIew/Styles/regist.css';
+import '../VIew/Styles/home.css'; 
 
 function Home() {
   const [user, setUser] = useState(null);
@@ -30,6 +30,7 @@ function Home() {
         navigate('/');
       }
     };
+    //test
 
     fetchUserData();
   }, [navigate]);
