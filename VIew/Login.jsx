@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase Auth
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 
-// Initialize Firebase Auth
 const auth = getAuth();
 
 function Login() {
@@ -12,6 +11,7 @@ function Login() {
     email: "",
     password: ""
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +25,6 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Log in the user
       const userCredential = await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
       const user = userCredential.user;
 
@@ -37,9 +36,12 @@ function Login() {
         email: "",
         password: ""
       });
+
+      // Redirect to home page
+      navigate('/home');
     } catch (error) {
       console.error("Error:", error);
-      alert("Login failed: Check your email name and password. " );
+      alert("Login failed: Check your email name and password.");
     }
   };
 

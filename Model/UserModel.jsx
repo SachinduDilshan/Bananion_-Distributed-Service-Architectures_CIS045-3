@@ -35,6 +35,21 @@ const UserModel = {
     }
   },
 
+  //Get user data from database
+  async getUserData(uid) {
+    try {
+      const userSnapshot = await admin.database().ref(`users/${uid}`).once('value');
+      if (userSnapshot.exists()) {
+        return userSnapshot.val();  // Return user data
+      } else {
+        throw new Error('User data not found');
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      throw error;  // Rethrow to handle in controller
+    }
+  },
+
   // Log in user by retrieving user info using email
   async loginUser({ email }) {
     try {

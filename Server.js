@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import userRoutes from './route/UserRoute.cjs'; // Adjust the path as necessary
 
 const app = express();
 const port = 3000;
@@ -11,17 +12,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Mock login route
-app.post('/user/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Basic login check
-  if (username === 'testuser' && password === 'testpass') {
-    res.status(200).json({ message: 'Login successful' });
-  } else {
-    res.status(401).json({ message: 'Invalid credentials' });
-  }
-});
+// Use the user routes
+app.use('/user', userRoutes); // Make sure this is correctly set
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

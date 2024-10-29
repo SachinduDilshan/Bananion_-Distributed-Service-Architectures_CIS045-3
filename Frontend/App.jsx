@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./Home.jsx"; // Ensure you have a Home component
+import Home from "../VIew/Home.jsx"; // Ensure you have a Home component
 import Register from "../VIew/Register.jsx";
 import Login from "../VIew/Login.jsx"; // Adjust the path as necessary
 
