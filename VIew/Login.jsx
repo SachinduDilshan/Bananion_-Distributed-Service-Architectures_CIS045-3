@@ -84,6 +84,7 @@ function Login() {
       <h6 className="text-center mt-3">
         Don't have an account? <Link to="/register">Register here</Link>
       </h6>
+      <br></br><br></br>
       <h6 className="myName">K.G.S.D. Abeyrathne | 2425049</h6>
     </div>
   );
