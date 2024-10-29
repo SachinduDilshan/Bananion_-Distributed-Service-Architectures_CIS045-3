@@ -12,7 +12,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('./assets/13969336.jpg');
+  background-image: url('../VIew/Styles/assets/13969336.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
