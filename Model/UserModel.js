@@ -1,13 +1,7 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
-// Initialize Firebase Admin SDK only if it hasn't been initialized
-if (!admin.apps.length) {
-  const serviceAccount = require('../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json');
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://dsagame-2425049-default-rtdb.firebaseio.com",
-  });
-}
+// Import the service account JSON file dynamically
+import admin from './firebaseadmin';
 
 const db = admin.firestore();
 
@@ -25,7 +19,7 @@ const UserModel = {
         name,
         email,
         age,
-        password
+        password,
       });
 
       return { uid: userRecord.uid, message: 'User registered successfully' };
@@ -35,18 +29,18 @@ const UserModel = {
     }
   },
 
-  //Get user data from database
+  // Get user data from database
   async getUserData(uid) {
     try {
       const userSnapshot = await admin.database().ref(`users/${uid}`).once('value');
       if (userSnapshot.exists()) {
-        return userSnapshot.val();  // Return user data
+        return userSnapshot.val(); // Return user data
       } else {
         throw new Error('User data not found');
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
-      throw error;  // Rethrow to handle in controller
+      throw error; // Rethrow to handle in controller
     }
   },
 
@@ -62,4 +56,4 @@ const UserModel = {
   }
 };
 
-module.exports = UserModel;
+export default UserModel; // Use export default for ES module syntax

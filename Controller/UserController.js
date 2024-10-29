@@ -1,5 +1,5 @@
-const UserModel = require('../Model/UserModel.jsx');
-const admin = require('firebase-admin'); // Firebase Admin SDK
+import UserModel from '../Model/UserModel.js'; // Use import syntax
+import admin from 'firebase-admin'; // Firebase Admin SDK
 
 const UserController = {
   // Registration endpoint
@@ -36,28 +36,29 @@ const UserController = {
     const idToken = req.headers.authorization?.split('Bearer ')[1];
 
     if (!idToken) {
-      return res.status(401).json({ error: 'Unauthorized: No token provided' });
+        return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
 
     try {
-      // Verify the Firebase ID token
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
-      const uid = decodedToken.uid;
+        // Verify the ID token
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const uid = decodedToken.uid;
 
-      // Retrieve user details from Firestore or Realtime Database
-      const userSnapshot = await admin.firestore().collection('users').doc(uid).get();
-      const userData = userSnapshot.data();
+        // Fetch user data from Realtime Database
+        const userRef = admin.database().ref(`users/${uid}`);
+        const userSnapshot = await userRef.once('value');
+        const userData = userSnapshot.val();
 
-      if (userData) {
-        res.status(200).json(userData);
-      } else {
-        res.status(404).json({ error: 'User not found' });
-      }
+        if (userData) {
+            res.status(200).json(userData);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
     } catch (error) {
-      console.error("Error retrieving user data:", error.message);
-      res.status(500).json({ error: 'Failed to retrieve user data' });
+        console.error("Error retrieving user data:", error.message);
+        res.status(500).json({ error: 'Failed to retrieve user data' });
     }
-  },
+}
 };
 
-module.exports = UserController;
+export default UserController; // Use export default for ES module syntax

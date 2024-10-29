@@ -4,7 +4,7 @@ import { getDatabase, ref, set } from 'firebase/database'; // Import from Realti
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
-import { auth } from '../Model/Firebase.jsx';
+import { auth } from '../Model/Firebase.js';
 
 function Register() {
   const [formData, setFormData] = useState({
