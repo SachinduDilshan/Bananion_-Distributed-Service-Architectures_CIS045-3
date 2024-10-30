@@ -1,22 +1,28 @@
-// DifficultySelect.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Styles/home.css';
 
-const DifficultySelect = () => {
+function DifficultySelect({ setDifficulty }) {
   const navigate = useNavigate();
 
-  const startGame = (difficulty) => {
-    navigate('/play', { state: { difficulty } });
+  const handleSelect = (level) => {
+    setDifficulty(level);
+    navigate("/play"); // Navigate to GamePlay after setting difficulty
   };
 
   return (
-    <div className="difficulty-container">
-      <h2>Choose the difficulty level</h2>
-      <button onClick={() => startGame('beginner')}>Beginner</button>
-      <button onClick={() => startGame('intermediate')}>Intermediate</button>
-      <button onClick={() => startGame('expert')}>Expert</button>
+    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+
+      <h5 className='select-text'>Choose the difficulty level</h5>
+
+      <div className="home-content">
+        <button className='custom-btn' onClick={() => handleSelect("Beginner")}>Beginner</button>
+        <button className='custom-btn' onClick={() => handleSelect("Intermediate")}>Intermediate</button>
+        <button className='custom-btn' onClick={() => handleSelect("Expert")}>Expert</button>
+      </div>
+
     </div>
   );
-};
+}
 
 export default DifficultySelect;

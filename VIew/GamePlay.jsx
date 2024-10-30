@@ -11,6 +11,7 @@ const GamePlay = ({ user }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
 
+  // Difficulty settings for timer
   const difficultySettings = {
     beginner: 30,
     intermediate: 25,
@@ -18,37 +19,50 @@ const GamePlay = ({ user }) => {
   };
 
   useEffect(() => {
-    // Set initial timer based on difficulty
-    setTime(difficultySettings[state.difficulty]);
-    fetchQuestions().then(setQuestion); // Fetch initial question
+    // Redirect to difficulty selection if `state.difficulty` is not provided
+    if (!state || !state.difficulty) {
+      console.warn("Difficulty level not set. Redirecting to select difficulty.");
+      navigate("/select-difficulty");
+      return;
+    }
 
-    // Timer logic
+    // Set initial timer based on selected difficulty
+    setTime(difficultySettings[state.difficulty]);
+    fetchQuestions().then(setQuestion); // Fetch the first question
+
+    // Start timer
     const timer = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
           submitScore(); // Submit score when time runs out
+          return 0;
         }
         return prevTime - 1;
       });
     }, 1000);
 
+    // Cleanup timer on component unmount
     return () => clearInterval(timer);
-  }, [state.difficulty]);
+  }, [state, navigate]);
 
+  // Function to submit the user's score and redirect to profile
   const submitScore = async () => {
     await saveScore(user.uid, { score, difficulty: state.difficulty });
     navigate('/profile'); // Redirect to profile after submitting score
   };
 
+  // Handle answer submission
   const handleAnswerSubmit = (e) => {
     e.preventDefault();
-    // Example scoring logic: increase score based on remaining time
-    if (parseInt(answer) === question.correctAnswer) { // Check answer
-      setScore((prevScore) => prevScore + time); // Higher score for faster answers
-      fetchQuestions().then(setQuestion); // Fetch new question
+
+    // Check if the answer is correct
+    if (parseInt(answer) === question.correctAnswer) {
+      setScore((prevScore) => prevScore + time); // Award points based on remaining time
+      setAnswer(''); // Clear answer input
+      fetchQuestions().then(setQuestion); // Fetch a new question
     } else {
-      submitScore();
+      submitScore(); // End game if answer is incorrect
     }
   };
 
@@ -56,7 +70,11 @@ const GamePlay = ({ user }) => {
     <div className="game-play-container">
       <h2>Time: {time}s</h2>
       <h3>Score: {score}</h3>
-      <p>{question}</p>
+      {question ? (
+        <p>{question.text}</p>
+      ) : (
+        <p>Loading question...</p>
+      )}
       <form onSubmit={handleAnswerSubmit}>
         <input
           type="text"
