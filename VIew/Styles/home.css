@@ -21,6 +21,7 @@ body::before {
 }
 
 .home-container {
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,18 +32,20 @@ body::before {
 
 .home-content {
   font-family: "DynaPuff", system-ui;
+  margin-top: 85px;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 50px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 400px;
+  width: 450px;
 }
 
 .welcome-text {
+  font-family: "DynaPuff", system-ui;
   color: rgb(52, 52, 155);
   font-size: 1.5rem;
-  margin-bottom: 30px;
+  margin-top: 120px;
 }
 
 .custom-btn {
@@ -96,3 +99,10 @@ body::before {
   border: none;
   border-radius: 5px;
 }
+
+.myName{
+  font-size: x-small;
+  justify-content: center;
+  margin-top: auto;
+}
+
