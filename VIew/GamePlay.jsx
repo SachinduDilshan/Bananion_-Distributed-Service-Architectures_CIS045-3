@@ -1,4 +1,3 @@
-// GamePlay.jsx
 import React, { useEffect, useState } from 'react';
 import { fetchQuestions, saveScore } from '../Model/GameModel.js';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,70 +10,55 @@ const GamePlay = ({ user }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
 
-  // Difficulty settings for timer
+  // Check if difficulty is provided
+  useEffect(() => {
+    if (!state || !state.difficulty) {
+      console.warn("Difficulty level not set. Redirecting to select difficulty.");
+      navigate('/select-difficulty'); // Redirect if difficulty level is not set
+    } else {
+      setTime(difficultySettings[state.difficulty]);
+      fetchQuestions().then(setQuestion);
+    }
+  }, [state, navigate]);
+
+  // Back button handler with fallback
+  const handleBackClick = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/select-difficulty'); // Fallback to difficulty selection screen
+    }
+  };
+
   const difficultySettings = {
     beginner: 30,
     intermediate: 25,
     expert: 20,
   };
 
-  useEffect(() => {
-    // Redirect to difficulty selection if `state.difficulty` is not provided
-    if (!state || !state.difficulty) {
-      console.warn("Difficulty level not set. Redirecting to select difficulty.");
-      navigate("/select-difficulty");
-      return;
-    }
-
-    // Set initial timer based on selected difficulty
-    setTime(difficultySettings[state.difficulty]);
-    fetchQuestions().then(setQuestion); // Fetch the first question
-
-    // Start timer
-    const timer = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          submitScore(); // Submit score when time runs out
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    // Cleanup timer on component unmount
-    return () => clearInterval(timer);
-  }, [state, navigate]);
-
-  // Function to submit the user's score and redirect to profile
   const submitScore = async () => {
     await saveScore(user.uid, { score, difficulty: state.difficulty });
-    navigate('/profile'); // Redirect to profile after submitting score
+    navigate('/profile');
   };
 
-  // Handle answer submission
   const handleAnswerSubmit = (e) => {
     e.preventDefault();
-
-    // Check if the answer is correct
     if (parseInt(answer) === question.correctAnswer) {
-      setScore((prevScore) => prevScore + time); // Award points based on remaining time
-      setAnswer(''); // Clear answer input
-      fetchQuestions().then(setQuestion); // Fetch a new question
+      setScore((prevScore) => prevScore + time);
+      fetchQuestions().then(setQuestion);
     } else {
-      submitScore(); // End game if answer is incorrect
+      submitScore();
     }
   };
 
   return (
     <div className="game-play-container">
+      <button className="back-btn" onClick={handleBackClick}>
+        &larr; Back
+      </button>
       <h2>Time: {time}s</h2>
       <h3>Score: {score}</h3>
-      {question ? (
-        <p>{question.text}</p>
-      ) : (
-        <p>Loading question...</p>
-      )}
+      <p>{question}</p>
       <form onSubmit={handleAnswerSubmit}>
         <input
           type="text"

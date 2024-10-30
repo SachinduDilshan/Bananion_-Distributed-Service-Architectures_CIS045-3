@@ -31,13 +31,11 @@ function Login() {
       console.log("User logged in:", user);
       alert("Login successful");
 
-      // Reset form fields
       setLoginData({
         email: "",
         password: ""
       });
 
-      // Redirect to home page
       navigate('/home');
     } catch (error) {
       console.error("Error:", error);

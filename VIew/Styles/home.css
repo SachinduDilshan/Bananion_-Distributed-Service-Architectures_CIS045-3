@@ -59,11 +59,12 @@ body::before {
   border-radius: 8px;
 }
 
-.footer {
-  margin-top: 30px;
-  font-size: 0.75rem;
-  color: gray;
+.custom-btn:hover {
+  background-color: rgb(40, 40, 130); /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge */
 }
+
+
 
 .logo-container {
   position: absolute;
@@ -100,15 +101,73 @@ body::before {
   border-radius: 5px;
 }
 
+.profile-btn:hover {
+  background-color: #bfbfbf; /* Slightly darker gray */
+  color: #333333; /* Darker text color */
+  transform: scale(1.05);
+}
+
 .myName{
   font-size: x-small;
   justify-content: center;
   margin-top: auto;
 }
 
+/*----GamePlay-----*/
 
 .select-text {
   font-family: "DynaPuff", system-ui;
   color: rgb(52, 52, 155);
   font-size: 2.5rem;
 }
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+}
+
+.back-btn {
+  font-family: "DynaPuff", system-ui;
+  background-color: rgb(52, 52, 155);
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: rgb(40, 40, 130);
+  transform: scale(1.05);
+}
+
+.profile-details .profile-btn {
+  background-color: #ccc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-username {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
+.profile-details .profile-btn:hover {
+  background-color: #aaa; /* Darker gray on hover */
+  transform: scale(1.05);
+}
+
