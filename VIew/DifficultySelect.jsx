@@ -13,7 +13,7 @@ function DifficultySelect({ setDifficulty }) {
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
 
-      <h5 className='select-text'>Choose the difficulty level</h5>
+      <h5 className='select-text'>How hard do you want it?</h5>
 
       <div className="home-content">
         <button className='custom-btn' onClick={() => handleSelect("Beginner")}>Beginner</button>
