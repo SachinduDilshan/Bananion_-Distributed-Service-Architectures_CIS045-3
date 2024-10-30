@@ -61,7 +61,7 @@ body::before {
 
 .custom-btn:hover {
   background-color: rgb(40, 40, 130); /* Darker shade on hover */
-  transform: scale(1.05); /* Slightly enlarge */
+  transform: scale(1.10); /* Slightly enlarge */
 }
 
 
