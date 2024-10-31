@@ -20,49 +20,79 @@ body::before {
   z-index: -1;
 }
 
-.home-container {
- 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
 .home-content {
   font-family: "DynaPuff", system-ui;
-  margin-top: 85px;
+  margin-top: 20px;
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 50px;
+  padding: 45px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 7px 88px rgba(8, 21, 212, 0.1);
   text-align: center;
   width: 450px;
 }
 
 .welcome-text {
   font-family: "DynaPuff", system-ui;
-  color: rgb(52, 52, 155);
+  color: #242c63;;
   font-size: 1.5rem;
-  margin-top: 120px;
+  margin-top: 105px;
+  text-shadow: 0 0 5px rgb(0, 191, 255), 0 0 10px rgb(0, 191, 255), 0 0 15px rgb(0, 191, 255), 0 0 20px rgba(0, 191, 255, 0.7); /* Electric blue glow */
 }
+
 
 .custom-btn {
   width: 100%;
   margin-bottom: 20px;
-  background-color: rgb(52, 52, 155);
-  color: white;
   padding: 15px;
   font-size: 1.2rem;
+  color: white;
+  background-color: #242c63;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(0, 191, 255), 0 0 20px rgb(0, 191, 255), 0 0 30px rgba(0, 191, 255, 0.7); /* Electric blue glow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
 }
 
 .custom-btn:hover {
-  background-color: rgb(40, 40, 130); /* Darker shade on hover */
-  transform: scale(1.10); /* Slightly enlarge */
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8); /* Intensified electric blue glow */
 }
+
+.custom-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* styles.css */
+
+.custom-btn-red {
+  width: 30%;
+  padding: 5px;
+  font-size: 1.0;
+  color: white;
+  background-color: #850a0a; /* Dark red background */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(255, 0, 0), 0 0 20px rgb(255, 0, 0), 0 0 30px rgba(255, 0, 0, 0.7); /* Red glow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
+}
+
+.custom-btn-red:hover {
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
+  box-shadow: 0 0 20px rgb(255, 0, 0), 0 0 30px rgb(255, 0, 0), 0 0 40px rgba(255, 0, 0, 0.8); /* Intensified red glow */
+}
+
+.custom-btn-red:active {
+  transform: scale(0.98); /* Slightly reduces size on click */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow on click */
+}
+
+
 
 
 
@@ -73,38 +103,20 @@ body::before {
   transform: translateX(-50%);
 }
 
-.logo {
-  width: 100px;
-  height: auto;
-}
-
 .profile-section {
   position: absolute;
   top: 5%;
   right: 5%;
   text-align: center;
+  color: #242c63;;
+  font-weight:500;
 }
 
 .profile-pic {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: auto;
   border-radius: 50%;
   margin-bottom: 10px;
-}
-
-.profile-btn {
-  background-color: #d3d3d3;
-  color: black;
-  padding: 5px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 5px;
-}
-
-.profile-btn:hover {
-  background-color: #bfbfbf; /* Slightly darker gray */
-  color: #333333; /* Darker text color */
-  transform: scale(1.05);
 }
 
 .myName{
@@ -131,7 +143,7 @@ body::before {
 
 .back-btn {
   font-family: "DynaPuff", system-ui;
-  background-color: rgb(52, 52, 155);
+  background-color: #242c63;;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -160,10 +172,6 @@ body::before {
   margin-right: 10px;
 }
 
-.profile-username {
-  font-weight: bold;
-  margin-right: 10px;
-}
 
 
 .profile-details .profile-btn:hover {

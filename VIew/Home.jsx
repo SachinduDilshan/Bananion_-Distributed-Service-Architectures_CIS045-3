@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase'; // Ensure you're importing the correct functions
 import './Styles/home.css';
+import picture from './Styles/picture-image.png'
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
@@ -69,17 +70,18 @@ const Home = () => {
             <p></p>
           )}
       <div className="home-content">
-        <button className="custom-btn" onClick={() => navigate('/select-difficulty')}>Let's Play!</button>
-        <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button>
-        <button className="custom-btn" style={{backgroundColor:'#8a1818'}} onClick={handleLogout}>Exit</button>
+        <button className="custom-btn" onClick={() => navigate('/select-difficulty')}>Let's Play!</button><br></br><br></br>
+        <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button><br></br><br></br>
+        <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button><br></br><br></br>
+        <button className="custom-btn-red" onClick={handleLogout}>Exit</button>
         
 
         <div className="profile-section">
           {userData ? (
             <>
-              <img src={userData.profilePicUrl} alt="User Profile" className="profile-pic" />
-              <p>{userData.username}</p>
-              <button className="btn profile-btn">My Profile</button>
+              <img src={picture} alt="User Profile" className="profile-pic" />
+              <p>{userData.name}</p>
+              <p>{userData.age} Years Old</p>
             </>
           ) : (
             <p></p>

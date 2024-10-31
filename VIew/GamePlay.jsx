@@ -7,28 +7,28 @@ const GamePlay = ({ user }) => {
   const navigate = useNavigate();
   const [time, setTime] = useState(0);
   const [score, setScore] = useState(0);
-  const [questionData, setQuestionData] = useState(null); // Store fetched game data here
+  const [questionData, setQuestionData] = useState(null); 
   const [answer, setAnswer] = useState('');
 
-  // Set difficulty levels (seconds for each level)
+  
   const difficultySettings = { beginner: 30, intermediate: 25, expert: 20 };
 
   useEffect(() => {
-    // Set the timer based on difficulty level
+    
     const difficultyTime = difficultySettings[state?.difficulty || 'beginner'];
     setTime(difficultyTime);
 
-    // Fetch initial question data
+    
     fetchQuestions()
       .then(data => setQuestionData(data))
       .catch(error => console.error('Error fetching questions:', error));
 
-    // Timer countdown
+   
     const timer = setInterval(() => {
       setTime(prevTime => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          handleGameEnd(); // End game when time runs out
+          handleGameEnd(); 
         }
         return prevTime - 1;
       });
@@ -39,19 +39,19 @@ const GamePlay = ({ user }) => {
 
   const handleAnswerSubmit = (e) => {
     e.preventDefault();
-    // Check answer and update score accordingly
+    
     if (parseInt(answer) === questionData.correctAnswer) {
-      setScore(prevScore => prevScore + time); // Award points based on time remaining
-      fetchQuestions().then(setQuestionData); // Fetch new question
+      setScore(prevScore => prevScore + time); 
+      fetchQuestions().then(setQuestionData); 
     } else {
       handleGameEnd();
     }
-    setAnswer(''); // Reset answer input
+    setAnswer(''); 
   };
 
   const handleGameEnd = async () => {
     await saveScore(user.uid, { score, difficulty: state.difficulty });
-    navigate('/profile'); // Navigate to profile after submitting score
+    navigate('/profile'); 
   };
 
   return (
