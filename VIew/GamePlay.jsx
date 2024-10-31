@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { fetchQuestions, saveScore } from '../Model/GameModel'; // Assuming fetchQuestions fetches the game data
+import { fetchQuestions, saveScore } from '../Model/GameModel';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const GamePlay = ({ user }) => {
+const GamePlay = ({ userId }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [time, setTime] = useState(0);
   const [score, setScore] = useState(0);
   const [questionData, setQuestionData] = useState(null); 
   const [answer, setAnswer] = useState('');
-
+  const [error, setError] = useState(null);
   
   const difficultySettings = { beginner: 30, intermediate: 25, expert: 20 };
 
@@ -17,6 +17,18 @@ const GamePlay = ({ user }) => {
     
     const difficultyTime = difficultySettings[state?.difficulty || 'beginner'];
     setTime(difficultyTime);
+
+    const loadQuestion = async () => {
+      try {
+        const questionData = await fetchQuestions(userId);
+        setQuestion(questionData);
+      } catch (err) {
+        setError('Failed to load the question. Please try again later.');
+      }
+    };
+    
+    loadQuestion();
+   
 
     
     fetchQuestions()
@@ -50,9 +62,9 @@ const GamePlay = ({ user }) => {
   };
 
   const handleGameEnd = async () => {
-    await saveScore(user.uid, { score, difficulty: state.difficulty });
+    await saveScore(user.userId, { score, difficulty: state.difficulty });
     navigate('/profile'); 
-  };
+  }; [userId];
 
   return (
     <div className="game-play-container">

@@ -1,16 +1,15 @@
-// GameModel.js
 import { getDatabase, ref, set, push } from 'firebase/database';
 
-const API_URL = 'http://localhost:5173/api/banana';
-
 // Fetch math puzzle questions
-export const fetchQuestions = async () => {
+export const fetchQuestions = async (userId) => {
   try {
-    const response = await fetch('/api/banana');
-
-    // Check if response is JSON
+    const response = await fetch(`/api/banana?userId=${userId}`);
+    
+    // Check if the response is JSON
     const contentType = response.headers.get("content-type");
     if (!response.ok || !contentType || !contentType.includes("application/json")) {
+      const errorText = await response.text(); // Capture the error text for debugging
+      console.error('Unexpected response:', errorText);
       throw new Error(`Unexpected response type: ${contentType || "unknown"}`);
     }
 
@@ -18,7 +17,7 @@ export const fetchQuestions = async () => {
     return data.question;
   } catch (error) {
     console.error('Error fetching questions:', error);
-    throw error; // rethrow the error so it can be caught where this function is called
+    throw error;
   }
 };
 

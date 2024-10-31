@@ -20,6 +20,24 @@ body::before {
   z-index: -1; 
 }
 
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 47, 255, 0.301), rgba(0, 247, 255, 0.2));
+  background-size: 300% 300%;
+  animation: gradientMove 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 .logo-container {
   position: absolute;
@@ -54,23 +72,42 @@ body::before {
   height: 480px;
   width: 800px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  background-color: rgba(255, 255, 255, 0.99); 
-  margin-top: 120px; 
+  background-color: rgba(255, 255, 255, 0.705); 
+  margin-top: 85px; 
+  z-index: 2; 
+}
+
+.login-form {
+  font-family: "DynaPuff", system-ui;
+  color: rgb(52, 52, 155);
+  position: relative;
+  padding: 20px 20px 60px; 
+  height: 480px;
+  width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: rgba(255, 255, 255, 0.705); 
+  margin-top: 160px; 
   z-index: 2; 
 }
 
 .custom-register-btn {
-  width: 20%; 
-  padding: 8px; 
-  border-radius: 4px;
+  width: 20%;
   margin-top: 15px;
+  padding: 5px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #242c63;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(0, 191, 255), 0 0 20px rgb(0, 191, 255), 0 0 30px rgba(0, 191, 255, 0.7); /* Electric blue glow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
   position: absolute; 
   left: 50%; 
   transform: translateX(-50%); 
 }
 
-.myName{
-  font-size: x-small;
+.custom-register-btn:hover {
+  box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8); /* Intensified electric blue glow */
 }
-
 

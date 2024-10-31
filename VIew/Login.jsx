@@ -45,7 +45,7 @@ function Login() {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit} style={{ height: '320px' }}>
+      <form className="login-form p-4 border rounded" onSubmit={handleSubmit} style={{ height: '320px' }}>
         <h2 className="text-center mb-4">Log In To Play!</h2>
         <div className="form-group mb-3">
           <label htmlFor="email">Email</label>

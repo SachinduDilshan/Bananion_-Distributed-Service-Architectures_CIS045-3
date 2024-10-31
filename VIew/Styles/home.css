@@ -23,12 +23,32 @@ body::before {
 .home-content {
   font-family: "DynaPuff", system-ui;
   margin-top: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.342); 
   padding: 45px;
   border-radius: 15px;
   box-shadow: 0 7px 88px rgba(8, 21, 212, 0.1);
   text-align: center;
-  width: 450px;
+  width: 400px;
+}
+
+/* Animated gradient overlay */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 47, 255, 0.301), rgba(0, 247, 255, 0.2));
+  background-size: 300% 300%;
+  animation: gradientMove 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .welcome-text {
@@ -36,12 +56,12 @@ body::before {
   color: #242c63;;
   font-size: 1.5rem;
   margin-top: 105px;
-  text-shadow: 0 0 5px rgb(0, 191, 255), 0 0 10px rgb(0, 191, 255), 0 0 15px rgb(0, 191, 255), 0 0 20px rgba(0, 191, 255, 0.7); /* Electric blue glow */
+  text-shadow: 0 0 5px rgb(0, 191, 255), 0 0 10px rgb(0, 191, 255), 0 0 15px rgb(0, 191, 255), 0 0 20px rgba(0, 191, 255, 0.7);
 }
 
 
 .custom-btn {
-  width: 100%;
+  width: 80%;
   margin-bottom: 20px;
   padding: 15px;
   font-size: 1.2rem;
@@ -65,26 +85,22 @@ body::before {
 }
 
 
-
-
-/* styles.css */
-
 .custom-btn-red {
   width: 30%;
   padding: 5px;
   font-size: 1.0;
   color: white;
-  background-color: #850a0a; /* Dark red background */
+  background-color: #0a8510; /* Dark red background */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgb(255, 0, 0), 0 0 20px rgb(255, 0, 0), 0 0 30px rgba(255, 0, 0, 0.7); /* Red glow */
+  box-shadow: 0 0 10px rgb(5, 240, 83), 0 0 20px rgb(21, 236, 50), 0 0 30px rgba(19, 248, 11, 0.7); /* Red glow */
   transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
 }
 
 .custom-btn-red:hover {
   transform: scale(1.05); /* Slightly enlarges the button on hover */
-  box-shadow: 0 0 20px rgb(255, 0, 0), 0 0 30px rgb(255, 0, 0), 0 0 40px rgba(255, 0, 0, 0.8); /* Intensified red glow */
+  box-shadow: 0 0 20px rgb(93, 236, 10), 0 0 30px rgb(45, 238, 7), 0 0 40px rgba(162, 255, 56, 0.8); /* Intensified red glow */
 }
 
 .custom-btn-red:active {

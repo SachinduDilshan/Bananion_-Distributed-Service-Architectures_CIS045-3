@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, getIdToken as getFirebaseIdToken } from 'firebase/auth'; // Import getIdToken
+import GamePlay from '../VIew/GamePlay.jsx';
 
 
 const firebaseConfig = {
@@ -12,6 +13,8 @@ const firebaseConfig = {
   appId: "1:414131101203:web:d3235e11b4fcf204c9e9e6",
   measurementId: "G-LYQ4N2V3KT"
 };
+
+
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication
