@@ -9,8 +9,7 @@ import GamePlay from '../VIew/GamePlay.jsx';
 
 function App() {
   // Define state to hold the authenticated user ID and difficulty level
-const [users, setUsers] = useState([]);
-
+  const [userId, setUserId] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
 
   // Listen for authentication state changes
@@ -36,7 +35,7 @@ const [users, setUsers] = useState([]);
         {/* Pass setSelectedDifficulty to DifficultySelect to allow difficulty selection */}
         <Route path="/select-difficulty" element={<DifficultySelect setDifficulty={setSelectedDifficulty} />} />
         {/* Pass selectedDifficulty and userId to GamePlay */}
-        <Route path="/play" element={<GamePlay user={users} difficulty={selectedDifficulty} />} />
+        <Route path="/play" element={<GamePlay user={userId} difficulty={selectedDifficulty} />} />
       </Routes>
     </Router>
   );
