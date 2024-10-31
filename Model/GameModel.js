@@ -1,14 +1,28 @@
 // GameModel.js
-import axios from 'axios';
 import { getDatabase, ref, set, push } from 'firebase/database';
 
-const API_URL = 'https://marcconrad.com/uob/banana/';
+const API_URL = 'http://localhost:5173/api/banana';
 
 // Fetch math puzzle questions
 export const fetchQuestions = async () => {
-  const response = await axios.get(API_URL);
-  return response.data.question; // Assume the response format includes a "question" field
+  try {
+    const response = await fetch('/api/banana');
+
+    // Check if response is JSON
+    const contentType = response.headers.get("content-type");
+    if (!response.ok || !contentType || !contentType.includes("application/json")) {
+      throw new Error(`Unexpected response type: ${contentType || "unknown"}`);
+    }
+
+    const data = await response.json();
+    return data.question;
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    throw error; // rethrow the error so it can be caught where this function is called
+  }
 };
+
+
 
 // Save score to Firebase under the user ID
 export const saveScore = async (userId, scoreData) => {

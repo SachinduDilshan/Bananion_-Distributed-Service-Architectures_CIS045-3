@@ -69,7 +69,7 @@ const Home = () => {
             <p></p>
           )}
       <div className="home-content">
-        <button className="custom-btn" onClick={() => navigate('/play')}>Let's Play!</button>
+        <button className="custom-btn" onClick={() => navigate('/select-difficulty')}>Let's Play!</button>
         <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button>
         <button className="custom-btn" style={{backgroundColor:'#8a1818'}} onClick={handleLogout}>Exit</button>
         
