@@ -13,9 +13,7 @@ function DifficultySelect({ setDifficulty, user }) {
   const handleBackClick = () => {
     if (window.history.state && window.history.state.idx > 0) {
       navigate("/home"); // Go back if there is history
-    } else {
-      navigate("/home"); // Fallback to home or another default route
-    }
+    } 
   };
 
   return (
@@ -30,7 +28,7 @@ function DifficultySelect({ setDifficulty, user }) {
        
       </div>
 
-      <h5 className="select-text">Choose the difficulty level</h5>
+      <h5 className="select-text">Pick a challenge!</h5>
 
       <div className="home-content">
         <button className="custom-btn" onClick={() => handleSelect("Beginner")}>Beginner</button>
