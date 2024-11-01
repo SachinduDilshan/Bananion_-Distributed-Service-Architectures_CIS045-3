@@ -1,32 +1,25 @@
 import { getDatabase, ref, set, push } from 'firebase/database';
 
-// Fetch math puzzle questions
-export const fetchQuestions = async (userId) => {
+export const fetchGameData = async (userId) => {
   try {
-    const response = await fetch(`/api/banana?userId=${userId}`);
-    
-    // Check if the response is JSON
-    const contentType = response.headers.get("content-type");
-    if (!response.ok || !contentType || !contentType.includes("application/json")) {
-      const errorText = await response.text(); // Capture the error text for debugging
-      console.error('Unexpected response:', errorText);
-      throw new Error(`Unexpected response type: ${contentType || "unknown"}`);
+    const response = await fetch(`https://marcconrad.com/uob/banana/?user=${userId}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch game data");
     }
-
     const data = await response.json();
-    return data.question;
+    console.log("Game Data:", data);
+    return data;
   } catch (error) {
-    console.error('Error fetching questions:', error);
+    console.error("Error fetching game data:", error);
     throw error;
   }
 };
 
 
-
-// Save score to Firebase under the user ID
-export const saveScore = async (userId, scoreData) => {
+/*xport const saveScore = async (userId, scoreData) => {
   const db = getDatabase();
   const scoreRef = ref(db, `users/${userId}/scores`);
   const newScoreRef = push(scoreRef);
   await set(newScoreRef, scoreData);
 };
+*/

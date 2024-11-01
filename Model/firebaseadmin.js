@@ -1,4 +1,3 @@
-// firebaseAdmin.js
 import admin from 'firebase-admin';
 import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json' assert { type: 'json' }; // Update the path
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase'; // Ensure you're importing the correct functions
+import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase';
 import './Styles/home.css';
 import picture from './Styles/picture-image.png'
 

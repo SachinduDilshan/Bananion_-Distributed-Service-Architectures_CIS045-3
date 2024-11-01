@@ -1,82 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { fetchQuestions, saveScore } from '../Model/GameModel';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchGameData } from '../Model/GameModel';
 
-const GamePlay = ({ userId }) => {
-  const { state } = useLocation();
-  const navigate = useNavigate();
-  const [time, setTime] = useState(0);
-  const [score, setScore] = useState(0);
-  const [questionData, setQuestionData] = useState(null); 
+const BananaGame = ({ userId }) => {
+  const [gameData, setGameData] = useState(null);
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState(null);
-  
-  const difficultySettings = { beginner: 30, intermediate: 25, expert: 20 };
 
   useEffect(() => {
-    
-    const difficultyTime = difficultySettings[state?.difficulty || 'beginner'];
-    setTime(difficultyTime);
-
-    const loadQuestion = async () => {
+    const loadGameData = async () => {
       try {
-        const questionData = await fetchQuestions(userId);
-        setQuestion(questionData);
+        const data = await fetchGameData(userId);
+        setGameData(data);
       } catch (err) {
-        setError('Failed to load the question. Please try again later.');
+        setError('Failed to load the game. Please try again later.');
       }
     };
     
-    loadQuestion();
-   
-
-    
-    fetchQuestions()
-      .then(data => setQuestionData(data))
-      .catch(error => console.error('Error fetching questions:', error));
-
-   
-    const timer = setInterval(() => {
-      setTime(prevTime => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          handleGameEnd(); 
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [state.difficulty]);
+    loadGameData();
+  }, [userId]);
 
   const handleAnswerSubmit = (e) => {
     e.preventDefault();
     
-    if (parseInt(answer) === questionData.correctAnswer) {
-      setScore(prevScore => prevScore + time); 
-      fetchQuestions().then(setQuestionData); 
+    if (parseInt(answer) === gameData.correctAnswer) {
+      alert("Correct!");
     } else {
-      handleGameEnd();
+      alert("Try again!");
     }
-    setAnswer(''); 
+    setAnswer('');
   };
 
-  const handleGameEnd = async () => {
-    await saveScore(user.userId, { score, difficulty: state.difficulty });
-    navigate('/profile'); 
-  }; [userId];
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
-    <div className="game-play-container">
-      <h2>Time: {time}s</h2>
-      <h3>Score: {score}</h3>
-      <p>{questionData ? questionData.question : 'Loading...'}</p>
+    <div className="banana-game">
+      <h1>The Banana Game</h1>
+      {gameData ? (
+        <table className="game-grid">
+          <tbody>
+            {/* Render each row of the game grid */}
+            {gameData.rows.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell, cellIndex) => (
+                  <td key={cellIndex}>
+                    {cell === 'banana' ? '🍌' : cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Loading game...</p>
+      )}
+      
       <form onSubmit={handleAnswerSubmit}>
+        <label>Enter the missing digit:</label>
         <input
           type="text"
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
-          placeholder="Enter answer"
+          placeholder="Answer"
         />
         <button type="submit">Submit</button>
       </form>
@@ -84,4 +70,4 @@ const GamePlay = ({ userId }) => {
   );
 };
 
-export default GamePlay;
+export default BananaGame;

@@ -26,6 +26,7 @@ function DifficultySelect({ setDifficulty, user }) {
 
         {/* Profile Details */}
        
+       
       </div>
 
       <h5 className="select-text">Pick a challenge!</h5>
