@@ -1,8 +1,8 @@
-import UserModel from '../Model/UserModel.js'; // Use import syntax
-import admin from 'firebase-admin'; // Firebase Admin SDK
+import UserModel from '../Model/UserModel.js'; 
+import admin from 'firebase-admin'; 
 
 const UserController = {
-  // Registration endpoint
+  
   async register(req, res) {
     try {
       const { name, email, age, password } = req.body;
@@ -14,7 +14,6 @@ const UserController = {
     }
   },
 
-  // Login endpoint
   async login(req, res) {
     try {
       const { email } = req.body;
@@ -31,7 +30,6 @@ const UserController = {
     }
   },
 
-  // Home endpoint to retrieve authenticated user data
   async home(req, res) {
     const idToken = req.headers.authorization?.split('Bearer ')[1];
 
@@ -40,11 +38,11 @@ const UserController = {
     }
 
     try {
-        // Verify the ID token
+        
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const uid = decodedToken.uid;
 
-        // Fetch user data from Realtime Database
+        
         const userRef = admin.database().ref(`users/${uid}`);
         const userSnapshot = await userRef.once('value');
         const userData = userSnapshot.val();
@@ -61,4 +59,4 @@ const UserController = {
 }
 };
 
-export default UserController; // Use export default for ES module syntax
+export default UserController;

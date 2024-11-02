@@ -1,4 +1,3 @@
-// Model/getUserData.js
 import admin from 'firebase-admin';
 
 const getUserData = async (userId) => {

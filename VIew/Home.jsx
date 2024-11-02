@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUserData = async (token) => {
       try {
-        const response = await fetch("http://localhost:3000/user/home", {
+        const response = await fetch("http://localhost:3001/user/home", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const Home = () => {
           setUserData(data);
         } else {
           console.error("Failed to fetch user data");
-          navigate('/'); // Redirect if fetching fails or user not logged in
+          navigate('/'); 
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -48,11 +48,10 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      await auth.signOut(); // Sign out from Firebase
-      navigate('/'); // Redirect to login or home page after logging out
+      await auth.signOut();
+      navigate('/'); 
     } catch (error) {
       console.error("Logout Error:", error);
-      // Optionally show a message to the user
     }
   };
 

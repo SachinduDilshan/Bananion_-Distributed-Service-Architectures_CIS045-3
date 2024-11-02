@@ -7,26 +7,21 @@ function DifficultySelect({ setDifficulty, user }) {
 
   const handleSelect = (level) => {
     setDifficulty(level);
-    navigate("/play", { state: { difficulty: level } }); // Navigate to GamePlay after setting difficulty
+    navigate("/play", { state: { difficulty: level } }); 
   };
 
   const handleBackClick = () => {
     if (window.history.state && window.history.state.idx > 0) {
-      navigate("/home"); // Go back if there is history
+      navigate("/home"); 
     } 
   };
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
       <div className="top-bar d-flex justify-content-between align-items-center w-100">
-        {/* Back Button */}
         <button className="back-btn" onClick={handleBackClick}>
           &larr; Back
-        </button>
-
-        {/* Profile Details */}
-       
-       
+        </button>          
       </div>
 
       <h5 className="select-text">Pick a challenge!</h5>

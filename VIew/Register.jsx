@@ -32,11 +32,9 @@ function Register() {
     }
 
     try {
-        // Register the user with Firebase Authentication
+        
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
         const user = userCredential.user;
-
-        // Write user data to the Realtime Database
         const db = getDatabase();
         await set(ref(db, 'users/' + user.uid), {
             name: formData.name,
@@ -46,7 +44,6 @@ function Register() {
         console.log("User registered:", user);
         alert("User registered successfully");
 
-        // Reset form fields
         setFormData({
             name: "",
             email: "",
@@ -55,7 +52,7 @@ function Register() {
             confirmPassword: ""
         });
     } catch (error) {
-        // Handle specific error for email already in use
+
         if (error.code === 'auth/email-already-in-use') {
             alert("This email is already registered. Please log in or use a different email.");
         } else {

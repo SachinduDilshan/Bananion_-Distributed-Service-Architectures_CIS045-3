@@ -1,25 +1,23 @@
 import { getDatabase, ref, set, push } from 'firebase/database';
 
-export const fetchGameData = async (userId) => {
+export const fetchGameInterface = async () => {
   try {
-    const response = await fetch(`https://marcconrad.com/uob/banana/?user=${userId}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch game data");
-    }
+    const response = await fetch('http://localhost:5173/banana-api');
+    if (!response.ok) throw new Error('Failed to fetch');
     const data = await response.json();
-    console.log("Game Data:", data);
     return data;
   } catch (error) {
-    console.error("Error fetching game data:", error);
+    console.error('Failed to fetch game data:', error);
     throw error;
   }
 };
 
 
-/*xport const saveScore = async (userId, scoreData) => {
+
+
+export const saveScore = async (userId, scoreData) => {
   const db = getDatabase();
   const scoreRef = ref(db, `users/${userId}/scores`);
   const newScoreRef = push(scoreRef);
   await set(newScoreRef, scoreData);
 };
-*/

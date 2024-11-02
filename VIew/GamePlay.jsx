@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchGameData } from '../Model/GameModel';
+import { fetchGameInterface } from '../Model/GameModel';
 
 const BananaGame = ({ userId }) => {
   const [gameData, setGameData] = useState(null);
@@ -9,10 +9,11 @@ const BananaGame = ({ userId }) => {
   useEffect(() => {
     const loadGameData = async () => {
       try {
-        const data = await fetchGameData(userId);
+        const data = await fetchGameInterface(userId);
         setGameData(data);
       } catch (err) {
         setError('Failed to load the game. Please try again later.');
+        console.log(err);
       }
     };
     
@@ -21,7 +22,6 @@ const BananaGame = ({ userId }) => {
 
   const handleAnswerSubmit = (e) => {
     e.preventDefault();
-    
     if (parseInt(answer) === gameData.correctAnswer) {
       alert("Correct!");
     } else {
@@ -37,15 +37,14 @@ const BananaGame = ({ userId }) => {
   return (
     <div className="banana-game">
       <h1>The Banana Game</h1>
-      {gameData ? (
+      {gameData && gameData.rows ? (
         <table className="game-grid">
           <tbody>
-            {/* Render each row of the game grid */}
             {gameData.rows.map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {row.map((cell, cellIndex) => (
                   <td key={cellIndex}>
-                    {cell === 'banana' ? '🍌' : cell}
+                    {cell === "🍌" ? "🍌" : cell}
                   </td>
                 ))}
               </tr>
@@ -69,5 +68,6 @@ const BananaGame = ({ userId }) => {
     </div>
   );
 };
+
 
 export default BananaGame;
