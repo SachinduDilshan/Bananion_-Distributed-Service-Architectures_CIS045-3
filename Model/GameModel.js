@@ -12,9 +12,10 @@ export const fetchGameInterface = async () => {
   }
 };
 
-export const saveScore = async (userId, scoreData) => {
+/*export const saveScore = async (userId, scoreData) => {
   const db = getDatabase();
   const scoreRef = ref(db, `users/${userId}/scores`);
   const newScoreRef = push(scoreRef);
   await set(newScoreRef, scoreData);
 };
+*/

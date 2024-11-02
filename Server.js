@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import authenticateUser from './Middleware/authMiddleware.js';
 import getUserData from './Model/getUserData.js'; 
-import fetch from 'node-fetch';
-import axios from 'axios'; 
+import fetch from 'node-fetch'; 
 
 const app = express();
 const PORT = 3000;
