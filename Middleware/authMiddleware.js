@@ -1,8 +1,6 @@
-// Middleware to verify Firebase ID token
 import admin from 'firebase-admin';
-import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json'  assert { type: "json" };; // Replace with actual path
+import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json'  assert { type: "json" };;
 
-// Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -18,8 +16,8 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    req.user = decodedToken; // Attach decoded token data to the request object
-    next(); // Proceed to the next middleware or route handler
+    req.user = decodedToken;
+    next(); 
   } catch (error) {
     console.error("Authentication Error:", error);
     res.status(403).json({ error: 'Unauthorized: Invalid token' });

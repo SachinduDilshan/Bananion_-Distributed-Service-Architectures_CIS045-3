@@ -13,9 +13,9 @@ body::before {
   right: 0;
   bottom: 0;
   background-image: url('./assets/13969336.jpg');
-  background-size: cover;
+  background-size: auto;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   opacity: 0.6;
   z-index: -1;
 }
@@ -31,7 +31,6 @@ body::before {
   width: 400px;
 }
 
-/* Animated gradient overlay */
 body::after {
   content: "";
   position: absolute;

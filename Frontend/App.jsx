@@ -5,8 +5,8 @@ import Home from "../VIew/Home.jsx";
 import Register from "../VIew/Register.jsx";
 import Login from "../VIew/Login.jsx";
 import DifficultySelect from '../VIew/DifficultySelect.jsx';
-import GamePlay from '../VIew/GamePlay.jsx';
-import GameContainer from '../Controller/GameContainer';
+import GameContainer from '../Controller/GameContainer.jsx';
+import Profile from "../VIew/Profile.jsx";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -37,26 +37,11 @@ function App() {
           path="/select-difficulty"
           element={<DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />}
         />
-        <Route
-          path="/play"
-          element={
-            userId && selectedDifficulty ? (
-              <GamePlay userId={userId} difficulty={selectedDifficulty} />
-            ) : (
-              <Navigate to="/select-difficulty" replace />
-            )
-          }
+        <Route path="/play" element={userId && selectedDifficulty ? (<GameContainer userId={userId} difficulty={selectedDifficulty} />) : 
+        ( <Navigate to="/select-difficulty" replace />)
+        }
         />
-        <Route
-          path="/play"
-          element={
-            userId && selectedDifficulty ? (
-              <GameContainer userId={userId} difficulty={selectedDifficulty} />
-            ) : (
-              <Navigate to="/select-difficulty" replace />
-            )
-          }
-        />
+        <Route path="/profile" element={userId ? <Profile userId={userId} /> : <Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

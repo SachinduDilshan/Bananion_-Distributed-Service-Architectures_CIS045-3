@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGameInterface } from '../Model/GameModel';
-import BananaGame from '../VIew/GamePlay';
+
 
 const GameContainer = ({ userId, difficulty }) => {
   const [gameData, setGameData] = useState(null);

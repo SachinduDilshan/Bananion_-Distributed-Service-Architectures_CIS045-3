@@ -26,7 +26,7 @@ onAuthStateChanged(auth, (user) => {
     console.log("No user is logged in.");
   }
 });
-console.log("Firebase initialized:", app.name); // Should log the default app name if initialized correctly
+console.log("Firebase initialized:", app.name); 
 
 
 export { app, auth, database, onAuthStateChanged, getFirebaseIdToken as getIdToken };

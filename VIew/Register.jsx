@@ -39,6 +39,7 @@ function Register() {
         await set(ref(db, 'users/' + user.uid), {
             name: formData.name,
             age: formData.age,
+            email: formData.email,
         });
 
         console.log("User registered:", user);
