@@ -6,7 +6,7 @@ import fetch from 'node-fetch';
 import axios from 'axios'; 
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 
 app.use(cors({
   origin: "http://localhost:5173",
@@ -30,8 +30,8 @@ app.get('/user/home', authenticateUser, async (req, res) => {
 app.get('/banana-api', async (req, res) => {
   try {
     const response = await fetch('http://marcconrad.com/uob/banana/api.php');
-    const data = await response.json(); // Assuming the API returns JSON
-    res.set('Access-Control-Allow-Origin', '*'); // Allow CORS
+    const data = await response.json(); 
+    res.set('Access-Control-Allow-Origin', '*'); 
     res.json(data);
   } catch (error) {
     console.error('Error fetching Banana API:', error);

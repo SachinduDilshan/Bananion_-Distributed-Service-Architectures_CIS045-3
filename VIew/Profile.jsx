@@ -3,6 +3,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
 import './Styles/ProfileStyle.css';
 import picture from './Styles/picture-image.png';
+import Footer from '../Components/Footer';
 
 const Profile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
@@ -62,7 +63,7 @@ const Profile = ({ userId }) => {
           </div>
         </div>
       </div>
-      <h6 className="myName">K.G.S.D. Abeyrathne | 2425049 </h6>
+      <Footer />
     </div>
   );
 };

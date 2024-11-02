@@ -5,6 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { auth } from '../Model/Firebase.js';
+import Footer from '../Components/Footer.jsx';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -27,41 +28,41 @@ function Register() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match");
-        return;
+      alert("Passwords do not match");
+      return;
     }
 
     try {
-        
-        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-        const user = userCredential.user;
-        const db = getDatabase();
-        await set(ref(db, 'users/' + user.uid), {
-            name: formData.name,
-            age: formData.age,
-            email: formData.email,
-        });
 
-        console.log("User registered:", user);
-        alert("User registered successfully");
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = userCredential.user;
+      const db = getDatabase();
+      await set(ref(db, 'users/' + user.uid), {
+        name: formData.name,
+        age: formData.age,
+        email: formData.email,
+      });
 
-        setFormData({
-            name: "",
-            email: "",
-            age: "",
-            password: "",
-            confirmPassword: ""
-        });
+      console.log("User registered:", user);
+      alert("User registered successfully");
+
+      setFormData({
+        name: "",
+        email: "",
+        age: "",
+        password: "",
+        confirmPassword: ""
+      });
     } catch (error) {
 
-        if (error.code === 'auth/email-already-in-use') {
-            alert("This email is already registered. Please log in or use a different email.");
-        } else {
-            console.error("Error:", error);
-            alert("An error occurred: " + error.message);
-        }
+      if (error.code === 'auth/email-already-in-use') {
+        alert("This email is already registered. Please log in or use a different email.");
+      } else {
+        console.error("Error:", error);
+        alert("An error occurred: " + error.message);
+      }
     }
-};
+  };
 
 
   return (
@@ -70,67 +71,67 @@ function Register() {
         <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
         <div className="form-group mb-3">
           <label htmlFor="username">Name</label>
-          <input 
-            type="text" 
-            placeholder='Your name, please...' 
-            className="form-control" 
-            name="name" 
+          <input
+            type="text"
+            placeholder='Your name, please...'
+            className="form-control"
+            name="name"
             value={formData.name}
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="age">Age</label>
-          <input 
-            type="number" 
-            placeholder='How old are you...' 
-            className="form-control" 
-            name="age" 
+          <input
+            type="number"
+            placeholder='How old are you...'
+            className="form-control"
+            name="age"
             value={formData.age}
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="email">Email</label>
-          <input 
-            type="email" 
-            placeholder='Your email...' 
-            className="form-control" 
-            name="email" 
+          <input
+            type="email"
+            placeholder='Your email...'
+            className="form-control"
+            name="email"
             value={formData.email}
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="password">Password</label>
-          <input 
-            type="password" 
-            placeholder='Enter a secure password...' 
-            className="form-control" 
-            name="password" 
+          <input
+            type="password"
+            placeholder='Enter a secure password...'
+            className="form-control"
+            name="password"
             value={formData.password}
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="form-group mb-3">
           <label htmlFor="confirmPassword">Confirm Password</label>
-          <input 
-            type="password" 
-            placeholder='Type your password again...' 
-            className="form-control" 
-            name="confirmPassword" 
+          <input
+            type="password"
+            placeholder='Type your password again...'
+            className="form-control"
+            name="confirmPassword"
             value={formData.confirmPassword}
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            required
           />
         </div>
-        <button 
-          type="submit" 
-          style={{ backgroundColor: 'rgb(52, 52, 155)', color: 'white' }} 
+        <button
+          type="submit"
+          style={{ backgroundColor: 'rgb(52, 52, 155)', color: 'white' }}
           className="btn custom-register-btn">
           Register
         </button>
@@ -140,7 +141,7 @@ function Register() {
 
       <h6 className="text-center mt-3">Already Registered? <Link to="/">Login here</Link></h6>
       <br />
-      <h6 className="myName">K.G.S.D. Abeyrathne | 2425049 </h6>
+      <Footer />
     </div>
   );
 }

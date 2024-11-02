@@ -1,6 +1,6 @@
 import express from 'express';
-import UserController from '../Controller/UserController.js'; // Adjust the path if necessary
-import authenticateUser from '../Middleware/authMiddleware.js'; // Adjust path as necessary
+import UserController from '../Controller/UserController.js'; 
+import authenticateUser from '../Middleware/authMiddleware.js'; 
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.post('/login', UserController.login);
 
 router.get('/register/home', authenticateUser, UserController.home);
 
-export default router; // Use export default for ES module syntax
+export default router; 

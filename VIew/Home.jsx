@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase';
 import './Styles/home.css';
 import picture from './Styles/picture-image.png'
+import Footer from '../Components/Footer';
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
@@ -11,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUserData = async (token) => {
       try {
-        const response = await fetch("http://localhost:3001/user/home", {
+        const response = await fetch("http://localhost:3000/user/home", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +90,7 @@ const Home = () => {
         
       </div>  
        
-      <h6 className="myName">K.G.S.D. Abeyrathne | 2425049 </h6>
+      <Footer />
     </div>
    
     

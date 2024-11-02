@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
+import Footer from '../Components/Footer';
 
 const auth = getAuth();
 
@@ -83,7 +84,7 @@ function Login() {
         Don't have an account? <Link to="/register">Register here</Link>
       </h6>
       <br></br><br></br>
-      <h6 className="myName">K.G.S.D. Abeyrathne | 2425049</h6>
+      <Footer />
     </div>
   );
 }
