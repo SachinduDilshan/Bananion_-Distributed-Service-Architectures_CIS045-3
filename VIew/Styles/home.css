@@ -75,7 +75,7 @@ body::after {
 
 .custom-btn:hover {
   transform: scale(1.05);
-  background-color: #0056b3;
+  background-color: #0f4aec;
   box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8); /* Intensified electric blue glow */
 }
 
