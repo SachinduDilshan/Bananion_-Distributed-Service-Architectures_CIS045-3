@@ -18,7 +18,7 @@ const Profile = ({ userId }) => {
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log('Fetched data:', data);  // Debugging: Log fetched data
+            console.log('Fetched data:', data); 
             setUserData(data);
           } else {
             console.log('No data available');
