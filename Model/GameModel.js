@@ -1,21 +1,22 @@
-import { getDatabase, ref, set, push } from 'firebase/database';
+export async function fetchGameInterface() {
+  const apiURL = 'https://marcconrad.com/uob/banana/api.php?out=csv&base64=yes';
 
-export const fetchGameInterface = async () => {
   try {
-    const response = await fetch('http://localhost:5173/https://marcconrad.com/uob/banana/api.php');
-    if (!response.ok) throw new Error('Failed to fetch');
-    const data = await response.json();
+    const response = await fetch(apiURL);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    const data = await response.text();
     return data;
   } catch (error) {
-    console.error('Failed to fetch', error);
-    throw error;
-  }
-};
+    console.error('Failed to fetch from API:', error);
 
-/*export const saveScore = async (userId, scoreData) => {
-  const db = getDatabase();
-  const scoreRef = ref(db, `users/${userId}/scores`);
-  const newScoreRef = push(scoreRef);
-  await set(newScoreRef, scoreData);
-};
-*/
+    
+    const mockData = {
+      base64Image: 'iVBORw0KGgoAAAANSUhEUgAAA...', 
+      solution: 8,
+    };
+    console.warn('Using mock data as a fallback');
+    return mockData;
+  }
+}

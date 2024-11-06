@@ -1,33 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import GameServer from '../Model/GameServer.js';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './Styles/home.css';
 
-const GamePlay = () => {
-  const [gameData, setGameData] = useState(null);
+function GamePlay() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { difficulty } = location.state || {};
+
+  // Set initial time limit and wrong answers based on difficulty level
+  const timeLimits = { Beginner: 30, Intermediate: 25, Expert: 20 };
+  const [timeRemaining, setTimeRemaining] = useState(timeLimits[difficulty] || 30);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const maxWrongAnswers = 2;
 
   useEffect(() => {
-    const loadGame = async () => {
-      const gameServer = new GameServer();
-      const game = await gameServer.getRandomGame();
-      setGameData(game);
-    };
+    // Redirect if no difficulty level is selected
+    if (!difficulty) {
+      navigate('/difficulty');
+    }
 
-    loadGame();
-  }, []);
+    // Start the countdown timer
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          // Handle game over due to time up
+          handleGameOver();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
-  if (!gameData) {
-    return <p>Loading game...</p>;
-  }
+    return () => clearInterval(timer); // Cleanup timer on component unmount
+  }, [difficulty, navigate]);
+
+  const handleWrongAnswer = () => {
+    setWrongAnswers((prev) => {
+      const updatedWrongAnswers = prev + 1;
+      if (updatedWrongAnswers > maxWrongAnswers) {
+        handleGameOver(); // Handle game over due to too many wrong answers
+      }
+      return updatedWrongAnswers;
+    });
+  };
+
+  const handleGameOver = () => {
+    alert('Game Over!');
+    navigate('/home'); // Navigate back to the home page or results page
+  };
 
   return (
-    <div>
-      <h1>Math Game</h1>
-      <div>
-        <img src={gameData.image.src} alt="Game Image" />
-
-        <p>Solution (for testing): {gameData.solution}</p>
+    <div className="gameplay-container">
+      <h1>Game Play - {difficulty} Level</h1>
+      <div className="timer">Time Remaining: {timeRemaining}s</div>
+      <div className="wrong-answers">
+        Wrong Answers: {wrongAnswers} / {maxWrongAnswers}
       </div>
+      {/* Game content goes here, such as questions, answer options, etc. */}
+      {/* For example: */}
+      <div className="question">Solve the equation: 5 + 3</div>
+      <button onClick={handleWrongAnswer}>Submit Wrong Answer (for testing)</button>
     </div>
   );
-};
+}
 
 export default GamePlay;
