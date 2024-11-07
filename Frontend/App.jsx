@@ -34,11 +34,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route
-          path="/select-difficulty"
+          path="/difficulty"
           element={<DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />}
         />
         <Route path="/play" element={userId && selectedDifficulty ? (<GameContainer userId={userId} difficulty={selectedDifficulty} />) : 
-        ( <Navigate to="/select-difficulty" replace />)
+        ( <Navigate to="/difficulty" replace />)
         }
         />
         <Route path="/profile" element={userId ? <Profile userId={userId} /> : <Navigate to="/" replace />} />

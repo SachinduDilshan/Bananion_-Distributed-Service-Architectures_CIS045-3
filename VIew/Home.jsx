@@ -70,7 +70,7 @@ const Home = () => {
             <p></p>
           )}
       <div className="home-content">
-        <button className="custom-btn" onClick={() => navigate('/select-difficulty')}>Let's Play!</button><br></br><br></br>
+        <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button><br></br><br></br>
         <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button><br></br><br></br>
         <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button><br></br><br></br>
         <button className="custom-btn-red" onClick={handleLogout}>Exit</button>

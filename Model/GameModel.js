@@ -1,5 +1,5 @@
 export async function fetchGameInterface() {
-  const apiURL = 'https://marcconrad.com/uob/banana/api.php?out=csv&base64=yes';
+  const apiURL = 'https://marcconrad.com/uob/banana/api.php';
 
   try {
     const response = await fetch(apiURL);
