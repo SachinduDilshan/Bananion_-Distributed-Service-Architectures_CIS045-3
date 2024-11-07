@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ref, push } from 'firebase/database';
-import { auth, database } from '../Model/Firebase'; // Import your Firebase config
+import { getDatabase, ref, update } from 'firebase/database';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function GameContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const { difficulty } = location.state || {};
-  const timeLimits = { Beginner: 60, Intermediate: 45, Expert: 30 };
+  const timeLimits = { Beginner: 50060, Intermediate: 45, Expert: 30 };
   const [timeRemaining, setTimeRemaining] = useState(timeLimits[difficulty] || 60);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const maxWrongAnswers = 2;
@@ -15,7 +15,7 @@ function GameContainer() {
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const totalQuestions = 5; // Game completes after 5 correct answers
+  const totalQuestions = 5;
 
   useEffect(() => {
     if (!difficulty) {
@@ -64,7 +64,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-    navigate('/profile');
+   navigate('/profile');
   };
 
   const handleSubmitAnswer = () => {
@@ -90,52 +90,63 @@ function GameContainer() {
 
   const calculateAndSaveScore = () => {
     const score = timeRemaining * 10;
-    saveScoreToFirebase(score);
+    saveScore(score);
   };
 
-  const saveScoreToFirebase = async (score) => {
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-      const userScoreRef = ref(database, `scores/${userId}`);
-      
-      try {
-        await push(userScoreRef, {
-          score: score,
-          timestamp: Date.now(),
-          difficulty: difficulty
-        });
-        alert(`Game completed! Your score: ${score}`);
-        navigate('/profile');
-      } catch (error) {
-        console.error("Error saving score to Firebase:", error);
-      }
-    } else {
-      console.log("No user is logged in.");
-    }
+  const saveScore= (userId, difficulty, score) => {
+    const db = getDatabase();
+    const userScoresRef = ref(db, `users/${userId}/scores/${difficulty}`);
+  
+    
+    update(userScoresRef, score)
+      .then(() => {
+        console.log('Score saved successfully.');
+       navigate('/play');
+      })
+      .catch((error) => {
+        console.error('Error saving score:', error);
+      });
   };
 
   return (
-    <div className="gameplay-container">
-      <h1>Game Play - {difficulty} Level</h1>
-      <div className="timer">Time Remaining: {timeRemaining}s</div>
-      <div className="wrong-answers">
-        Wrong Answers: {wrongAnswers} / {maxWrongAnswers}
+    <div className="container">
+      <div className="card p-5 shadow-lg border-0" style={{ maxWidth: '800px', maxHeight: 'auto', margin: '0 auto' }}>
+        <h1 className="text-center mb-4 display-5 text-primary">{difficulty} Level</h1>
+        
+        <div className="d-flex justify-content-between mb-4">
+          <div className="alert alert-info flex-fill text-center me-2 p-3">
+            <h5 className="mb-0">Time Remaining: <span className="fw-bold">{timeRemaining}s</span></h5>
+          </div>
+          <div className="alert alert-warning flex-fill text-center ms-2 p-3">
+            <h5 className="mb-0">Wrong Answers: <span className="fw-bold">{wrongAnswers} / {maxWrongAnswers}</span></h5>
+          </div>
+        </div>
+        
+        <div className="text-center mb-4">
+          <p className="fs-4 fw-semibold">Solve the equation:</p>
+          {question ? (
+            <img src={question} alt="Game question" className="img-fluid border rounded" style={{ maxWidth: '300px' }} />
+          ) : (
+            <p>Loading question...</p>
+          )}
+        </div>
+        
+        <div className="mb-4">
+          <input
+            type="number"
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+            placeholder="Enter your answer"
+            className="form-control form-control-lg text-center"
+          />
+        </div>
+        
+        <div className="text-center">
+          <button onClick={handleSubmitAnswer} className="btn btn-success btn-lg px-5">
+            Submit Answer
+          </button>
+        </div>
       </div>
-      <div className="question">
-        <p>Solve the equation:</p>
-        {question ? (
-          <img src={question} alt="Game question" style={{ width: '300px', height: 'auto' }} />
-        ) : (
-          <p>Loading question...</p>
-        )}
-      </div>
-      <input
-        type="number"
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-        placeholder="Enter your answer"
-      />
-      <button onClick={handleSubmitAnswer}>Submit Answer</button>
     </div>
   );
 }
