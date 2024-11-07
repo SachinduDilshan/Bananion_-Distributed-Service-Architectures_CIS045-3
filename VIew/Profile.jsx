@@ -7,18 +7,28 @@ import Footer from '../Components/Footer';
 
 const Profile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
+  const [scores, setScores] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userId) {
       const db = getDatabase();
       const userRef = ref(db, `users/${userId}`);
+      const userId = CurrentUserNameSingleton.getUserName().id;
+      const scoresRef = ref(db, `scores/${userId}`);
+
+      onValue(scoresRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setScores(data);
+        }
+      });
 
       get(userRef)
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log('Fetched data:', data); 
+            console.log('Fetched data:', data);
             setUserData(data);
           } else {
             console.log('No data available');
@@ -46,6 +56,12 @@ const Profile = ({ userId }) => {
           <button>Edit</button>
         </div>
         <div className="score-section">
+        <h2>Your Scores</h2>
+    <ul>
+      {scores.map((score, index) => (
+        <li key={index}>Score: {score.score}, Date: {new Date(score.timestamp).toLocaleDateString()}</li>
+      ))}
+    </ul>
           <h3>Highest Score</h3>
           <div className="score-list">
             <div className="score-item">

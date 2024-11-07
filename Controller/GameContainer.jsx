@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ref, push } from 'firebase/database';
+import { auth, database } from '../Model/Firebase'; // Import your Firebase config
 
 function GameContainer() {
   const location = useLocation();
@@ -12,6 +14,8 @@ function GameContainer() {
   const [question, setQuestion] = useState('');
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const totalQuestions = 5; // Game completes after 5 correct answers
 
   useEffect(() => {
     if (!difficulty) {
@@ -36,16 +40,16 @@ function GameContainer() {
     try {
       const response = await fetch('https://marcconrad.com/uob/banana/api.php');
       const data = await response.json();
-      setQuestion(data.question); 
-      setSolution(data.solution); 
-      setUserAnswer(''); 
+      setQuestion(data.question);
+      setSolution(data.solution);
+      setUserAnswer('');
     } catch (error) {
       console.error('Error fetching question:', error);
     }
   };
 
   useEffect(() => {
-    fetchQuestion(); 
+    fetchQuestion();
   }, []);
 
   const handleWrongAnswer = () => {
@@ -60,7 +64,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-    navigate('/home');
+    navigate('/profile');
   };
 
   const handleSubmitAnswer = () => {
@@ -68,11 +72,45 @@ function GameContainer() {
     const parsedSolution = parseInt(solution, 10);
 
     if (parsedUserAnswer === parsedSolution) {
-      alert('Correct answer!');
-      fetchQuestion(); 
+      setCorrectAnswers((prev) => {
+        const updatedCorrectAnswers = prev + 1;
+        
+        if (updatedCorrectAnswers >= totalQuestions) {
+          calculateAndSaveScore();
+        } else {
+          fetchQuestion();
+        }
+        return updatedCorrectAnswers;
+      });
     } else {
       handleWrongAnswer();
       alert('Wrong answer!');
+    }
+  };
+
+  const calculateAndSaveScore = () => {
+    const score = timeRemaining * 10;
+    saveScoreToFirebase(score);
+  };
+
+  const saveScoreToFirebase = async (score) => {
+    if (auth.currentUser) {
+      const userId = auth.currentUser.uid;
+      const userScoreRef = ref(database, `scores/${userId}`);
+      
+      try {
+        await push(userScoreRef, {
+          score: score,
+          timestamp: Date.now(),
+          difficulty: difficulty
+        });
+        alert(`Game completed! Your score: ${score}`);
+        navigate('/profile');
+      } catch (error) {
+        console.error("Error saving score to Firebase:", error);
+      }
+    } else {
+      console.log("No user is logged in.");
     }
   };
 
