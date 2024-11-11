@@ -5,7 +5,7 @@ import Home from "../VIew/Home.jsx";
 import Register from "../VIew/Register.jsx";
 import Login from "../VIew/Login.jsx";
 import DifficultySelect from '../VIew/DifficultySelect.jsx';
-import GameContainer from '../Controller/GameContainer.jsx';
+import GameContainer from '../VIew/GameContainer.jsx';
 import Profile from "../VIew/Profile.jsx";
 
 function App() {

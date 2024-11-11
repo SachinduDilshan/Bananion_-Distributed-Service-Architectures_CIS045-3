@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { getDatabase, ref, set } from 'firebase/database';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { auth } from '../Model/Firebase.js';

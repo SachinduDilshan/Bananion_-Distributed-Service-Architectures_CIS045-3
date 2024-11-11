@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../VIew/Styles/gamestyle.css'; 
-import { ref, push } from 'firebase/database';
-import { auth, database } from '../Model/Firebase'; 
+import { saveScoreToFirebase } from '../Controller/GameController';
 
 function GameContainer() {
   const location = useLocation();
@@ -65,7 +64,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-    navigate('/play');
+   /// navigate('/play');
   };
 
   const handleSubmitAnswer = () => {
@@ -91,28 +90,7 @@ function GameContainer() {
 
   const calculateAndSaveScore = () => {
     const score = timeRemaining * 10; 
-    saveScoreToFirebase(score);
-  };
-
-  const saveScoreToFirebase = async (score) => {
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-      const userScoreRef = ref(db, `scores/${userId}`);
-
-      try {
-        await push(userScoreRef, {
-          score: score,
-          timestamp: Date.now(),
-          difficulty: difficulty
-        });
-        alert(`Game completed! Your score: ${score}`);
-        navigate('/profile');
-      } catch (error) {
-        console.error("Error saving score to Firebase:", error);
-      }
-    } else {
-      console.log("No user is logged in.");
-    }
+    saveScoreToFirebase(score, difficulty, navigate);
   };
 
   return (
