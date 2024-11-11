@@ -30,18 +30,45 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Default route for login page */}
         <Route path="/" element={<Login />} />
+
+        {/* Register page */}
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
+
+        {/* Home page, only accessible to logged-in users */}
+        <Route path="/home" element={userId ? <Home /> : <Navigate to="/" replace />} />
+
+        {/* Difficulty selection page, only accessible to logged-in users */}
         <Route
           path="/difficulty"
-          element={<DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />}
+          element={userId ? (
+            <DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />
+          ) : (
+            <Navigate to="/" replace />
+          )}
         />
-        <Route path="/play" element={userId && selectedDifficulty ? (<GameContainer userId={userId} difficulty={selectedDifficulty} />) : 
-        ( <Navigate to="/difficulty" replace />)
-        }
+
+        {/* Game play page, requires both user login and selected difficulty */}
+        <Route
+          path="/play"
+          element={
+            userId && selectedDifficulty ? (
+              <GameContainer userId={userId} difficulty={selectedDifficulty} />
+            ) : (
+              <Navigate to="/difficulty" replace />
+            )
+          }
         />
-        <Route path="/profile" element={userId ? <Profile userId={userId} /> : <Navigate to="/" replace />} />
+
+        {/* Profile page, accessible only to logged-in users */}
+        <Route
+          path="/profile"
+          element={userId ? <Profile userId={userId} /> : <Navigate to="/" replace />}
+        />
+
+        {/* Redirect any unknown paths to the login page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

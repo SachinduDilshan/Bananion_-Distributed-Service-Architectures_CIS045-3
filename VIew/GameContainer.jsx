@@ -15,7 +15,7 @@ function GameContainer() {
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const totalQuestions = 25; 
+  const totalQuestions = 25;
 
   useEffect(() => {
     if (!difficulty) {
@@ -40,16 +40,16 @@ function GameContainer() {
     try {
       const response = await fetch('https://marcconrad.com/uob/banana/api.php?out=json');
       const data = await response.json();
-      setQuestion(data.question); 
-      setSolution(data.solution); 
-      setUserAnswer(''); 
+      setQuestion(data.question);
+      setSolution(data.solution);
+      setUserAnswer('');
     } catch (error) {
       console.error('Error fetching question:', error);
     }
   };
 
   useEffect(() => {
-    fetchQuestion(); 
+    fetchQuestion();
   }, []);
 
   const handleWrongAnswer = () => {
@@ -64,7 +64,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-   /// navigate('/play');
+   // navigate('/profile'); 
   };
 
   const handleSubmitAnswer = () => {
@@ -74,9 +74,9 @@ function GameContainer() {
     if (parsedUserAnswer === parsedSolution) {
       setCorrectAnswers((prev) => {
         const updatedCorrectAnswers = prev + 1;
-        
+
         if (updatedCorrectAnswers >= totalQuestions) {
-          calculateAndSaveScore();
+          calculateAndSaveScore(); 
         } else {
           fetchQuestion();
         }
@@ -89,16 +89,16 @@ function GameContainer() {
   };
 
   const calculateAndSaveScore = () => {
-    const score = timeRemaining * 10; 
-    saveScoreToFirebase(score, difficulty, navigate);
+    const score = timeRemaining * 10;
+    saveScoreToFirebase(score, difficulty, navigate); 
   };
 
   return (
     <div className="gameplay-container">
-       <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
+      <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
       <div className="game-card">
         <h6 className="game-title">{difficulty} Level</h6>
-  
+
         <div className="status-container">
           <div className="status time-remaining">
             <span>Time Remaining</span>
@@ -109,7 +109,7 @@ function GameContainer() {
             <span className="answers">{wrongAnswers} / {maxWrongAnswers}</span>
           </div>
         </div>
-  
+
         <div className="question-section">
           <p className="question-prompt">Find the hidden number...</p>
           <div className="question-answer-container">
@@ -134,7 +134,7 @@ function GameContainer() {
         </div>
       </div>
     </div>
-  );    
+  );
 }
 
 export default GameContainer;
