@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../VIew/Styles/gamestyle.css'; 
-import { saveScoreToFirebase } from '../Controller/GameController';
+import { getAuth } from 'firebase/auth';
+import '../VIew/Styles/gamestyle.css';
+import axios from 'axios';
 
 function GameContainer() {
   const location = useLocation();
@@ -64,7 +65,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-   // navigate('/profile'); 
+    navigate('/profile'); // Navigate to profile after game over
   };
 
   const handleSubmitAnswer = () => {
@@ -76,7 +77,7 @@ function GameContainer() {
         const updatedCorrectAnswers = prev + 1;
 
         if (updatedCorrectAnswers >= totalQuestions) {
-          calculateAndSaveScore(); 
+          calculateAndSaveScore();
         } else {
           fetchQuestion();
         }
@@ -88,9 +89,32 @@ function GameContainer() {
     }
   };
 
-  const calculateAndSaveScore = () => {
+  const calculateAndSaveScore = async () => {
     const score = timeRemaining * 10;
-    saveScoreToFirebase(score, difficulty, navigate); 
+    try {
+      await saveScoreToFirebase(score, difficulty);
+      alert('Congratulations! Your score has been saved.');
+      navigate('/profile'); // Navigate to profile after saving score
+    } catch (error) {
+      console.error('Error saving score:', error);
+    }
+  };
+
+  const saveScoreToFirebase = async (score, difficulty) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      const uid = user.uid;
+      try {
+        await axios.post('http://localhost:5000/api/saveScore', { uid, score, difficulty });
+        console.log('Score saved successfully');
+      } catch (error) {
+        console.error('Error saving score:', error.message);
+      }
+    } else {
+      console.log('No authenticated user');
+    }
   };
 
   return (
@@ -105,7 +129,7 @@ function GameContainer() {
             <span className="time">{timeRemaining}s</span>
           </div>
           <div className="status wrong-answers">
-            <span>Wrong Answers !</span>
+            <span>Wrong Answers!</span>
             <span className="answers">{wrongAnswers} / {maxWrongAnswers}</span>
           </div>
         </div>

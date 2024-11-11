@@ -1,8 +1,8 @@
-import UserModel from '../Model/UserModel.js'; 
-import admin from 'firebase-admin'; 
+import UserModel from '../Model/UserModel.js';
+import admin from 'firebase-admin';
 
 const UserController = {
-  
+
   async register(req, res) {
     try {
       const { name, email, age, password } = req.body;
@@ -34,29 +34,52 @@ const UserController = {
     const idToken = req.headers.authorization?.split('Bearer ')[1];
 
     if (!idToken) {
-        return res.status(401).json({ error: 'Unauthorized: No token provided' });
+      return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
 
     try {
-        
-        const decodedToken = await admin.auth().verifyIdToken(idToken);
-        const uid = decodedToken.uid;
 
-        
-        const userRef = admin.database().ref(`users/${uid}`);
-        const userSnapshot = await userRef.once('value');
-        const userData = userSnapshot.val();
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const uid = decodedToken.uid;
 
-        if (userData) {
-            res.status(200).json(userData);
-        } else {
-            res.status(404).json({ error: 'User not found' });
-        }
+
+      const userRef = admin.database().ref(`users/${uid}`);
+      const userSnapshot = await userRef.once('value');
+      const userData = userSnapshot.val();
+
+      if (userData) {
+        res.status(200).json(userData);
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
     } catch (error) {
-        console.error("Error retrieving user data:", error.message);
-        res.status(500).json({ error: 'Failed to retrieve user data' });
+      console.error("Error retrieving user data:", error.message);
+      res.status(500).json({ error: 'Failed to retrieve user data' });
     }
-}
+  },
+
+
+  async saveScore(req, res) {
+    const { uid, score, difficulty } = req.body;
+
+    if (!uid || score === undefined || !difficulty) {
+      return res.status(400).json({ error: 'Invalid data provided' });
+    }
+
+    try {
+      const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
+      await scoreRef.set({
+        score: score,
+        difficulty: difficulty,
+        timestamp: Date.now(),
+      });
+
+      res.status(200).json({ message: 'Score saved successfully' });
+    } catch (error) {
+      console.error("Error saving score:", error.message);
+      res.status(500).json({ error: 'Failed to save score' });
+    }
+  },
 };
 
 export default UserController;

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
-
 router.get('/register/home', authenticateUser, UserController.home);
+router.post('/api/saveScore', UserController.saveScore);
 
 export default router; 

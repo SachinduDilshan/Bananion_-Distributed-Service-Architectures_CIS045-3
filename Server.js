@@ -25,7 +25,7 @@ app.get('/user/home', authenticateUser, async (req, res) => {
   }
 });
 
-
+/*
 app.get('/banana-api', async (req, res) => {
   try {
     const response = await fetch('http://marcconrad.com/uob/banana/api.php');
@@ -36,7 +36,7 @@ app.get('/banana-api', async (req, res) => {
     console.error('Error fetching Banana API:', error);
     res.status(500).send('Server Error');
   }
-});
+});*/
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

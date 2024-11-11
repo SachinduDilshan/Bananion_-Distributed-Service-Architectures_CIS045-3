@@ -10,7 +10,6 @@ export const saveScoreToFirebase = async (score, difficulty, navigate) => {
     const scoreRef = push(ref(db, `users/${userId}/scores`));
 
     try {
-      // Set the data for the score entry
       await set(scoreRef, {
         score: score,
         timestamp: Date.now(),
