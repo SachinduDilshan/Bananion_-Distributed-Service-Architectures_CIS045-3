@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatabase, ref, set } from 'firebase/database';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { auth } from '../Model/Firebase.js';
 import Footer from '../Components/Footer.jsx';
 
 function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,6 +47,7 @@ function Register() {
 
       console.log("User registered:", user);
       alert("User registered successfully");
+      navigate('/');
 
       setFormData({
         name: "",

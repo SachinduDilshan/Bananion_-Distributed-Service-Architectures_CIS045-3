@@ -65,7 +65,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-    navigate('/home');
+    navigate('/play');
   };
 
   const handleSubmitAnswer = () => {
@@ -97,7 +97,7 @@ function GameContainer() {
   const saveScoreToFirebase = async (score) => {
     if (auth.currentUser) {
       const userId = auth.currentUser.uid;
-      const userScoreRef = ref(database, `users/${userId}/scores`);
+      const userScoreRef = ref(db, `scores/${userId}`);
 
       try {
         await push(userScoreRef, {
