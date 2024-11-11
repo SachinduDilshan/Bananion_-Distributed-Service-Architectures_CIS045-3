@@ -8,7 +8,7 @@ function GameContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const { difficulty } = location.state || {};
-  const timeLimits = { Beginner: 60, Intermediate: 45, Expert: 30 };
+  const timeLimits = { Beginner: 61, Intermediate: 46, Expert: 31 };
   const [timeRemaining, setTimeRemaining] = useState(timeLimits[difficulty] || 60);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const maxWrongAnswers = 2;
@@ -16,7 +16,7 @@ function GameContainer() {
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const totalQuestions = 5; 
+  const totalQuestions = 25; 
 
   useEffect(() => {
     if (!difficulty) {
@@ -117,17 +117,17 @@ function GameContainer() {
 
   return (
     <div className="gameplay-container">
-       <button onClick={() => navigate('/difficulty')} className="back-btn">Back</button>
+       <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
       <div className="game-card">
         <h6 className="game-title">{difficulty} Level</h6>
   
         <div className="status-container">
           <div className="status time-remaining">
-            <span>Time Remaining:</span>
+            <span>Time Remaining</span>
             <span className="time">{timeRemaining}s</span>
           </div>
           <div className="status wrong-answers">
-            <span>Wrong Answers:</span>
+            <span>Wrong Answers !</span>
             <span className="answers">{wrongAnswers} / {maxWrongAnswers}</span>
           </div>
         </div>
@@ -145,7 +145,7 @@ function GameContainer() {
                 type="number"
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
-                placeholder="Enter your answer"
+                placeholder="Enter your answer..."
                 className="answer-input"
               />
               <button onClick={handleSubmitAnswer} className="submit-button">

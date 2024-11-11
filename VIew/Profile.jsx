@@ -16,7 +16,6 @@ const Profile = ({ userId }) => {
       const userRef = ref(db, `users/${userId}`);
       const scoresRef = ref(db, `scores/${userId}`);
 
-      // Fetch user data
       get(userRef)
         .then((snapshot) => {
           if (snapshot.exists()) {
@@ -31,7 +30,6 @@ const Profile = ({ userId }) => {
           console.error('Error fetching user profile data:', error);
         });
 
-      // Fetch scores data
       get(scoresRef)
         .then((snapshot) => {
           const data = snapshot.val();

@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-
     padding: 20px;
 }
 
@@ -31,33 +30,33 @@
     justify-content: space-between;
     font-family: "DynaPuff", system-ui;
     margin-bottom: 20px;
-    max-width: 500px; /* Reduced max-width for the container */
+    max-width: 598px;
 }
 
 .status {
-    background-color: #e9ecef;
+    background-color: #0c0575;
     font-family: "DynaPuff", system-ui;
-    padding: 10px; /* Reduced padding */
+    color: aliceblue;
+    padding: 10px;
     border-radius: 8px;
-    width: 45%; /* Reduced width of each status box */
-    font-size: 1rem; /* Reduced font size */
+    margin-left: 110px;
+    font-size: 1rem;
+
 }
+
 .time {
     display: block;
-    font-family: "DynaPuff", system-ui;
-    font-size: 1.2rem; /* Slightly smaller font size */
-    font-weight: bold;
-    color: #ff4e42;
-    margin-top: 5px; /* Reduced margin */
+    font-size: 2.1rem;
+    color: #f34639;
+    margin-top: 5px;
 }
 
 .answers {
     display: block;
-    font-family: "DynaPuff", system-ui;
-    font-size: 1.4rem; /* Slightly smaller font size */
-    font-weight: bold;
+    font-size: 2.1rem;
     color: #ffc107;
-    margin-top: 5px; /* Reduced margin */
+    margin-top: 5px;
+    
 }
 
 
@@ -91,32 +90,32 @@
     font-family: "DynaPuff", system-ui;
     flex-direction: column;
     align-items: flex-start;
-    /* Aligns input and button in a column next to the image */
     margin-left: 15px;
 }
 
 .answer-input {
     font-family: "DynaPuff", system-ui;
-    width: 100%;
-    padding: 10px;
+    width: 160px;
+    padding: 5px;
     font-size: 1.2rem;
-    border: 2px solid #adb5bd;
-    border-radius: 10px;
+    border: 2px solid #16036d;
     text-align: center;
     margin-bottom: 15px;
+    border-radius: 10px;
     transition: border-color 0.3s ease;
 }
-
-.answer-input:focus {
-    border-color: #28a745;
-    outline: none;
+.answer-input,
+.answer-input::placeholder {
+    color: #020c5f;
+    font: 0.85rem/3 DynaPuff;
 }
 
 .submit-button {
     padding: 5px 10px;
     font-family: "DynaPuff", system-ui;
     font-size: 0.8rem;
-    background-color: #020c5f;
+    margin-left: 10px;
+    background-color:  #0048bc;
     color: #ffffff;
     border: none;
     border-radius: 10px;
@@ -125,6 +124,22 @@
 }
 
 .submit-button:hover {
-    background-color: #0048bc;
+    background-color: #020c5f;
     transform: scale(0.95);
 }
+
+.profile-section {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    text-align: center;
+    color: #242c63;;
+    font-weight:500;
+  }
+  
+  .profile-pic {
+    width: 130px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
