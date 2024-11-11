@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getDatabase, ref, update } from 'firebase/database';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../VIew/Styles/gamestyle.css'; 
+import { ref, push } from 'firebase/database';
+import { auth, database } from '../Model/Firebase'; 
 
 function GameContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const { difficulty } = location.state || {};
-  const timeLimits = { Beginner: 50060, Intermediate: 45, Expert: 30 };
+  const timeLimits = { Beginner: 98775560, Intermediate: 45, Expert: 30 };
   const [timeRemaining, setTimeRemaining] = useState(timeLimits[difficulty] || 60);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const maxWrongAnswers = 2;
@@ -15,7 +16,7 @@ function GameContainer() {
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const totalQuestions = 5;
+  const totalQuestions = 5; 
 
   useEffect(() => {
     if (!difficulty) {
@@ -38,18 +39,18 @@ function GameContainer() {
 
   const fetchQuestion = async () => {
     try {
-      const response = await fetch('https://marcconrad.com/uob/banana/api.php');
+      const response = await fetch('https://marcconrad.com/uob/banana/api.php?out=json');
       const data = await response.json();
-      setQuestion(data.question);
-      setSolution(data.solution);
-      setUserAnswer('');
+      setQuestion(data.question); 
+      setSolution(data.solution); 
+      setUserAnswer(''); 
     } catch (error) {
       console.error('Error fetching question:', error);
     }
   };
 
   useEffect(() => {
-    fetchQuestion();
+    fetchQuestion(); 
   }, []);
 
   const handleWrongAnswer = () => {
@@ -64,7 +65,7 @@ function GameContainer() {
 
   const handleGameOver = () => {
     alert('Game Over!');
-   navigate('/profile');
+    navigate('/home');
   };
 
   const handleSubmitAnswer = () => {
@@ -89,66 +90,72 @@ function GameContainer() {
   };
 
   const calculateAndSaveScore = () => {
-    const score = timeRemaining * 10;
-    saveScore(score);
+    const score = timeRemaining * 10; 
+    saveScoreToFirebase(score);
   };
 
-  const saveScore= (userId, difficulty, score) => {
-    const db = getDatabase();
-    const userScoresRef = ref(db, `users/${userId}/scores/${difficulty}`);
-  
-    
-    update(userScoresRef, score)
-      .then(() => {
-        console.log('Score saved successfully.');
-       navigate('/play');
-      })
-      .catch((error) => {
-        console.error('Error saving score:', error);
-      });
+  const saveScoreToFirebase = async (score) => {
+    if (auth.currentUser) {
+      const userId = auth.currentUser.uid;
+      const userScoreRef = ref(database, `scores/${userId}`);
+
+      try {
+        await push(userScoreRef, {
+          score: score,
+          timestamp: Date.now(),
+          difficulty: difficulty
+        });
+        alert(`Game completed! Your score: ${score}`);
+        navigate('/profile');
+      } catch (error) {
+        console.error("Error saving score to Firebase:", error);
+      }
+    } else {
+      console.log("No user is logged in.");
+    }
   };
 
   return (
-    <div className="container">
-      <div className="card p-5 shadow-lg border-0" style={{ maxWidth: '800px', maxHeight: 'auto', margin: '0 auto' }}>
-        <h1 className="text-center mb-4 display-5 text-primary">{difficulty} Level</h1>
-        
-        <div className="d-flex justify-content-between mb-4">
-          <div className="alert alert-info flex-fill text-center me-2 p-3">
-            <h5 className="mb-0">Time Remaining: <span className="fw-bold">{timeRemaining}s</span></h5>
+    <div className="gameplay-container">
+      <div className="game-card">
+        <h6 className="game-title">{difficulty} Level</h6>
+  
+        <div className="status-container">
+          <div className="status time-remaining">
+            <span>Time Remaining:</span>
+            <span className="time">{timeRemaining}s</span>
           </div>
-          <div className="alert alert-warning flex-fill text-center ms-2 p-3">
-            <h5 className="mb-0">Wrong Answers: <span className="fw-bold">{wrongAnswers} / {maxWrongAnswers}</span></h5>
+          <div className="status wrong-answers">
+            <span>Wrong Answers:</span>
+            <span className="answers">{wrongAnswers} / {maxWrongAnswers}</span>
           </div>
         </div>
-        
-        <div className="text-center mb-4">
-          <p className="fs-4 fw-semibold">Solve the equation:</p>
-          {question ? (
-            <img src={question} alt="Game question" className="img-fluid border rounded" style={{ maxWidth: '300px' }} />
-          ) : (
-            <p>Loading question...</p>
-          )}
-        </div>
-        
-        <div className="mb-4">
-          <input
-            type="number"
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-            placeholder="Enter your answer"
-            className="form-control form-control-lg text-center"
-          />
-        </div>
-        
-        <div className="text-center">
-          <button onClick={handleSubmitAnswer} className="btn btn-success btn-lg px-5">
-            Submit Answer
-          </button>
+  
+        <div className="question-section">
+          <p className="question-prompt">Find the hidden number...</p>
+          <div className="question-answer-container">
+            {question ? (
+              <img src={question} alt="Game question" className="question-image" />
+            ) : (
+              <p>Loading question...</p>
+            )}
+            <div className="answer-input-container">
+              <input
+                type="number"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Enter your answer"
+                className="answer-input"
+              />
+              <button onClick={handleSubmitAnswer} className="submit-button">
+                Submit Answer
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
+  );    
 }
 
 export default GameContainer;
