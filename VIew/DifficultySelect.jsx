@@ -10,18 +10,11 @@ function DifficultySelect({ setDifficulty, user }) {
     navigate("/play", { state: { difficulty: level } }); 
   };
 
-  const handleBackClick = () => {
-    if (window.history.state && window.history.state.idx > 0) {
-      navigate("/home"); 
-    } 
-  };
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
       <div className="top-bar d-flex justify-content-between align-items-center w-100">
-        <button className="back-btn" onClick={handleBackClick}>
-          &larr; Back
-        </button>          
+      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>         
       </div>
 
       <h5 className="select-text">Pick a challenge!</h5>

@@ -49,7 +49,7 @@ const Profile = ({ userId }) => {
 
   return (
     <div className="profile-page">
-      <button onClick={() => navigate('/home')} className="back-btn">Back</button>
+      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
       <div className="profile-container">
         <div className="profile-info">
           <img src={picture} alt="User Profile" className="profile-pic" />
