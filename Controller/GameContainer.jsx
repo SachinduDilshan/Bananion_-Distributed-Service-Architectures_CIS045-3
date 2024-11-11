@@ -8,7 +8,7 @@ function GameContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const { difficulty } = location.state || {};
-  const timeLimits = { Beginner: 98775560, Intermediate: 45, Expert: 30 };
+  const timeLimits = { Beginner: 60, Intermediate: 45, Expert: 30 };
   const [timeRemaining, setTimeRemaining] = useState(timeLimits[difficulty] || 60);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const maxWrongAnswers = 2;
@@ -97,7 +97,7 @@ function GameContainer() {
   const saveScoreToFirebase = async (score) => {
     if (auth.currentUser) {
       const userId = auth.currentUser.uid;
-      const userScoreRef = ref(database, `scores/${userId}`);
+      const userScoreRef = ref(database, `users/${userId}/scores`);
 
       try {
         await push(userScoreRef, {
@@ -117,6 +117,7 @@ function GameContainer() {
 
   return (
     <div className="gameplay-container">
+       <button onClick={() => navigate('/difficulty')} className="back-btn">Back</button>
       <div className="game-card">
         <h6 className="game-title">{difficulty} Level</h6>
   

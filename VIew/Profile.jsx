@@ -14,28 +14,33 @@ const Profile = ({ userId }) => {
     if (userId) {
       const db = getDatabase();
       const userRef = ref(db, `users/${userId}`);
-      const userId = CurrentUserNameSingleton.getUserName().id;
       const scoresRef = ref(db, `scores/${userId}`);
 
-      onValue(scoresRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setScores(data);
-        }
-      });
-
+      // Fetch user data
       get(userRef)
         .then((snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log('Fetched data:', data);
+            console.log('Fetched user data:', data);
             setUserData(data);
           } else {
-            console.log('No data available');
+            console.log('No user data available');
           }
         })
         .catch((error) => {
-          console.error('Error fetching profile data:', error);
+          console.error('Error fetching user profile data:', error);
+        });
+
+      // Fetch scores data
+      get(scoresRef)
+        .then((snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            setScores(data);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching scores:', error);
         });
     }
   }, [userId]);
@@ -56,12 +61,12 @@ const Profile = ({ userId }) => {
           <button>Edit</button>
         </div>
         <div className="score-section">
-        <h2>Your Scores</h2>
-    <ul>
-      {scores.map((score, index) => (
-        <li key={index}>Score: {score.score}, Date: {new Date(score.timestamp).toLocaleDateString()}</li>
-      ))}
-    </ul>
+          <h6>Your Scores</h6>
+          <ul>
+            {scores.map((score, index) => (
+              <li key={index}>Score: {score.score}, Date: {new Date(score.timestamp).toLocaleDateString()}</li>
+            ))}
+          </ul>
           <h3>Highest Score</h3>
           <div className="score-list">
             <div className="score-item">
