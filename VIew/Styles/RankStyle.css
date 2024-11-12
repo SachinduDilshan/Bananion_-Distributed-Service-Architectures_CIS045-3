@@ -1,0 +1,36 @@
+.top-ranks-page {
+    padding: 20px;
+    text-align: center;
+    font-family: "DynaPuff", system-ui;
+    color: #242c63;
+  }
+  
+  .back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+  }
+  
+  .level-select {
+    margin: 20px 0;
+  }
+  
+  .leaderboard {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    border-radius: 15px;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  

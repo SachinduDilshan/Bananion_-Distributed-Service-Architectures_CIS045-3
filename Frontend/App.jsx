@@ -7,6 +7,7 @@ import Login from "../VIew/Login.jsx";
 import DifficultySelect from '../VIew/DifficultySelect.jsx';
 import GameContainer from '../VIew/GameContainer.jsx';
 import Profile from "../VIew/Profile.jsx";
+import Ranks from "../VIew/Ranks.jsx";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -35,6 +36,8 @@ function App() {
 
         {/* Register page */}
         <Route path="/register" element={<Register />} />
+
+        <Route path="/ranks" element={<Ranks />} />
 
         {/* Home page, only accessible to logged-in users */}
         <Route path="/home" element={userId ? <Home /> : <Navigate to="/" replace />} />
