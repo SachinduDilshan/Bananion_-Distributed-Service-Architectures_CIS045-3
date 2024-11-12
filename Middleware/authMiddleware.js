@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json'  assert { type: "json" };;
+import cors from 'cors';
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -23,5 +24,6 @@ const authenticateUser = async (req, res, next) => {
     res.status(403).json({ error: 'Unauthorized: Invalid token' });
   }
 };
+
 
 export default authenticateUser;

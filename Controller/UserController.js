@@ -60,26 +60,28 @@ const UserController = {
 
 
   async saveScore(req, res) {
+    console.log('Request received at saveScore endpoint:', req.body); // Log the request body
     const { uid, score, difficulty } = req.body;
 
     if (!uid || score === undefined || !difficulty) {
-      return res.status(400).json({ error: 'Invalid data provided' });
+        console.log('Invalid data provided'); // Check if invalid data was received
+        return res.status(400).json({ error: 'Invalid data provided' });
     }
 
     try {
-      const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
-      await scoreRef.set({
-        score: score,
-        difficulty: difficulty,
-        timestamp: Date.now(),
-      });
-
-      res.status(200).json({ message: 'Score saved successfully' });
+        const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
+        await scoreRef.set({
+            score: score,
+            difficulty: difficulty,
+            timestamp: Date.now(),
+        });
+        console.log('Score saved in database'); // Confirm score saved
+        res.status(200).json({ message: 'Score saved successfully' });
     } catch (error) {
-      console.error("Error saving score:", error.message);
-      res.status(500).json({ error: 'Failed to save score' });
+        console.error("Error saving score:", error.message); // Log error if saving fails
+        res.status(500).json({ error: 'Failed to save score' });
     }
-  },
+}
 };
 
 export default UserController;
