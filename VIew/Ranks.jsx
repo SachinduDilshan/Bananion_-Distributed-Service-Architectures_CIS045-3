@@ -62,7 +62,7 @@ const Ranks = () => {
               scores.map((entry, index) => (
                 <tr key={entry.userId}>
                   <td>{index + 1}</td>
-                  <td>{entry.userId}</td> {/* Replace with user's display name if available */}
+                  <td>{entry.userId}</td> 
                   <td>{entry.score}</td>
                 </tr>
               ))
