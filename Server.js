@@ -2,6 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import authenticateUser from './Middleware/authMiddleware.js';
 import getUserData from './Model/getUserData.js'; 
+import admin from 'firebase-admin';
+
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://dsagame-2425049-default-rtdb.firebaseio.com"
+  });
+}
 
 const app = express();
 const PORT = 3000;
