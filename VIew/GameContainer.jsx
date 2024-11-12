@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import '../VIew/Styles/gamestyle.css';
@@ -16,7 +16,20 @@ function GameContainer() {
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const totalQuestions = 25;
+  const totalQuestions = 35;
+  const [totalScore, setTotalScore] = useState(0); // Accumulated score
+
+  // Function to navigate to profile after game over
+  const goToProfile = useCallback(() => {
+    navigate('/profile');
+  }, [navigate]);
+
+  // Handle game over and save score
+  const handleGameOver = useCallback(() => {
+    saveTotalScoreToFirebase(totalScore); // Save the final score to Firebase at game end
+    alert(`Game Over! Your final score: ${totalScore}`);
+    goToProfile(); // Navigate to profile after game over
+  }, [totalScore, goToProfile]);
 
   useEffect(() => {
     if (!difficulty) {
@@ -27,7 +40,7 @@ function GameContainer() {
       setTimeRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          handleGameOver();
+          handleGameOver(); // Trigger game over if time is up
           return 0;
         }
         return prev - 1;
@@ -35,7 +48,7 @@ function GameContainer() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [difficulty, navigate]);
+  }, [difficulty, handleGameOver, navigate]);
 
   const fetchQuestion = async () => {
     try {
@@ -57,50 +70,34 @@ function GameContainer() {
     setWrongAnswers((prev) => {
       const updatedWrongAnswers = prev + 1;
       if (updatedWrongAnswers > maxWrongAnswers) {
-        handleGameOver();
+        handleGameOver(); 
       }
       return updatedWrongAnswers;
     });
+    setTotalScore((prevScore) => Math.max(prevScore - 10, 0));
   };
-
-  const handleGameOver = () => {
-    alert('Game Over!');
-    navigate('/profile');
-  };
-
+  
   const handleSubmitAnswer = () => {
     const parsedUserAnswer = parseInt(userAnswer, 10);
     const parsedSolution = parseInt(solution, 10);
-
+  
     if (parsedUserAnswer === parsedSolution) {
-      setCorrectAnswers((prev) => {
-        const updatedCorrectAnswers = prev + 1;
-
-        if (updatedCorrectAnswers >= totalQuestions) {
-          calculateAndSaveScore();
-        } else {
-          calculateAndSaveScore();
-          fetchQuestion();
-        }
-        return updatedCorrectAnswers;
-      });
+      setTotalScore((prevScore) => (prevScore + 10)*2);
+      setCorrectAnswers((prev) => prev + 1);
+  
+      if (correctAnswers + 1 >= totalQuestions) {
+        handleGameOver(); 
+      } else {
+        fetchQuestion(); 
+      }
     } else {
-      handleWrongAnswer();
+      handleWrongAnswer(); 
       alert('Wrong answer!');
     }
   };
+  
 
-  const calculateAndSaveScore = async () => {
-    const score = (timeRemaining * 10) ;
-    console.log('Calculated score:', score);
-    try {
-      await saveScoreToFirebase(score, difficulty);
-    } catch (error) {
-      console.error('Error saving score:', error);
-    }
-  };
-
-  const saveScoreToFirebase = async (score, difficulty) => {
+  const saveTotalScoreToFirebase = async (finalScore) => {
     const auth = getAuth();
     const user = auth.currentUser;
 
@@ -113,10 +110,10 @@ function GameContainer() {
     console.log('User authenticated, UID:', uid);
 
     try {
-      await axios.post('http://localhost:3000/api/saveScore', { uid, score, difficulty });
-      console.log('Score saved successfully');
+      await axios.post('http://localhost:3000/api/saveScore', { uid, score: finalScore, difficulty });
+      console.log('Total score saved successfully');
     } catch (error) {
-      console.error('Error saving score:', error.message);
+      console.error('Error saving total score:', error.message);
     }
   };
 

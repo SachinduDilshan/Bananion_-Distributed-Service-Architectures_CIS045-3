@@ -1,9 +1,8 @@
-import UserModel from '../Model/UserModel.js';
-import admin from 'firebase-admin';
+//import admin from 'firebase-admin';
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
 
-const UserController = {
-
-  async register(req, res) {
+  /*async register(req, res) {
     try {
       const { name, email, age, password } = req.body;
       const userData = await UserModel.registerUser({ name, email, age, password });
@@ -56,35 +55,39 @@ const UserController = {
       console.error("Error retrieving user data:", error.message);
       res.status(500).json({ error: 'Failed to retrieve user data' });
     }
-  },
-
-  async saveScore(req, res) {
-    console.log('Request received at saveScore endpoint:', req.body); // Log the request body
-    const { uid, score, difficulty } = req.body;
-
-    if (!uid || score === undefined || !difficulty) {
-        console.log('Invalid data provided'); // Check if invalid data was received
-        return res.status(400).json({ error: 'Invalid data provided' });
-    }
-
-    try {
-        // Define the reference path under 'users' -> 'uid' -> 'scores'
-        const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
-
-        // Use set() to add the score data
-        await scoreRef.set({
-            score: score,
-            difficulty: difficulty,
-            timestamp: admin.database.ServerValue.TIMESTAMP // Optional: record the time of the entry
-        });
-
-        console.log('Score saved in database'); // Confirm score saved
-        res.status(200).json({ message: 'Score saved successfully' });
-    } catch (error) {
-        console.error("Error saving score:", error.message); // Log error if saving fails
-        res.status(500).json({ error: 'Failed to save score' });
-    }
-}
+  },*/
+  
+  // Controller for handling game-related logic
+  
+  // Fetches a question from the API - event-based fetching
+export const fetchQuestion = async () => {
+  try {
+    const response = await fetch('https://marcconrad.com/uob/banana/api.php?out=json');
+    const data = await response.json();
+    return { question: data.question, solution: data.solution };
+  } catch (error) {
+    console.error('Error fetching question:', error);
+    return { question: null, solution: null };
+  }
 };
 
-export default UserController;
+// Saves total score to Firebase - interoperable with REST API
+export const saveTotalScore = async (totalScore, difficulty) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (!user) return;
+
+  const uid = user.uid;
+  try {
+    await axios.post('http://localhost:3000/api/saveScore', { uid, score: totalScore, difficulty });
+    console.log('Score saved successfully');
+  } catch (error) {
+    console.error('Error saving score:', error.message);
+  }
+};
+
+// Utility functions to retrieve time limits and max wrong answers based on difficulty
+export const getTimeLimit = (difficulty) => ({ Beginner: 61, Intermediate: 46, Expert: 31 }[difficulty] || 60);
+export const getMaxWrongAnswers = () => 2;
+  

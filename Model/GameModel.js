@@ -1,4 +1,4 @@
-export async function fetchGameInterface() {
+/*export async function fetchGameInterface() {
   const apiURL = 'https://marcconrad.com/uob/banana/api.php';
 
   try {
@@ -19,4 +19,28 @@ export async function fetchGameInterface() {
     console.warn('Using mock data as a fallback');
     return mockData;
   }
-}
+}*/
+
+// GameModel.js
+
+// Initializes game state based on difficulty
+// GameModel.js
+
+// Function to retrieve time limit based on difficulty level
+const getTimeLimit = (difficulty) => {
+  return { Beginner: 61, Intermediate: 46, Expert: 11 }[difficulty] || 60;
+};
+
+// Initializes game state based on difficulty
+export const initialGameState = (difficulty) => ({
+  timeRemaining: getTimeLimit(difficulty),
+  wrongAnswers: 0,
+  correctAnswers: 0,
+  cumulativeScore: 0,
+  totalQuestions: 5,
+  userAnswer: '',
+});
+
+// Define max wrong answers for reuse
+export const getMaxWrongAnswers = () => 2;
+

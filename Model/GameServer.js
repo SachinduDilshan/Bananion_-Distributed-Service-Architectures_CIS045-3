@@ -1,4 +1,4 @@
-export default class GameServer {
+/*export default class GameServer {
     constructor() {
       this.apiURL = 'https://marcconrad.com/uob/banana/api.php?out=csv&base64=yes';
     }
@@ -37,4 +37,4 @@ export default class GameServer {
       });
     }
   }
-  
+  */

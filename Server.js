@@ -44,7 +44,7 @@ app.post('/api/saveScore', async (req, res) => {
     await scoreRef.set({ score, difficulty });
     res.status(200).json({ message: 'Score saved successfully' });
   } catch (error) {
-    console.error("Error saving score:", error);  // Log entire error object
+    console.error("Error saving score:", error);
     res.status(500).json({ error: 'Failed to save score', details: error.message });
   }
 });

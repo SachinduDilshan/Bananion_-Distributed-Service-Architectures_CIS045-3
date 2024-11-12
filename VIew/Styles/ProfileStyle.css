@@ -10,8 +10,12 @@
   color: #242c63;
 }
 
+.topic{
+  margin-top: 85px;
+}
+
 .profile-container {
-  margin-top: 150px;
+  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
