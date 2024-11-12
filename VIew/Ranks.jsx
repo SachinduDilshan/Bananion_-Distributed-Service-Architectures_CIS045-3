@@ -39,7 +39,7 @@ const Ranks = () => {
 
   return (
     <div className="top-ranks-page">
-      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
+      <button onClick={() => navigate('/home')} className="back-btn">&larr; Back</button>
       <div className="level-select">
         <select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)}>
           <option value="beginner">Beginner Level</option>
@@ -62,7 +62,7 @@ const Ranks = () => {
               scores.map((entry, index) => (
                 <tr key={entry.userId}>
                   <td>{index + 1}</td>
-                  <td>{entry.userId}</td> 
+                  <td>{entry.name}</td> {/* Replace with user's display name if available */}
                   <td>{entry.score}</td>
                 </tr>
               ))

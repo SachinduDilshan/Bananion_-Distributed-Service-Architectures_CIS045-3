@@ -27,9 +27,9 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 47, 255, 0.301), rgba(0, 247, 255, 0.2));
+  background: linear-gradient(135deg, rgba(13, 1, 185, 0.349), rgba(2, 150, 218, 0.315), rgba(164, 2, 214, 0.253));
   background-size: 300% 300%;
-  animation: gradientMove 4s ease-in-out infinite;
+  animation: gradientMove 2.2s ease-in-out infinite;
   z-index: -1;
 }
 
