@@ -79,6 +79,7 @@ function GameContainer() {
         if (updatedCorrectAnswers >= totalQuestions) {
           calculateAndSaveScore();
         } else {
+          calculateAndSaveScore();
           fetchQuestion();
         }
         return updatedCorrectAnswers;
@@ -90,12 +91,10 @@ function GameContainer() {
   };
 
   const calculateAndSaveScore = async () => {
-    const score = timeRemaining * 10;
-    console.log('Calculated score:', score); // Log score calculation
+    const score = (timeRemaining * 10) ;
+    console.log('Calculated score:', score);
     try {
       await saveScoreToFirebase(score, difficulty);
-      alert('Congratulations! Your score has been saved.');
-      navigate('/profile');
     } catch (error) {
       console.error('Error saving score:', error);
     }
@@ -114,7 +113,7 @@ function GameContainer() {
     console.log('User authenticated, UID:', uid);
 
     try {
-      await axios.post('http://localhost:5000/api/saveScore', { uid, score, difficulty });
+      await axios.post('http://localhost:3000/api/saveScore', { uid, score, difficulty });
       console.log('Score saved successfully');
     } catch (error) {
       console.error('Error saving score:', error.message);

@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import authenticateUser from './Middleware/authMiddleware.js';
 import getUserData from './Model/getUserData.js'; 
-import fetch from 'node-fetch'; 
 
 const app = express();
 const PORT = 3000;
@@ -12,7 +11,6 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-
 
 app.get('/user/home', authenticateUser, async (req, res) => {
   try {
@@ -25,18 +23,25 @@ app.get('/user/home', authenticateUser, async (req, res) => {
   }
 });
 
-/*
-app.get('/banana-api', async (req, res) => {
-  try {
-    const response = await fetch('http://marcconrad.com/uob/banana/api.php');
-    const data = await response.json(); 
-    res.set('Access-Control-Allow-Origin', '*'); 
-    res.json(data);
-  } catch (error) {
-    console.error('Error fetching Banana API:', error);
-    res.status(500).send('Server Error');
+app.post('/api/saveScore', async (req, res) => {
+  const { uid, score, difficulty } = req.body;
+
+  if (!uid || score === undefined || !difficulty) {
+    console.log('Invalid data provided');
+    return res.status(400).json({ error: 'Invalid data provided' });
   }
-});*/
+
+  try {
+    const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
+    await scoreRef.set({ score, difficulty });
+    res.status(200).json({ message: 'Score saved successfully' });
+  } catch (error) {
+    console.error("Error saving score:", error);  // Log entire error object
+    res.status(500).json({ error: 'Failed to save score', details: error.message });
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

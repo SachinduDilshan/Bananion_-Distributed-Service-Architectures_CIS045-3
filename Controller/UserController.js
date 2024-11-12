@@ -58,7 +58,6 @@ const UserController = {
     }
   },
 
-
   async saveScore(req, res) {
     console.log('Request received at saveScore endpoint:', req.body); // Log the request body
     const { uid, score, difficulty } = req.body;
@@ -69,12 +68,16 @@ const UserController = {
     }
 
     try {
+        // Define the reference path under 'users' -> 'uid' -> 'scores'
         const scoreRef = admin.database().ref(`users/${uid}/scores`).push();
+
+        // Use set() to add the score data
         await scoreRef.set({
             score: score,
             difficulty: difficulty,
-            timestamp: Date.now(),
+            timestamp: admin.database.ServerValue.TIMESTAMP // Optional: record the time of the entry
         });
+
         console.log('Score saved in database'); // Confirm score saved
         res.status(200).json({ message: 'Score saved successfully' });
     } catch (error) {
