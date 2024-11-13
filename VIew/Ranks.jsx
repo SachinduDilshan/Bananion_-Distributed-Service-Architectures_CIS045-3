@@ -58,7 +58,7 @@ const Ranks = () => {
         </select>
       </div>
       <div className="leaderboard">
-        <h3>{selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)} Level Top Scores</h3>
+        <h3>Top Masterminds in {selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)} Level </h3>
         <table>
           <thead>
             <tr>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase';
 import './Styles/home.css';
-import picture from './Styles/picture-image.png'
+import MathTrivia from './MathTrivia.jsx';
+import picture from './Styles/picture-image.png';
 import Footer from '../Components/Footer';
 
 const Home = () => {
@@ -20,20 +21,19 @@ const Home = () => {
           },
           credentials: "include",
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
         } else {
           console.error("Failed to fetch user data");
-          navigate('/'); 
+          navigate('/');
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
         navigate('/');
       }
     };
-    
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -50,31 +50,31 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      navigate('/'); 
+      navigate('/');
     } catch (error) {
       console.error("Logout Error:", error);
     }
   };
 
-
-
   return (
-    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-      {userData ? (
-            <>
-            <div className='welcome-text'>
-            <h1>Welcome {userData.name}!</h1>
-            </div>
-            </>
-          ) : (
-            <p></p>
-          )}
-      <div className="home-content">
-        <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button><br></br><br></br>
-        <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button><br></br><br></br>
-        <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button><br></br><br></br>
-        <button className="custom-btn-red" onClick={handleLogout}>Exit</button>
-        
+    <div className="home-container d-flex min-vh-100">
+      <div className="left-section">
+        <MathTrivia />
+      </div>
+
+      <div className="center-section d-flex flex-column align-items-center">
+        {userData ? (
+          <div className="welcome-text">
+            <h1>Welcome, {userData.name}!</h1>
+          </div>
+        ) : null}
+
+        <div className="home-content">
+          <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button><br /><br />
+          <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button><br /><br />
+          <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button><br /><br />
+          <button className="custom-btn-red" onClick={handleLogout}>Exit</button>
+        </div>
 
         <div className="profile-section">
           {userData ? (
@@ -83,17 +83,13 @@ const Home = () => {
               <p>{userData.name}</p>
               <p>{userData.age} Years Old</p>
             </>
-          ) : (
-            <p></p>
-          )}
+          ) : null}
         </div>
-        
-      </div>  
-       
-      <Footer />
+        <Footer />
+      </div>
+
+      
     </div>
-   
-    
   );
 };
 
