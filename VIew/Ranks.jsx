@@ -5,29 +5,39 @@ import './Styles/RankStyle.css';
 
 const Ranks = () => {
   const [scores, setScores] = useState([]);
-  const [selectedLevel, setSelectedLevel] = useState("expert");
+  const [selectedLevel, setSelectedLevel] = useState("beginner");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScores = async () => {
       const db = getDatabase();
-      const scoresRef = ref(db, 'users/scores');
+      const usersRef = ref(db, 'users');
       
       try {
-        const snapshot = await get(scoresRef);
+        const snapshot = await get(usersRef);
         if (snapshot.exists()) {
           const data = snapshot.val();
-          // Process data to retrieve and sort top scores by selected level
-          const processedScores = Object.entries(data)
-            .map(([userId, scoreData]) => ({
-              userId,
-              score: scoreData[selectedLevel] || 0, // Default to 0 if no score for level
-            }))
-            .filter(entry => entry.score > 0) // Filter out users with no score for the level
-            .sort((a, b) => a.score - b.score) // Sort by score, lowest is best for time-based score
-            .slice(0, 10); // Top 10 scores
+
+          const processedScores = Object.entries(data).flatMap(([userId, userData]) => {
+            // Get the scores for the selected level
+            const levelScores = Object.values(userData.scores || {}).filter(score => score.difficulty.toLowerCase() === selectedLevel);
             
+            if (levelScores.length === 0) return [];
+
+            // Find the highest score for the user in the selected level
+            const highestScore = Math.max(...levelScores.map(score => score.score));
+            return [{
+              userId,
+              name: userData.name, 
+              score: highestScore
+            }];
+          })
+          .sort((a, b) => b.score - a.score) // Sort by score in descending order
+          .slice(0, 10); // Limit to top 10 scores
+
           setScores(processedScores);
+        } else {
+          setScores([]); // Clear scores if no data found
         }
       } catch (error) {
         console.error('Error fetching scores:', error);
@@ -35,11 +45,11 @@ const Ranks = () => {
     };
 
     fetchScores();
-  }, [selectedLevel]);
+  }, [selectedLevel]); // Re-run fetchScores whenever selectedLevel changes
 
   return (
     <div className="top-ranks-page">
-      <button onClick={() => navigate('/home')} className="back-btn">&larr; Back</button>
+      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
       <div className="level-select">
         <select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)}>
           <option value="beginner">Beginner Level</option>
@@ -62,7 +72,7 @@ const Ranks = () => {
               scores.map((entry, index) => (
                 <tr key={entry.userId}>
                   <td>{index + 1}</td>
-                  <td>{entry.name}</td> {/* Replace with user's display name if available */}
+                  <td>{entry.name}</td>
                   <td>{entry.score}</td>
                 </tr>
               ))
