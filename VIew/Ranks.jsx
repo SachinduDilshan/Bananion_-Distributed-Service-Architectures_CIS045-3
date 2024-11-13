@@ -78,7 +78,7 @@ const Ranks = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3">No scores available</td>
+                <td colSpan="3">Wait a little...</td>
               </tr>
             )}
           </tbody>
