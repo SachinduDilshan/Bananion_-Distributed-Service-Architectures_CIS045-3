@@ -13,9 +13,40 @@
 }
 
 .level-select {
-    margin: 20px 0;
-    margin-top: 80px;
+    display: flex;
+    margin-top: 75px;
+    justify-content: center;
 }
+
+.level-select select {
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    background-color: #f7f7f7;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.level-select select:hover {
+    background-color: #eaeaea;
+    border-color: #bbb;
+}
+
+.level-select select:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.level-select select option {
+    color: #333;
+    padding: 10px;
+}
+
 
 .leaderboard {
     margin-top: 20px;
