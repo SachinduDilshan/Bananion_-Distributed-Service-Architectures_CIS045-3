@@ -1,10 +1,9 @@
 /* Styles/MathTrivia.css */
 .math-trivia {
-    width: 250px;
-    
+    width: 300px; 
     padding: 20px;
     margin-left: 20px;
-    margin-top: 210px;
+    margin-top: 200px;
     background-color: #242c63;
     border-radius: 58px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
