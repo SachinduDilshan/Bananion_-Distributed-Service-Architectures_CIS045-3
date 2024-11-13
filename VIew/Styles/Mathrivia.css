@@ -1,29 +1,28 @@
 /* Styles/MathTrivia.css */
 .math-trivia {
     width: 300px; 
-    padding: 20px;
+    padding: 10px;
     margin-left: 20px;
     margin-top: 200px;
-    background-color: #242c63;
+    background-color: #030e55c9;
     border-radius: 58px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
-  }
-  
-  .math-trivia h3 {
-    font-size: 2.0rem;
-    font-family: "DynaPuff", system-ui;
-    color: #ffe70c;
-    font-style: italic;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+}
   
   .math-trivia p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-style: italic;
+    font-weight: lighter;
     font-family: "DynaPuff", system-ui;
     color: #ffffff;
     text-align: center;
+  }
+
+  .fun-pic{
+    margin-right: 50%;
+    margin-left: 22%;
+    width: 160px;
+    height: auto;
   }
   
