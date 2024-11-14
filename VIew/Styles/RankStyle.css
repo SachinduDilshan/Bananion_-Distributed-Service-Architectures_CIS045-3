@@ -2,7 +2,7 @@
     padding: 20px;
     text-align: center;
     font-family: "DynaPuff", system-ui;
-    color: #242c63;
+    color:#00117e;
 }
 
 .back-btn {
@@ -61,11 +61,12 @@ table {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+    
 }
 
 th,
 td {
-    padding: 12px;
+    padding: 5px;
     font-size: 16px;
     border: 1px solid #dcdcdc; /* Light border for separation */
     font-weight: 400;
@@ -81,7 +82,7 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2; /* Light gray for alternating rows */
+    background-color: #e9e8e8; /* Light gray for alternating rows */
 }
 
 tr:nth-child(odd) {
@@ -89,14 +90,14 @@ tr:nth-child(odd) {
 }
 
 tr:hover {
-    background-color: #e0e7ff; /* Light blue on hover */
+    background-color: #c9d4fa; /* Light blue on hover */
 }
 
 td {
-    color: #333333;
-    font-size: larger;
+    color: #0604a3;
+    font-size: large;
     font-weight: 300;
-    padding: 15px;
+    padding: 8px;
 }
 
 caption {

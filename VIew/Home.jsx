@@ -65,7 +65,7 @@ const Home = () => {
       <div className="center-section d-flex flex-column align-items-center">
         {userData ? (
           <div className="welcome-text">
-            <h1>Welcome, {userData.name}!</h1>
+            <h1>Welcome {userData.name}! </h1>
           </div>
         ) : null}
 
