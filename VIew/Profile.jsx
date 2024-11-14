@@ -92,7 +92,7 @@ const Profile = ({ userId }) => {
               <h2>{userData.name || 'Name not available'}</h2>
               <p>Age: {userData.age ? `${userData.age} Years` : 'Age not available'}</p>
               <p>Email: {userData.email || 'Email not available'}</p>
-              <button onClick={() => setEditMode(true)} className="edit-btn">Edit</button>
+              <button onClick={() => setEditMode(true)} className="edit-button">Edit</button>
             </>
           )}
         </div>
@@ -112,8 +112,11 @@ const Profile = ({ userId }) => {
               <span>Expert</span>
               <span>{highestScores.expert !== 0 ? highestScores.expert : 'N/A'}</span>
             </div>
+            
           </div>
+          
         </div>
+        <button onClick={() => navigate('/play')} className="Profile-game">Back to Play</button>
       </div>
       
       <Footer />

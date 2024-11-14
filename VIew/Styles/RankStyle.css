@@ -20,11 +20,11 @@
 
 .level-select select {
     padding: 10px 15px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    color: #333;
-    background-color: #f7f7f7;
-    border: 2px solid #ddd;
+    color: #0118ac;
+    background-color: #ffffff;
+    border: 2px solid #0118ac;
     border-radius: 8px;
     outline: none;
     cursor: pointer;
@@ -33,17 +33,17 @@
 }
 
 .level-select select:hover {
-    background-color: #eaeaea;
-    border-color: #bbb;
+    background-color: #ffffff;
 }
 
 .level-select select:focus {
-    border-color: #007bff;
+    border-color: #0118ac;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
 }
 
 .level-select select option {
-    color: #333;
+    color: #0118ac;
+    background-color: #ffffff;
     padding: 10px;
 }
 
@@ -52,20 +52,58 @@
     margin-top: 20px;
 }
 
+/* Rank Table Styles */
+
 table {
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px auto;
     border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th,
 td {
-    padding: 8px;
-    font-size: larger;
-    border-radius: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc; /* Light border for separation */
+    font-weight: 400;
+    text-align: left;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #0118ac; /* Header background */
+    color: #f7f7f7; /* Header text color */
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for alternating rows */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* White for alternating rows */
+}
+
+tr:hover {
+    background-color: #e0e7ff; /* Light blue on hover */
+}
+
+td {
+    color: #333333;
+    font-size: larger;
+    font-weight: 300;
+    padding: 15px;
+}
+
+caption {
+    caption-side: top;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0118ac;
+    padding-bottom: 10px;
+    text-align: center;
 }

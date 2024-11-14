@@ -7,7 +7,7 @@
   justify-content: center;
   padding: 20px;
   font-family: "DynaPuff", system-ui;
-  color: #242c63;
+  color: #0017ad;
 }
 
 .topic {
@@ -68,12 +68,12 @@
 .profile-info h2 {
   font-size: 1.8rem;
   margin: 10px 0;
-  color: #242c63;
+  color: #001180;
 }
 
 .profile-info p {
   font-size: 1.1rem;
-  color: #242c63;
+  color: #0017ad;
   margin: 5px 0;
 }
 
@@ -103,9 +103,6 @@
   margin: 0 15px;
 }
 
-.save-btn {
-  color: rgb(0, 173, 0);
-}
 
 .edit-input{
   border-radius: 5px;
@@ -115,9 +112,9 @@
 }
 
 .score-section {
-  margin-top: 35px;
+  margin-top: 18px;
   color: #f0f0f0;
-  background-color: #242c63;
+  background-color: #0118ac;
   padding: 20px;
   border-radius: 10px;
 }
@@ -143,6 +140,23 @@
   border-radius: 8px;
   font-size: 1rem;
   color: #242c63;
+}
+
+.Profile-game{
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 500;
+  background-color:#0017ad;
+  width: 92px;
+  color: #ffffff;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 90px;
+  box-shadow: 0 0 10px rgb(0, 191, 255), 0 0 20px rgb(0, 191, 255), 0 0 30px rgba(0, 191, 255, 0.7);
+}
+.Profile-game:hover{
+  background-color:#0048a7;
+  box-shadow: 0 0 10px rgb(0, 191, 255), 0 0 20px rgb(0, 191, 255), 0 0 30px rgba(0, 191, 255, 0.7);
 }
 
 .footer {
@@ -172,3 +186,16 @@
   background-color: rgb(40, 40, 130);
   transform: scale(1.05);
 }
+
+/* ProfileStyle.css */
+
+.edit-button:hover {
+  background-color:  #0118ac; 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.edit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(1, 18, 173, 0.5);
+}
+

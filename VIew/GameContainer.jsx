@@ -81,8 +81,6 @@ function GameContainer() {
     );
   };
 
-
-
   return (
     <div className="gameplay-container">
       <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
