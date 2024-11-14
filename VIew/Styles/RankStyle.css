@@ -108,3 +108,18 @@ caption {
     padding-bottom: 10px;
     text-align: center;
 }
+
+
+.top-player-badge {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #ffd700; /* Gold color for the top player */
+  }
+  
+  .top-player-badge img {
+    width: 4px;
+    height: 4px;
+    margin-right: 8px;
+  }
+  

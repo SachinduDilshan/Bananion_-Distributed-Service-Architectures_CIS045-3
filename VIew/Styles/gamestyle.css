@@ -25,6 +25,21 @@
 
 }
 
+.extra-time {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: green;
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+  }
+  
+  .highlight {
+    color: orange;
+    font-size: 1.1em;
+  }
+  
+
 .status-container {
     display: flex;
     justify-content: space-between;

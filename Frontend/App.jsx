@@ -9,6 +9,7 @@ import GameContainer from '../VIew/GameContainer.jsx';
 import Profile from "../VIew/Profile.jsx";
 import Ranks from "../VIew/Ranks.jsx";
 
+
 function App() {
   const [userId, setUserId] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
@@ -28,9 +29,12 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
+
+
   return (
     <Router>
       <Routes>
+        
         {/* Default route for login page */}
         <Route path="/" element={<Login />} />
 
@@ -40,7 +44,8 @@ function App() {
         <Route path="/ranks" element={<Ranks />} />
 
         {/* Home page, only accessible to logged-in users */}
-        <Route path="/home" element={userId ? <Home /> : <Navigate to="/" replace />} />
+        <Route path="/home" element={userId ? <Home /> : <Navigate to="/" replace />} 
+        />
 
         {/* Difficulty selection page, only accessible to logged-in users */}
         <Route

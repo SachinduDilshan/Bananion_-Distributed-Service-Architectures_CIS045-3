@@ -1,91 +1,137 @@
-import React, { useEffect, useState } from 'react';
-import { getDatabase, ref, get } from 'firebase/database';
-import { useNavigate } from 'react-router-dom';
-import './Styles/RankStyle.css';
+// View/GameContainer.jsx
 
-const Ranks = () => {
-  const [scores, setScores] = useState([]);
-  const [selectedLevel, setSelectedLevel] = useState("beginner");
+import React, { useEffect, useState, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchQuestion } from '../Model/GameModel';
+import * as GameController from '../Controller/GameController';
+import '../View/Styles/gamestyle.css';
+
+function GameContainer() {  
+  const totalQuestions = 35;
+  const location = useLocation();
   const navigate = useNavigate();
+  const { difficulty } = location.state || {};
+  const gameSettings = GameController.initializeGame(difficulty);
+
+  const [timeRemaining, setTimeRemaining] = useState(gameSettings.timeLimit);
+  const [highlightTime, setHighlightTime] = useState(false);  // New state for time highlight effect
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [question, setQuestion] = useState('');
+  const [solution, setSolution] = useState(null);
+  const [userAnswer, setUserAnswer] = useState('');
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
+
+  const goToProfile = useCallback(() => {
+    navigate('/profile');
+  }, [navigate]);
+
+  const handleGameOver = useCallback(() => {
+    GameController.saveTotalScore(totalScore, difficulty);
+    alert(`Game Over! Your final score: ${totalScore}`);
+    goToProfile();
+  }, [totalScore, goToProfile, difficulty]);
 
   useEffect(() => {
-    const fetchScores = async () => {
-      const db = getDatabase();
-      const usersRef = ref(db, 'users');
-      
-      try {
-        const snapshot = await get(usersRef);
-        if (snapshot.exists()) {
-          const data = snapshot.val();
+    if (!difficulty) {
+      navigate('/difficulty');
+    }
 
-          const processedScores = Object.entries(data).flatMap(([userId, userData]) => {
-            // Get the scores for the selected level
-            const levelScores = Object.values(userData.scores || {}).filter(score => score.difficulty.toLowerCase() === selectedLevel);
-            
-            if (levelScores.length === 0) return [];
-
-            // Find the highest score for the user in the selected level
-            const highestScore = Math.max(...levelScores.map(score => score.score));
-            return [{
-              userId,
-              name: userData.name, 
-              score: highestScore
-            }];
-          })
-          .sort((a, b) => b.score - a.score) // Sort by score in descending order
-          .slice(0, 10); // Limit to top 10 scores
-
-          setScores(processedScores);
-        } else {
-          setScores([]); // Clear scores if no data found
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleGameOver();
+          return 0;
         }
-      } catch (error) {
-        console.error('Error fetching scores:', error);
-      }
-    };
+        return prev - 1;
+      });
+    }, 1000);
 
-    fetchScores();
-  }, [selectedLevel]); // Re-run fetchScores whenever selectedLevel changes
+    return () => clearInterval(timer);
+  }, [difficulty, handleGameOver, navigate]);
+
+  const fetchNewQuestion = async () => {
+    const data = await fetchQuestion();
+    if (data) {
+      setQuestion(data.question);
+      setSolution(data.solution);
+      setUserAnswer('');
+    }
+  };
+
+  useEffect(() => {
+    fetchNewQuestion();
+  }, []);
+
+  const handleSubmitAnswer = () => {
+    if (userAnswer === solution.toString()) {  // Check if answer is correct
+      setCorrectAnswers(correctAnswers + 1);
+
+      // Determine extra time based on difficulty level
+      let extraTime = 0;
+      if (difficulty === 'Beginner') extraTime = 4;
+      else if (difficulty === 'Intermediate') extraTime = 3;
+      else if (difficulty === 'Expert') extraTime = 2;
+
+      // Add extra time and apply highlight effect
+      setTimeRemaining((prevTime) => prevTime + extraTime);
+      setHighlightTime(true);
+      setTimeout(() => setHighlightTime(false), 500);  // Remove highlight after 500ms
+
+      // Fetch new question and update score
+      setTotalScore((prevScore) => prevScore + (extraTime * 10));  // Example scoring mechanism
+      fetchNewQuestion();
+    } else {
+      setWrongAnswers(wrongAnswers + 1);
+      if (wrongAnswers + 1 >= gameSettings.maxWrongAnswers) {
+        handleGameOver();
+      }
+    }
+  };
 
   return (
-    <div className="top-ranks-page">
-      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
-      <div className="level-select">
-        <select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)}>
-          <option value="beginner">Beginner Level</option>
-          <option value="intermediate">Intermediate Level</option>
-          <option value="expert">Expert Level</option>
-        </select>
-      </div>
-      <div className="leaderboard">
-        <h3>Top Masterminds in {selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)} Level </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scores.length > 0 ? (
-              scores.map((entry, index) => (
-                <tr key={entry.userId}>
-                  <td>{index + 1}</td>
-                  <td>{entry.name}</td>
-                  <td>{entry.score}</td>
-                </tr>
-              ))
+    <div className="gameplay-container">
+      <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
+      <div className="game-card">
+        <h6 className="game-title">{difficulty} Level</h6>
+
+        <div className="status-container">
+          <div className={`status time-remaining ${highlightTime ? 'highlight' : ''}`}>
+            <span>Time Remaining</span>
+            <span className="time">{timeRemaining}s</span>
+          </div>
+          <div className="status wrong-answers">
+            <span>Wrong Answers!</span>
+            <span className="answers">{wrongAnswers} / {gameSettings.maxWrongAnswers}</span>
+          </div>
+        </div>
+
+        <div className="question-section">
+          <p className="question-prompt">Find the hidden number...</p>
+          <div className="question-answer-container">
+            {question ? (
+              <img src={question} alt="Game question" className="question-image" />
             ) : (
-              <tr>
-                <td colSpan="3">Wait a little...</td>
-              </tr>
+              <p>Loading question...</p>
             )}
-          </tbody>
-        </table>
+            <div className="answer-input-container">
+              <input
+                type="number"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Enter your answer..."
+                className="answer-input"
+              />
+              <button onClick={handleSubmitAnswer} className="submit-button">
+                Submit Answer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default Ranks;
+export default GameContainer;

@@ -76,6 +76,14 @@ body::after {
   box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8); 
 }
 
+.medal-icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 5px;
+  vertical-align: middle;
+}
+
+
 .custom-btn:active {
   transform: scale(0.98);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);

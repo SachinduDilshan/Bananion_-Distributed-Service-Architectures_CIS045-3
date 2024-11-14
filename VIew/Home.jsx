@@ -8,6 +8,7 @@ import Footer from '../Components/Footer';
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
+  const [topRankLevel, setTopRankLevel] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Home = () => {
         navigate('/');
       }
     };
+
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -65,7 +67,7 @@ const Home = () => {
       <div className="center-section d-flex flex-column align-items-center">
         {userData ? (
           <div className="welcome-text">
-            <h1>Welcome {userData.name}! </h1>
+            <h1>Welcome {userData.name}!</h1>
           </div>
         ) : null}
 
@@ -82,13 +84,18 @@ const Home = () => {
               <img src={picture} alt="User Profile" className="profile-pic" />
               <p>{userData.name}</p>
               <p>{userData.age} Years Old</p>
+              {topRankLevel && (
+                <div className="medal-section">
+                  <img src="path/to/medal-icon.png" alt="Top Rank Medal" className="medal-icon" />
+                  <p className="top-rank-text">Top in {topRankLevel.charAt(0).toUpperCase() + topRankLevel.slice(1)}</p>
+                </div>
+              )}
             </>
           ) : null}
         </div>
+        
         <Footer />
       </div>
-
-      
     </div>
   );
 };
