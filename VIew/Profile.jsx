@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchUserData, fetchHighestScores, updateUserData } from '../Model/ProfileModel';
+import './Styles/ProfileStyle.css';
 import picture from './Styles/picture-image.png';
 import Footer from '../Components/Footer';
-import { fetchUserData, saveUserData } from '../Controller/ProfileController';
-import './Styles/ProfileStyle.css';
 
 const Profile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
+  const [highestScores, setHighestScores] = useState({
+    beginner: 'N/A',
+    intermediate: 'N/A',
+    expert: 'N/A'
+  });
   const [editMode, setEditMode] = useState(false);
   const [newName, setNewName] = useState('');
   const [newAge, setNewAge] = useState('');
@@ -14,26 +19,41 @@ const Profile = ({ userId }) => {
 
   useEffect(() => {
     if (userId) {
-      const fetchData = async () => {
-        const data = await fetchUserData(userId);
-        if (data) {
-          setUserData(data);
-          setNewName(data.name || '');
-          setNewAge(data.age || '');
-        }
-      };
-      fetchData();
+      loadProfileData();
     }
   }, [userId]);
 
-  const handleSave = async () => {
-    const success = await saveUserData(userId, newName, newAge);
-    if (success) {
-      setUserData({ ...userData, name: newName, age: newAge });
-      setEditMode(false);
+  const loadProfileData = async () => {
+    try {
+      const profileData = await fetchUserData(userId);
+      if (profileData) {
+        setUserData(profileData);
+        setNewName(profileData.name || '');
+        setNewAge(profileData.age || '');
+      }
+      
+      const scoresData = await fetchHighestScores(userId);
+      setHighestScores({
+        beginner: scoresData.beginner || 'N/A',
+        intermediate: scoresData.intermediate || 'N/A',
+        expert: scoresData.expert || 'N/A'
+      });
+    } catch (error) {
+      console.error("Error loading profile data:", error);
     }
   };
 
+  const handleSave = async () => {
+    try {
+      const updatedData = await updateUserData(userId, newName, newAge);
+      setUserData({ ...userData, ...updatedData });
+      setEditMode(false);
+    } catch (error) {
+      console.error("Error saving user data:", error);
+    }
+  };
+
+  // Render loading message if userData is still null
   if (!userData) {
     return <p>Loading profile...</p>;
   }
@@ -64,8 +84,8 @@ const Profile = ({ userId }) => {
                 placeholder="Enter new age"
                 className="edit-input"
               />
-              <button onClick={handleSave} className="save-btn">Save</button>
-              <button onClick={() => setEditMode(false)} className="cancel-btn">Cancel</button>
+              <button onClick={handleSave} className="icon-button save-btn">✔️</button>
+              <button onClick={() => setEditMode(false)} className="icon-button cancel-btn">❌</button>
             </>
           ) : (
             <>
@@ -82,15 +102,15 @@ const Profile = ({ userId }) => {
           <div className="score-list">
             <div className="score-item">
               <span>Beginner</span>
-              <span>{userData.scores?.beginner || 'N/A'}</span>
+              <span>{highestScores.beginner !== 0 ? highestScores.beginner : 'N/A'}</span>
             </div>
             <div className="score-item">
               <span>Intermediate</span>
-              <span>{userData.scores?.intermediate || 'N/A'}</span>
+              <span>{highestScores.intermediate !== 0 ? highestScores.intermediate : 'N/A'}</span>
             </div>
             <div className="score-item">
               <span>Expert</span>
-              <span>{userData.scores?.expert || 'N/A'}</span>
+              <span>{highestScores.expert !== 0 ? highestScores.expert : 'N/A'}</span>
             </div>
           </div>
         </div>

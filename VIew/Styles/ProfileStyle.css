@@ -10,7 +10,7 @@
   color: #242c63;
 }
 
-.topic{
+.topic {
   margin-top: 85px;
 }
 
@@ -27,7 +27,7 @@
   width: 100%;
 }
 
-.myName{
+.myName {
   font-size: x-small;
   justify-content: center;
   margin-top: auto;
@@ -52,10 +52,12 @@
   text-align: center;
 }
 
-.profile-info, .score-section {
+.profile-info,
+.score-section {
   margin: 0 20px;
   flex: 1;
 }
+
 .profile-image {
   width: 100px;
   height: 100px;
@@ -91,6 +93,25 @@
 .profile-info button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8);
+}
+
+.icon-button {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0 15px;
+}
+
+.save-btn {
+  color: rgb(0, 173, 0);
+}
+
+.edit-input{
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .score-section {
