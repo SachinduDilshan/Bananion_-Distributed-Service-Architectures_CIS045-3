@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth';
 import axios from 'axios';
 
 export const timeLimits = { Beginner: 61, Intermediate: 46, Expert: 31 };
-export const maxWrongAnswers = 2;
+export const maxWrongAnswers = 3;
 export const totalQuestions = 35;
 
 export async function fetchQuestion() {

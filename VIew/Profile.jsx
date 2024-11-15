@@ -63,7 +63,7 @@ const Profile = ({ userId }) => {
       <div className='topic'>
         <h2>My Profile</h2>
       </div>
-      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
+      <button onClick={() => navigate('/home')} className="back-btn">&larr; Back</button>
 
       <div className="profile-container">
         <div className="profile-info">

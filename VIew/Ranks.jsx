@@ -48,7 +48,7 @@ const Ranks = () => {
 
   return (
     <div className="top-ranks-page">
-      <button onClick={() => navigate('/home')} className="back-btn">&larr;</button>
+      <button onClick={() => navigate('/home')} className="back-btn">&larr;Back</button>
       <div className="level-select">
         <select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)}>
           <option value="beginner">Beginner Level</option>

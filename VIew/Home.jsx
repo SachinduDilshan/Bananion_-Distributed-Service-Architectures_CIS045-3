@@ -5,10 +5,10 @@ import './Styles/home.css';
 import MathTrivia from './MathTrivia.jsx';
 import picture from './Styles/picture-image.png';
 import Footer from '../Components/Footer';
+import Notifications from './Notifications.jsx';
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
-  const [topRankLevel, setTopRankLevel] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +36,6 @@ const Home = () => {
       }
     };
 
-
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const token = await getIdToken(user);
@@ -49,15 +48,6 @@ const Home = () => {
     return () => unsubscribe();
   }, [navigate]);
 
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigate('/');
-    } catch (error) {
-      console.error("Logout Error:", error);
-    }
-  };
-
   return (
     <div className="home-container d-flex min-vh-100">
       <div className="left-section">
@@ -65,36 +55,34 @@ const Home = () => {
       </div>
 
       <div className="center-section d-flex flex-column align-items-center">
-        {userData ? (
+        {userData && (
           <div className="welcome-text">
             <h1>Welcome {userData.name}!</h1>
           </div>
-        ) : null}
+        )}
 
         <div className="home-content">
-          <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button><br /><br />
-          <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button><br /><br />
-          <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button><br /><br />
-          <button className="custom-btn-red" onClick={handleLogout}>Exit</button>
+          <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button>
+          <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button>
+          <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button>
+          <button className="exit-btn" onClick={() => auth.signOut()}>Exit</button>
         </div>
 
         <div className="profile-section">
-          {userData ? (
+          {userData && (
             <>
               <img src={picture} alt="User Profile" className="profile-pic" />
               <p>{userData.name}</p>
               <p>{userData.age} Years Old</p>
-              {topRankLevel && (
-                <div className="medal-section">
-                  <img src="path/to/medal-icon.png" alt="Top Rank Medal" className="medal-icon" />
-                  <p className="top-rank-text">Top in {topRankLevel.charAt(0).toUpperCase() + topRankLevel.slice(1)}</p>
-                </div>
-              )}
             </>
-          ) : null}
+          )}
         </div>
-        
+
         <Footer />
+      </div>
+
+      <div className="right-section">
+        {userData && <Notifications userId={userData.id} />}
       </div>
     </div>
   );

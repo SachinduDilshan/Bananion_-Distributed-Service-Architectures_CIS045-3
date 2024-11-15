@@ -1,0 +1,59 @@
+.dif-btn {
+  margin-left: 20px;
+  align-items: center;
+  width: 80%;
+  font-family: "DynaPuff", system-ui;
+  margin-bottom: 50px;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #242c63;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(0, 191, 255), 0 0 20px rgb(0, 191, 255), 0 0 30px rgba(0, 191, 255, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
+}
+
+.dif-btn:hover {
+  transform: scale(1.05);
+  background-color: #0f4aec;
+  box-shadow: 0 0 20px rgb(0, 191, 255), 0 0 30px rgb(0, 191, 255), 0 0 40px rgba(0, 191, 255, 0.8);
+}
+
+/*----GamePlay-----*/
+
+.select-text {
+  font-family: "DynaPuff", system-ui;
+  color: rgb(52, 52, 155);
+  font-size: 2.5rem;
+  margin-top: 18px;
+
+}
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+}
+
+.back-btn {
+  font-family: "DynaPuff", system-ui;
+  background-color: #242c63;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.home-content{
+  margin-right: 260px;
+}

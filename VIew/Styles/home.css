@@ -23,6 +23,7 @@ body::before {
 .home-content {
   font-family: "DynaPuff", system-ui;
   margin-top: 20px;
+  margin-left: 250px;
   padding: 45px;
   border-radius: 15px;
   text-align: center;
@@ -52,13 +53,14 @@ body::after {
   color: #242c63;;
   font-size: 1.5rem;
   margin-top: 105px;
+  margin-left: 20px;
   text-shadow: 0 0 5px rgb(0, 191, 255), 0 0 10px rgb(0, 191, 255), 0 0 15px rgb(0, 191, 255), 0 0 20px rgba(0, 191, 255, 0.7);
 }
 
 
 .custom-btn {
   width: 80%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   padding: 15px;
   font-size: 1.2rem;
   color: white;
@@ -90,9 +92,10 @@ body::after {
 }
 
 
-.custom-btn-red {
-  width: 30%;
+.exit-btn {
+  width: 45%;
   padding: 5px;
+  margin-right: 4px;
   font-size: 1.0;
   color: white;
   background-color: #0a8510; 
@@ -103,12 +106,12 @@ body::after {
   transition: transform 0.2s ease, box-shadow 0.3s ease-in-out;
 }
 
-.custom-btn-red:hover {
+.exit-btn:hover {
   transform: scale(1.05); 
   box-shadow: 0 0 20px rgb(93, 236, 10), 0 0 30px rgb(45, 238, 7), 0 0 40px rgba(162, 255, 56, 0.8); 
 }
 
-.custom-btn-red:active {
+.exit-btn:active {
   transform: scale(0.98); 
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
 }
@@ -144,12 +147,6 @@ body::after {
 }
 
 /*----GamePlay-----*/
-
-.select-text {
-  font-family: "DynaPuff", system-ui;
-  color: rgb(52, 52, 155);
-  font-size: 2.5rem;
-}
 
 .top-bar {
   position: absolute;
@@ -204,6 +201,60 @@ body::after {
 
 .left-section {
   flex: 0.51;
+}
+
+
+/*----------------Notifications-----------------*/
+.right-section {
+  width: 300px;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: auto;
+  padding: 15px;
+}
+
+.notifications-tab {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  height: calc(100vh - 50px); /* Adjust based on footer and header height */
+  overflow-y: auto;
+}
+
+.notifications-tab h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.notification-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.notification-item.unread {
+  background-color: #fdf2c4;
+}
+
+.notification-item.read {
+  background-color: #e6e6e6;
+}
+
+.mark-read-btn {
+  margin-top: 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.mark-read-btn:hover {
+  background-color: #0056b3;
 }
 
 
