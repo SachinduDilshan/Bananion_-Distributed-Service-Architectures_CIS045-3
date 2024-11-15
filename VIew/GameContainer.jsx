@@ -64,22 +64,6 @@ function GameContainer() {
   }, []);
 
   const handleSubmitAnswer = () => {
-    GameController.handleAnswerSubmit(
-      userAnswer,
-      solution,
-      correctAnswers,
-      totalScore,
-      setCorrectAnswers,
-      setTotalScore,
-      fetchNewQuestion,
-      handleGameOver,
-      wrongAnswers,
-      setWrongAnswers,
-      gameSettings.maxWrongAnswers,
-      totalQuestions 
-    );
-
-    // Extra time based on difficulty
     if (userAnswer === solution.toString()) {  // Check if answer is correct
       setCorrectAnswers((prev) => prev + 1);
 
@@ -161,6 +145,5 @@ function GameContainer() {
     </div>
   );
 }
-
 
 export default GameContainer;
