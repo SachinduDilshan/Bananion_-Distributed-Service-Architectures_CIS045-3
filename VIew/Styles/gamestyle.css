@@ -8,11 +8,12 @@
 
 .game-card {
     background-color: #ffffff99;
+    margin-top: 10px;
     padding: 5px;
     font-family: "DynaPuff", system-ui;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
     text-align: center;
 }
@@ -32,13 +33,13 @@
     font-weight: bold;
     opacity: 1;
     transition: opacity 1s ease-out;
-  }
-  
-  .highlight {
+}
+
+.highlight {
     color: orange;
     font-size: 1.1em;
-  }
-  
+}
+
 
 .status-container {
     display: flex;
@@ -71,7 +72,7 @@
     font-size: 2.1rem;
     color: #ffc107;
     margin-top: 5px;
-    
+
 }
 
 
@@ -110,15 +111,15 @@
 
 .answer-input {
     font-family: "DynaPuff", system-ui;
-    width: 160px;
+    width: 260px;
     padding: 5px;
-    font-size: 1.2rem;
     border: 2px solid #16036d;
     text-align: center;
     margin-bottom: 15px;
     border-radius: 10px;
     transition: border-color 0.3s ease;
 }
+
 .answer-input,
 .answer-input::placeholder {
     color: #020c5f;
@@ -126,16 +127,16 @@
 }
 
 .submit-button {
-    padding: 5px 10px;
+    padding: 10px 20px;
     font-family: "DynaPuff", system-ui;
     font-size: 0.8rem;
-    margin-left: 21px;
-    background-color:  #0048bc;
+    background-color: #0048bc;
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-left: 60px;
 }
 
 .submit-button:hover {
@@ -148,13 +149,51 @@
     top: 5%;
     right: 5%;
     text-align: center;
-    color: #242c63;;
-    font-weight:500;
-  }
-  
-  .profile-pic {
+    color: #242c63;
+    ;
+    font-weight: 500;
+}
+
+.profile-pic {
     width: 130px;
     height: auto;
     border-radius: 50%;
     margin-bottom: 10px;
+}
+
+.skip-button {
+    background-color: #f0a500; /* Bright amber for eye-catching design */
+    margin-bottom: 10px;
+    color: #fff; /* White text for contrast */
+    font-size: 12px; /* Comfortable font size */
+    padding: 5px 10px; /* Adequate padding for a clickable button */
+    border: none; /* No border for a clean look */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
   }
+  
+  .skip-button:hover {
+    background-color: #ff9500; /* Slightly darker shade on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
+  .skip-button:disabled {
+    background-color: #b3b3b3; /* Gray for disabled state */
+    color: #666; /* Dimmed text for disabled button */
+    cursor: not-allowed; /* Not-allowed cursor for disabled state */
+    box-shadow: none; /* No shadow for disabled button */
+    transform: none; /* No lift effect */
+  }
+  
+  .skip-word {
+    font-size: 14px; /* Smaller text for description */
+    color: #666; /* Muted color */
+    margin-top: 5px; /* Space above the description */
+    text-align: left;
+    font-style: italic;
+
+  }
+  

@@ -12,14 +12,17 @@ function GameContainer() {
   const gameSettings = GameController.initializeGame(difficulty);
 
   const [timeRemaining, setTimeRemaining] = useState(gameSettings.timeLimit);
-  const [extraTimeAdded, setExtraTimeAdded] = useState(0);  // New state for extra time display
-  const [highlightTime, setHighlightTime] = useState(false);  // State to highlight the extra time added
+  const [extraTimeAdded, setExtraTimeAdded] = useState(0);  // Extra time display
+  const [highlightTime, setHighlightTime] = useState(false);  // Highlight for extra time
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [question, setQuestion] = useState('');
   const [solution, setSolution] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+
+  const [skipCount, setSkipCount] = useState(0); // Track skips
+  const maxSkips = 2; // Max skips per game round
 
   const goToProfile = useCallback(() => {
     navigate('/profile');
@@ -63,29 +66,32 @@ function GameContainer() {
     fetchNewQuestion();
   }, []);
 
+  const handleSkip = () => {
+    if (skipCount < maxSkips) {
+      setSkipCount((prev) => prev + 1);
+      fetchNewQuestion(); // Fetch the next question
+    }
+  };
+
   const handleSubmitAnswer = () => {
-    if (userAnswer === solution.toString()) {  // Check if answer is correct
+    if (userAnswer === solution.toString()) {  // Correct answer
       setCorrectAnswers((prev) => prev + 1);
 
-      // Determine extra time based on difficulty level
       let extraTime = 0;
       if (difficulty === 'Beginner') extraTime = 4;
       else if (difficulty === 'Intermediate') extraTime = 3;
       else if (difficulty === 'Expert') extraTime = 2;
 
-      // Add extra time and display it briefly with highlight
       setTimeRemaining((prevTime) => prevTime + extraTime);
-      setExtraTimeAdded(extraTime);  // Set extra time to display
-      setHighlightTime(true);  // Trigger highlight
+      setExtraTimeAdded(extraTime);
+      setHighlightTime(true);
 
-      // Clear highlight and hide extra time after 1 second
       setTimeout(() => {
         setHighlightTime(false);
         setExtraTimeAdded(0);
       }, 1000);
 
-      // Update total score and fetch a new question
-      setTotalScore((prevScore) => prevScore + (extraTime * 10));  // Example scoring mechanism
+      setTotalScore((prevScore) => prevScore + (extraTime * 10));
       fetchNewQuestion();
     } else {
       setWrongAnswers((prev) => prev + 1);
@@ -100,6 +106,7 @@ function GameContainer() {
       <button onClick={() => navigate('/difficulty')} className="back-btn">Exit the Game</button>
       <div className="game-card">
         <h6 className="game-title">{difficulty} Level</h6>
+
 
         <div className="status-container">
           <div className="status time-remaining">
@@ -121,6 +128,7 @@ function GameContainer() {
 
         <div className="question-section">
           <p className="question-prompt">Find the hidden number...</p>
+          
           <div className="question-answer-container">
             {question ? (
               <img src={question} alt="Game question" className="question-image" />
@@ -137,7 +145,17 @@ function GameContainer() {
               />
               <button onClick={handleSubmitAnswer} className="submit-button">
                 Submit Answer
-              </button>
+              </button><br></br>      
+      
+              <h6 className='skip-word'>Click Skip Quiz if you don't know the answer...</h6>
+              <h4>🫤👇</h4>
+              <button
+                onClick={handleSkip}
+                className="skip-button"
+                disabled={skipCount >= maxSkips} // Disable button after 2 skips
+              >
+                Skip Quiz ({maxSkips - skipCount} left)
+              </button><br></br>
             </div>
           </div>
         </div>
