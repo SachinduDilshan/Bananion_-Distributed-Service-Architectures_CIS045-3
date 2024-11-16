@@ -7,7 +7,7 @@ const useTriviaController = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFactIndex((prevIndex) => (prevIndex + 1) % triviaFacts.length);
-    }, 7000);
+    }, 7000); //changes fact for every 7s
 
     return () => clearInterval(interval);
   }, []);
