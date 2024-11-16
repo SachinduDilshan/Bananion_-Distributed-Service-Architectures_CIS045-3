@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatabase, ref, set } from 'firebase/database';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
@@ -17,6 +17,9 @@ function Register() {
     password: "",
     confirmPassword: ""
   });
+
+  const [verificationSent, setVerificationSent] = useState(false); // Track if the email verification link was sent
+  const [isVerified, setIsVerified] = useState(false); // Track email verification status
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,28 +42,34 @@ function Register() {
 
       // Send email verification
       await sendEmailVerification(user);
-      alert("A verification email has been sent to your email address. Please verify your email before logging in.");
+      setVerificationSent(true);
+      alert("A verification email has been sent. Please verify your email address to complete registration.");
 
-      // Save user details to Firebase Realtime Database
+      // Save user details in Firebase Realtime Database with `verified: false`
       const db = getDatabase();
       await set(ref(db, 'users/' + user.uid), {
         name: formData.name,
         age: formData.age,
         email: formData.email,
+        verified: false,
       });
 
       console.log("User registered:", user);
 
-      setFormData({
-        name: "",
-        email: "",
-        age: "",
-        password: "",
-        confirmPassword: ""
-      });
+      // Monitor verification status
+      const verificationInterval = setInterval(async () => {
+        await user.reload(); // Refresh user data
+        if (user.emailVerified) {
+          clearInterval(verificationInterval); // Stop checking once verified
+          setIsVerified(true);
 
-      // Redirect to the login page
-      navigate('/');
+          // Update the user's verification status in the database
+          await set(ref(db, 'users/' + user.uid + '/verified'), true);
+
+          alert("Email verified! You can now log in.");
+          navigate('/'); // Redirect to login after verification
+        }
+      }, 3000); // Check every 3 seconds
 
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
@@ -74,80 +83,87 @@ function Register() {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
-      <form className="registration-form p-4 border rounded" onSubmit={handleSubmit}>
-        <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
-        <div className="form-group mb-3">
-          <label htmlFor="username">Name</label>
-          <input
-            type="text"
-            placeholder='Your name, please...'
-            className="form-control"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+      {!verificationSent ? (
+        <form className="registration-form p-4 border rounded" onSubmit={handleSubmit}>
+          <h2 className="text-center mb-4">Ready to Play? Register Now!</h2>
+          <div className="form-group mb-3">
+            <label htmlFor="username">Name</label>
+            <input
+              type="text"
+              placeholder="Your name, please..."
+              className="form-control"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="age">Age</label>
+            <input
+              type="number"
+              placeholder="How old are you..."
+              className="form-control"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              placeholder="Your email..."
+              className="form-control"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              placeholder="Enter a secure password..."
+              className="form-control"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              placeholder="Type your password again..."
+              className="form-control"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            style={{ backgroundColor: 'rgb(52, 52, 155)', color: 'white' }}
+            className="btn custom-register-btn"
+          >
+            Register
+          </button>
+        </form>
+      ) : (
+        <div className="text-center">
+          <h3>Please Verify Your Email</h3>
+          <p>We've sent a verification link to your email address. Check your inbox and click on the link to complete registration.</p>
         </div>
-        <div className="form-group mb-3">
-          <label htmlFor="age">Age</label>
-          <input
-            type="number"
-            placeholder='How old are you...'
-            className="form-control"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group mb-3">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            placeholder='Your email...'
-            className="form-control"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group mb-3">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder='Enter a secure password...'
-            className="form-control"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group mb-3">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            placeholder='Type your password again...'
-            className="form-control"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          style={{ backgroundColor: 'rgb(52, 52, 155)', color: 'white' }}
-          className="btn custom-register-btn">
-          Register
-        </button>
-      </form>
+      )}
 
-      <br /><br />
+      <br></br><br></br>
 
       <h6 className="text-center mt-3">Already Registered? <Link to="/">Login here</Link></h6>
-      <br />
       <Footer />
     </div>
   );

@@ -4,6 +4,7 @@ import authenticateUser from './Middleware/authMiddleware.js';
 import getUserData from './Model/getUserData.js'; 
 import admin from 'firebase-admin';
 
+
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -19,6 +20,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
+
 
 app.get('/user/home', authenticateUser, async (req, res) => {
   try {
