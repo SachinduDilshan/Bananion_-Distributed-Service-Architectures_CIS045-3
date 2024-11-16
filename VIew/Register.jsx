@@ -156,7 +156,7 @@ function Register() {
           </button>
         </form>
       ) : (
-        <div className="text-center">
+        <div className="verify-center">
           <h3>Please Verify Your Email</h3>
           <p>We've sent a verification link to your email address. Check your inbox and click on the link to complete registration.</p>
           <img src={email} alt="email sended" className="email-pic" />
