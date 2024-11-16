@@ -52,23 +52,6 @@ app.post('/api/saveScore', async (req, res) => {
   }
 });
 
-app.post("/notifications/:userId", async (req, res) => {
-  const { userId } = req.params;
-  const { message, timestamp } = req.body;
-
-  try {
-    await firebase.database().ref(`users/${userId}/notifications/`).push({
-      message,
-      timestamp: timestamp || Date.now(),
-    });
-    res.status(200).send({ success: true });
-  } catch (error) {
-    console.error("Error uploading notification:", error);
-    res.status(500).send({ success: false, error: error.message });
-  }
-});
-
-
 
 
 app.listen(PORT, () => {

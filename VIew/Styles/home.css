@@ -206,60 +206,56 @@ body::after {
 
 /*----------------Notifications-----------------*/
 .right-section {
-  width: 300px;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: auto;
-  padding: 15px;
+  width: 25%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
 }
 
 .notifications-tab {
-  width: 100%;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  height: calc(100vh - 50px); /* Adjust based on footer and header height */
-  overflow-y: auto;
+  margin-top: 20px;
 }
 
-.notifications-tab h4 {
-  margin-bottom: 10px;
-  font-size: 18px;
+.notifications-tab h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 8px;
+  font-size: 0.9rem;
+}
+
+.notifications-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
 }
 
 .notification-item {
-  margin-bottom: 10px;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .notification-item.unread {
-  background-color: #fdf2c4;
+  font-weight: bold;
 }
 
 .notification-item.read {
-  background-color: #e6e6e6;
+  color: #777;
 }
 
 .mark-read-btn {
-  margin-top: 5px;
-  padding: 5px 10px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 3px;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
 .mark-read-btn:hover {
   background-color: #0056b3;
 }
-
-
-
-
-
-
-
