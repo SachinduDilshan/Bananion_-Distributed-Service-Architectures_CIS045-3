@@ -1,6 +1,11 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json'  assert { type: "json" };
+//import serviceAccount from '../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json'  assert { type: "json" };
+import { createRequire } from 'module';
 import jwt from 'jsonwebtoken';
+
+const require = createRequire(import.meta.url);
+const serviceAccount = require('../dsagame-2425049-firebase-adminsdk-g3jmo-c3f1c6ba87.json');
+
 
 if (!admin.apps.length) {
   admin.initializeApp({
