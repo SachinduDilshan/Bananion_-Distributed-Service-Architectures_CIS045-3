@@ -110,7 +110,7 @@ function GameContainer() {
 
         <div className="status-container">
           <div className="status time-remaining">
-            <span>Time Remaining</span>
+            <span>Time Remaining⌚</span>
             <span className="time">
               {timeRemaining}s
               {extraTimeAdded > 0 && (
@@ -121,7 +121,7 @@ function GameContainer() {
             </span>
           </div>
           <div className="status wrong-answers">
-            <span>Wrong Answers!</span>
+            <span>Wrong Answers! 👎</span>
             <span className="answers">{wrongAnswers} / {gameSettings.maxWrongAnswers}</span>
           </div>
         </div>
@@ -154,7 +154,7 @@ function GameContainer() {
                 className="skip-button"
                 disabled={skipCount >= maxSkips} // Disable button after 2 skips
               >
-                Skip Quiz ({maxSkips - skipCount} left)
+                Skip ({maxSkips - skipCount} left)
               </button><br></br>
             </div>
           </div>

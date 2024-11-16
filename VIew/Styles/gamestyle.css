@@ -46,7 +46,7 @@
     justify-content: space-between;
     font-family: "DynaPuff", system-ui;
     margin-bottom: 20px;
-    max-width: 598px;
+    max-width: 798px;
 }
 
 .status {
@@ -54,23 +54,30 @@
     font-family: "DynaPuff", system-ui;
     color: aliceblue;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 15px;
     margin-left: 110px;
     font-size: 1rem;
+}
+.status.wrong-answers{
+    background-color: rgb(248, 11, 11);
+}
+
+.status.time-remaining{
+    background-color: #2700d6;
 
 }
 
 .time {
     display: block;
     font-size: 2.1rem;
-    color: #f34639;
+    color: #ff1100;
     margin-top: 5px;
 }
 
 .answers {
     display: block;
     font-size: 2.1rem;
-    color: #ffc107;
+    color: #eeff00;
     margin-top: 5px;
 
 }
@@ -116,7 +123,7 @@
     border: 2px solid #16036d;
     text-align: center;
     margin-bottom: 15px;
-    border-radius: 20px;
+    border-radius: 15px;
     transition: border-color 0.3s ease;
 }
 
@@ -132,8 +139,7 @@
     font-size: 0.8rem;
     background-color: #0048bc;
     color: #ffffff;
-    border: none;
-    border-radius: 20px;
+    border: #020c5f;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: 60px;
@@ -168,7 +174,7 @@
     font-size: 12px; /* Comfortable font size */
     padding: 5px 10px; /* Adequate padding for a clickable button */
     border: none; /* No border for a clean look */
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor for interactivity */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     transition: all 0.3s ease; /* Smooth transition for hover effect */
