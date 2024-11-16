@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { auth } from '../Model/Firebase.js';
 import Footer from '../Components/Footer.jsx';
+import email from './Styles/assets/email.png';
 
 function Register() {
   const navigate = useNavigate();
@@ -158,6 +159,7 @@ function Register() {
         <div className="text-center">
           <h3>Please Verify Your Email</h3>
           <p>We've sent a verification link to your email address. Check your inbox and click on the link to complete registration.</p>
+          <img src={email} alt="email sended" className="email-pic" />
         </div>
       )}
 
