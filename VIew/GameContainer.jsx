@@ -143,6 +143,7 @@ function GameContainer() {
                 onChange={(e) => setUserAnswer(e.target.value)}
                 placeholder="Enter your answer..."
                 className="answer-input"
+                required
               />
               <button onClick={handleSubmitAnswer} className="submit-button">
                 Submit Answer
