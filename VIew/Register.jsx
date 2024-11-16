@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatabase, ref, set } from 'firebase/database';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
@@ -34,9 +34,14 @@ function Register() {
     }
 
     try {
-
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
+
+      // Send email verification
+      await sendEmailVerification(user);
+      alert("A verification email has been sent to your email address. Please verify your email before logging in.");
+
+      // Save user details to Firebase Realtime Database
       const db = getDatabase();
       await set(ref(db, 'users/' + user.uid), {
         name: formData.name,
@@ -45,8 +50,6 @@ function Register() {
       });
 
       console.log("User registered:", user);
-      alert("User registered successfully");
-      navigate('/');
 
       setFormData({
         name: "",
@@ -55,8 +58,11 @@ function Register() {
         password: "",
         confirmPassword: ""
       });
-    } catch (error) {
 
+      // Redirect to the login page
+      navigate('/');
+
+    } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert("This email is already registered. Please log in or use a different email.");
       } else {
@@ -65,7 +71,6 @@ function Register() {
       }
     }
   };
-
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
@@ -139,7 +144,7 @@ function Register() {
         </button>
       </form>
 
-      <br></br><br></br>
+      <br /><br />
 
       <h6 className="text-center mt-3">Already Registered? <Link to="/">Login here</Link></h6>
       <br />
