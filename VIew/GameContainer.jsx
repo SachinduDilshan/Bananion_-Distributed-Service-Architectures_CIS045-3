@@ -4,6 +4,7 @@ import { fetchQuestion } from '../Model/GameModel';
 import * as GameController from '../Controller/GameController';
 import '../View/Styles/gamestyle.css';
 
+
 function GameContainer() {  
   const totalQuestions = 35;
   const location = useLocation();

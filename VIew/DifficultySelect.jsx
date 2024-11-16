@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Styles/difficult.css';
+import Footer from '../Components/Footer';
 
 function DifficultySelect({ setDifficulty, user }) {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function DifficultySelect({ setDifficulty, user }) {
         <button className="dif-btn" onClick={() => handleSelect("Intermediate")}>Intermediate</button>
         <button className="dif-btn" onClick={() => handleSelect("Expert")}>Expert</button>
       </div>
+      <Footer />
     </div>
   );
 }
