@@ -1,19 +1,6 @@
 // ProfileModel.js
 import { getDatabase, ref, get, update } from 'firebase/database';
 
-export const fetchUserData = async (userId) => {
-  const db = getDatabase();
-  const userRef = ref(db, `users/${userId}`);
-  
-  try {
-    const snapshot = await get(userRef);
-    return snapshot.exists() ? snapshot.val() : null;
-  } catch (error) {
-    console.error('Error fetching user profile data:', error);
-    throw error;
-  }
-};
-
 export const fetchHighestScores = async (userId) => {
   const db = getDatabase();
   const scoresRef = ref(db, `users/${userId}/scores`);

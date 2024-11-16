@@ -116,7 +116,7 @@
     border: 2px solid #16036d;
     text-align: center;
     margin-bottom: 15px;
-    border-radius: 10px;
+    border-radius: 20px;
     transition: border-color 0.3s ease;
 }
 
@@ -189,11 +189,11 @@
   }
   
   .skip-word {
-    font-size: 14px; /* Smaller text for description */
+    font-size: 12px; /* Smaller text for description */
     color: #666; /* Muted color */
     margin-top: 5px; /* Space above the description */
     text-align: left;
-    font-style: italic;
+    font-weight: lighter;
 
   }
   

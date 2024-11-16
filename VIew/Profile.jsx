@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchUserData, fetchHighestScores, updateUserData } from '../Model/ProfileModel';
+import {fetchHighestScores, updateUserData } from '../Model/ProfileModel';
+import { fetchUserData } from '../Controller/ProfileController';
 import './Styles/ProfileStyle.css';
 import picture from './Styles/picture-image.png';
 import Footer from '../Components/Footer';
