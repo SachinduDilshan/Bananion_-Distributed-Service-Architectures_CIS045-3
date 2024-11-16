@@ -1,6 +1,4 @@
-// ProfileController.js
 import { getDatabase, ref, get } from 'firebase/database';
-import { auth } from '../Model/Firebase.js';
 import { updateUserData } from '../Model/ProfileModel.js';
 
 export const fetchUserData = async (userId) => {

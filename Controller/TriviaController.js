@@ -1,4 +1,3 @@
-// controllers/TriviaController.js
 import { useState, useEffect } from 'react';
 import triviaFacts from '../Model/TriviaModel.js';
 
@@ -8,7 +7,7 @@ const useTriviaController = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFactIndex((prevIndex) => (prevIndex + 1) % triviaFacts.length);
-    }, 7000); // Change fact every 5 seconds
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
