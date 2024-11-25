@@ -46,7 +46,7 @@ function Register() {
       setVerificationSent(true);
       alert("A verification email has been sent. Please verify your email address to complete registration.");
 
-      
+
       const db = getDatabase();
       await set(ref(db, 'users/' + user.uid), {
         name: formData.name,
@@ -64,11 +64,11 @@ function Register() {
           clearInterval(verificationInterval); // Stop checking once verified
           setIsVerified(true);
 
-          
+
           await set(ref(db, 'users/' + user.uid + '/verified'), true);
 
           alert("Email verified! You can now log in.");
-          navigate('/'); 
+          navigate('/');
         }
       }, 3000); // Check every 3 seconds
 
