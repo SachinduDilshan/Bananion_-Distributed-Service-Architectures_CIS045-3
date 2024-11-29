@@ -69,7 +69,7 @@ body::after {
   color: rgb(52, 52, 155);
   position: relative;
   padding: 20px 20px 60px; 
-  height: 480px;
+  height: 520px;
   width: 800px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   background-color: rgba(255, 255, 255, 0.705); 

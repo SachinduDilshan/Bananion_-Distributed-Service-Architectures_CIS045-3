@@ -62,7 +62,7 @@ const Home = () => {
 
         <div className="home-content">
           <button className="custom-btn" onClick={() => navigate('/difficulty')}>Let's Play!</button>
-          <button className="custom-btn" onClick={() => navigate('/challenge')}>Challenge</button>
+          <button className="custom-btn" onClick={() => navigate('/challenge')}>View Challenge</button>
           <button className="custom-btn" onClick={() => navigate("/givechallenge")}>Create Challenge</button>
           <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button>
           <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button>

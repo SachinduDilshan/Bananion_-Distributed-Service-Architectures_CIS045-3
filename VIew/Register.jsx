@@ -154,6 +154,7 @@ function Register() {
           >
             Register
           </button>
+          
         </form>
       ) : (
         <div className="verify-center">
