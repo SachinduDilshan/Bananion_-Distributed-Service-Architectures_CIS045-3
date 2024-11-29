@@ -1,0 +1,54 @@
+.challenge-form-container {
+    max-width: 500px;
+    margin-left: 520px;
+    padding: 20px;
+    
+    border-radius: 10px;
+    font-family: "DynaPuff", system-ui;
+  }
+  
+  .challenge-form-container h3 {
+    margin-top: 70px;
+    font-family: "DynaPuff", system-ui;
+    font-weight: bold;
+    color: #0017ad;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #007bff;
+  }
+  
+  .form-control:focus {
+    border-color:  #0017ad; /* Blue focus color */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+  }
+  
+  .btn-primary {
+    background-color:  #0017ad;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0048a7;
+  }
+  
+  .shadow-lg {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  label.form-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .bg-light {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  

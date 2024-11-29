@@ -8,13 +8,15 @@ import DifficultySelect from '../VIew/DifficultySelect.jsx';
 import GameContainer from '../VIew/GameContainer.jsx';
 import Profile from "../VIew/Profile.jsx";
 import Ranks from "../VIew/Ranks.jsx";
-
+import Challenge from "../VIew/Challenge.jsx";
+import ChallengeForm from "../VIew/ChallengeForm.jsx";
 
 function App() {
   const [userId, setUserId] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const auth = getAuth();
 
+  // Firebase Auth state listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -29,32 +31,31 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
-
-
   return (
     <Router>
       <Routes>
-        
         {/* Default route for login page */}
         <Route path="/" element={<Login />} />
 
         {/* Register page */}
         <Route path="/register" element={<Register />} />
 
-        <Route path="/ranks" element={<Ranks />} />
-
         {/* Home page, only accessible to logged-in users */}
-        <Route path="/home" element={userId ? <Home /> : <Navigate to="/" replace />} 
+        <Route
+          path="/home"
+          element={userId ? <Home userId={userId} /> : <Navigate to="/" replace />}
         />
 
         {/* Difficulty selection page, only accessible to logged-in users */}
         <Route
           path="/difficulty"
-          element={userId ? (
-            <DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />
-          ) : (
-            <Navigate to="/" replace />
-          )}
+          element={
+            userId ? (
+              <DifficultySelect setDifficulty={setSelectedDifficulty} userId={userId} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
 
         {/* Game play page, requires both user login and selected difficulty */}
@@ -73,6 +74,21 @@ function App() {
         <Route
           path="/profile"
           element={userId ? <Profile userId={userId} /> : <Navigate to="/" replace />}
+        />
+
+        {/* Ranks page */}
+        <Route path="/ranks" element={<Ranks />} />
+
+        {/* Challenge page for both creating and managing challenges */}
+        <Route
+          path="/challenge"
+          element={userId ? <Challenge userId={userId} /> : <Navigate to="/" replace />}
+        />
+
+        {/* Add ChallengeForm route */}
+        <Route
+          path="/givechallenge"
+          element={userId ? <ChallengeForm userId={userId} /> : <Navigate to="/" replace />}
         />
 
         {/* Redirect any unknown paths to the login page */}

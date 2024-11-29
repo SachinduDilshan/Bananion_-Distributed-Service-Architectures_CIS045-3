@@ -4,7 +4,7 @@ import authenticateUser from './Middleware/authMiddleware.js';
 import getUserData from './Model/getUserData.js'; 
 import admin from 'firebase-admin';
 
-
+// Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -21,7 +21,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-
+// Route: Get user data for the home page
 app.get('/user/home', authenticateUser, async (req, res) => {
   try {
     const userId = req.user.uid;
@@ -33,6 +33,7 @@ app.get('/user/home', authenticateUser, async (req, res) => {
   }
 });
 
+// Route: Save game score
 app.post('/api/saveScore', async (req, res) => {
   const { uid, score, difficulty } = req.body;
 
@@ -51,8 +52,81 @@ app.post('/api/saveScore', async (req, res) => {
   }
 });
 
+// Route: Create a challenge
+app.post('/api/createChallenge', authenticateUser, async (req, res) => {
+  const { challengee, scoreTarget, difficulty } = req.body;
+  const challenger = req.user.uid; // Authenticated user's UID
 
+  if (!challengee || !scoreTarget || !difficulty) {
+    return res.status(400).json({ error: 'Invalid data provided' });
+  }
 
+  try {
+    const challengeRef = admin.database().ref('challenges').push();
+    await challengeRef.set({
+      challenger,
+      challengee,
+      scoreTarget,
+      difficulty,
+      status: "pending", // Pending until accepted
+      result: null
+    });
+    res.status(200).json({ message: 'Challenge created successfully', challengeId: challengeRef.key });
+  } catch (error) {
+    console.error("Error creating challenge:", error);
+    res.status(500).json({ error: 'Failed to create challenge', details: error.message });
+  }
+});
+
+// Route: Accept a challenge
+app.post('/api/acceptChallenge', authenticateUser, async (req, res) => {
+  const { challengeId } = req.body;
+
+  if (!challengeId) {
+    return res.status(400).json({ error: 'Challenge ID is required' });
+  }
+
+  try {
+    const challengeRef = admin.database().ref(`challenges/${challengeId}`);
+    const snapshot = await challengeRef.once('value');
+
+    if (!snapshot.exists()) {
+      return res.status(404).json({ error: 'Challenge not found' });
+    }
+
+    await challengeRef.update({ status: 'accepted' });
+    res.status(200).json({ message: 'Challenge accepted successfully' });
+  } catch (error) {
+    console.error("Error accepting challenge:", error);
+    res.status(500).json({ error: 'Failed to accept challenge', details: error.message });
+  }
+});
+
+// Route: Update challenge result
+app.post('/api/updateChallengeResult', authenticateUser, async (req, res) => {
+  const { challengeId, result } = req.body; // result can be "win" or "lose"
+
+  if (!challengeId || !result) {
+    return res.status(400).json({ error: 'Challenge ID and result are required' });
+  }
+
+  try {
+    const challengeRef = admin.database().ref(`challenges/${challengeId}`);
+    const snapshot = await challengeRef.once('value');
+
+    if (!snapshot.exists()) {
+      return res.status(404).json({ error: 'Challenge not found' });
+    }
+
+    await challengeRef.update({ status: 'completed', result });
+    res.status(200).json({ message: 'Challenge result updated successfully' });
+  } catch (error) {
+    console.error("Error updating challenge result:", error);
+    res.status(500).json({ error: 'Failed to update challenge result', details: error.message });
+  }
+});
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
