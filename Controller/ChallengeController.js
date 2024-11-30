@@ -1,34 +1,21 @@
-import { createChallenge, acceptChallenge, updateChallengeResult } from '../Model/ChallengeModel';
+import { fetchUsersAndChallenges, submitChallenge } from "../Model/ChallengeModel";
 
-export const handleCreateChallenge = async (challenger, challengee, scoreTarget, difficulty) => {
+// Controller to handle fetching users and challenges
+export const handleFetchUsersAndChallenges = async (userId, setUserName, setPlayers, setSentChallenges) => {
   try {
-    const response = await createChallenge(challenger, challengee, scoreTarget, difficulty);
-    console.log('Challenge created:', response.message);
-    return response;
+    await fetchUsersAndChallenges(userId, setUserName, setPlayers, setSentChallenges);
   } catch (error) {
-    console.error('Error handling challenge creation:', error.message);
-    throw error;
+    console.error("Error fetching users and challenges:", error);
   }
 };
 
-export const handleAcceptChallenge = async (challengeId) => {
+// Controller to handle challenge submission
+export const handleChallengeSubmit = async (userId, userName, targetPlayer, targetScore, difficulty, players) => {
   try {
-    const response = await acceptChallenge(challengeId);
-    console.log('Challenge accepted:', response.message);
-    return response;
+    const message = await submitChallenge(userId, userName, targetPlayer, targetScore, difficulty, players);
+    alert(message);
   } catch (error) {
-    console.error('Error handling challenge acceptance:', error.message);
-    throw error;
-  }
-};
-
-export const handleUpdateChallengeResult = async (challengeId, result) => {
-  try {
-    const response = await updateChallengeResult(challengeId, result);
-    console.log('Challenge result updated:', response.message);
-    return response;
-  } catch (error) {
-    console.error('Error handling challenge result update:', error.message);
-    throw error;
+    console.error("Error sending challenge:", error);
+    alert(error.message || "Failed to send challenge. Please try again.");
   }
 };

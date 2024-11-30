@@ -73,19 +73,23 @@ function Challenge({ userId }) {
 
   return (
     <div className="challenge-container">
+      <div className="top-bar d-flex justify-content-between align-items-center w-100">
+        <button onClick={() => navigate("/home")} className="back-btn">
+          &larr; Back
+        </button>
+      </div>
       <h3>Challenges</h3>
       {challenges.length > 0 ? (
         <ul className="list-group">
           {challenges.map((challenge) => (
             <li
               key={challenge.id}
-              className={`list-group-item d-flex justify-content-between align-items-center ${
-                challenge.status === "accepted"
+              className={`list-group-item d-flex justify-content-between align-items-center ${challenge.status === "accepted"
                   ? "list-group-item-success"
                   : challenge.status === "declined"
-                  ? "list-group-item-danger"
-                  : ""
-              }`}
+                    ? "list-group-item-danger"
+                    : ""
+                }`}
             >
               <div>
                 <p>

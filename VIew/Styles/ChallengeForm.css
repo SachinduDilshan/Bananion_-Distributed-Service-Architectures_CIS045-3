@@ -1,53 +1,95 @@
 .challenge-form-container {
-    max-width: 500px;
-    margin-left: 520px;
-    padding: 20px;
-    border-radius: 10px;
-    font-family: "DynaPuff", system-ui;
-  }
+  max-width: 80%;
+  margin-left: 150px;
+  padding: 30px;
+  border-radius: 15px;
+  font-family: "DynaPuff", system-ui, sans-serif;
+}
+
+.challenge-form-container h3 {
+  font-size: 2rem;
+  margin-top: 100px;
+  font-family: "DynaPuff", system-ui, sans-serif;
+  font-weight: bold;
+  color: #0017ad;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.challenge-form-container h5 {
+  font-size: 2rem;
+  margin-top: 100px;
+  font-family: "DynaPuff", system-ui, sans-serif;
+  font-weight: bold;
+  color: #0017ad;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-control {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #007bff;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0017ad;
+  box-shadow: 0 0 8px rgba(0, 23, 173, 0.5);
+}
+
+label.form-label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  background-color: #0017ad;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border: none;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: #0048a7;
+}
+
+.shadow-lg {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bg-light {
   
-  .challenge-form-container h3 {
-    margin-top: 70px;
-    font-family: "DynaPuff", system-ui;
-    font-weight: bold;
-    color: #0017ad;
-  }
-  
-  .form-control {
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 2px solid #007bff;
-  }
-  
-  .form-control:focus {
-    border-color:  #0017ad; /* Blue focus color */
-    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
-  }
-  
-  .btn-primary {
-    background-color:  #0017ad;
-    border: none;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0048a7;
-  }
-  
-  .shadow-lg {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  label.form-label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .bg-light {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-  
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #0017ad;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0048a7;
+}
