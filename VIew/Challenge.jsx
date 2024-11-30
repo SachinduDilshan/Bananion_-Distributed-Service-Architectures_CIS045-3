@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getDatabase, ref, get, update } from "firebase/database";
+import { getDatabase, ref, get, update, remove } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import "./Styles/Challenge.css";
 
@@ -71,6 +71,15 @@ function Challenge({ userId }) {
     navigate("/challenge");
   };
 
+  // Delete a challenge
+  const deleteChallenge = async (challengeId) => {
+    const challengeRef = ref(db, `users/${userId}/challenges/${challengeId}`);
+    await remove(challengeRef);
+    setChallenges((prevChallenges) =>
+      prevChallenges.filter((challenge) => challenge.id !== challengeId)
+    );
+  };
+
   return (
     <div className="challenge-container">
       <div className="top-bar d-flex justify-content-between align-items-center w-100">
@@ -105,22 +114,30 @@ function Challenge({ userId }) {
                   <strong>Status:</strong> {challenge.status || "pending"}
                 </p>
               </div>
-              {challenge.status === "pending" && (
-                <div>
-                  <button
-                    className="btn btn-success btn-sm me-2"
-                    onClick={() => acceptChallenge(challenge.id)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => declineChallenge(challenge.id)}
-                  >
-                    Decline
-                  </button>
-                </div>
-              )}
+              <div className="button-group">
+                {challenge.status === "pending" && (
+                  <>
+                    <button
+                      className="btn btn-success btn-sm me-2"
+                      onClick={() => acceptChallenge(challenge.id)}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm me-2"
+                      onClick={() => declineChallenge(challenge.id)}
+                    >
+                      Decline
+                    </button>
+                  </>
+                )}
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => deleteChallenge(challenge.id)}
+                >
+                  <i className="fas fa-trash-alt"></i> {/* Font Awesome trash icon */}
+                </button>
+              </div>
             </li>
           ))}
         </ul>

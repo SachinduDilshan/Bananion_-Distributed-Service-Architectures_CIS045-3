@@ -76,3 +76,14 @@
 .btn-danger:hover {
   background-color: #c82333;
 }
+
+
+.btn-secondary {
+  background-color: #fac2c2;
+  color: #000;
+}
+
+.btn-secondary:hover {
+  background-color: #f50000;
+  color: #ffffff;
+}

@@ -123,7 +123,7 @@ function GameContainer() {
           </div>
           <div className="status wrong-answers">
             <span>Wrong Answers! 👎</span>
-            <span className="answers">{wrongAnswers} / {gameSettings.maxWrongAnswers}</span>
+            <span className="answers">{wrongAnswers} / 2</span>
           </div>
         </div>
 
