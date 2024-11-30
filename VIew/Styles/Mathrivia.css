@@ -4,7 +4,7 @@
     padding: 10px;
     margin-left: 20px;
     margin-top: 200px;
-    background-color: #030e55c9;
+    background-color: #fcfcfcc9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@
     font-style: italic;
     font-weight: lighter;
     font-family: "DynaPuff", system-ui;
-    color: #ffffff;
+    color: #000000;
     text-align: center;
   }
 
