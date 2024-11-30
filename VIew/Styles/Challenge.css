@@ -1,0 +1,36 @@
+.challenge-container {
+    max-width: 700px;
+    margin-left: 420px ;
+    font-family: "DynaPuff", system-ui;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .challenge-container h3 {
+    text-align: center;
+    color: #003cff;
+    margin-top: 60px;
+  }
+  
+  .list-group-item {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .list-group-item-success {
+    background-color: rgba(0, 214, 64, 0.788);
+    border: 1px solid #000dc4;
+  }
+  
+  .list-group-item-danger {
+    background-color: rgb(255, 119, 133);
+    border: 1px solid #dc3545;
+  }
+  
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+  
