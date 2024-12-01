@@ -8,7 +8,7 @@ function Challenge({ userId }) {
   const db = getDatabase();
   const navigate = useNavigate();
 
-  // Fetch challenges with the challenger name
+  // Fetch challenge
   useEffect(() => {
     const fetchChallenges = async () => {
       const challengesRef = ref(db, `users/${userId}/challenges`);
@@ -18,7 +18,7 @@ function Challenge({ userId }) {
       if (challengesData) {
         const formattedChallenges = await Promise.all(
           Object.entries(challengesData).map(async ([id, challenge]) => {
-            // Fetch the challenger's name from the users node
+            // Fetch the challenger's name
             const challengerName = await fetchChallengerName(challenge.challengerId);
             return {
               id,
@@ -31,7 +31,7 @@ function Challenge({ userId }) {
       }
     };
 
-    // Function to fetch challenger name from Firebase
+    // Function to fetch challengers name from Firebase
     const fetchChallengerName = async (challengerId) => {
       if (!challengerId) return "Unknown";
       const challengerRef = ref(db, `users/${challengerId}`);
@@ -43,7 +43,6 @@ function Challenge({ userId }) {
     fetchChallenges();
   }, [db, userId]);
 
-  // Accept a challenge
   const acceptChallenge = async (challengeId) => {
     const challengeRef = ref(db, `users/${userId}/challenges/${challengeId}`);
     await update(challengeRef, { status: "accepted" });
@@ -57,7 +56,7 @@ function Challenge({ userId }) {
     navigate("/difficulty");
   };
 
-  // Decline a challenge
+
   const declineChallenge = async (challengeId) => {
     const challengeRef = ref(db, `users/${userId}/challenges/${challengeId}`);
     await update(challengeRef, { status: "declined" });
@@ -71,7 +70,7 @@ function Challenge({ userId }) {
     navigate("/challenge");
   };
 
-  // Delete a challenge
+  // Delete
   const deleteChallenge = async (challengeId) => {
     const challengeRef = ref(db, `users/${userId}/challenges/${challengeId}`);
     await remove(challengeRef);
@@ -135,7 +134,7 @@ function Challenge({ userId }) {
                   className="btn btn-secondary btn-sm"
                   onClick={() => deleteChallenge(challenge.id)}
                 >
-                  <i className="fas fa-trash-alt"></i> {/* Font Awesome trash icon */}
+                  <i className="fas fa-trash-alt"></i> 
                 </button>
               </div>
             </li>

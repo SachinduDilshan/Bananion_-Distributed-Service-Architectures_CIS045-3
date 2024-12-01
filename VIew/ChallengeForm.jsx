@@ -28,7 +28,7 @@ function ChallengeForm({ userId }) {
 
   return (
     <div className="challenge-form-container d-flex">
-      {/* Left side: Sent challenges */}
+      {/* Left */}
       <div className="sent-challenges p-3">
         <h5 className="text-center">Sent Challenges</h5>
         {sentChallenges.length > 0 ? (
@@ -59,7 +59,7 @@ function ChallengeForm({ userId }) {
         )}
       </div>
 
-      {/* Right side: Challenge form */}
+      {/* Right*/}
       <div className="form-container flex-grow-1 ms-3">
         <div className="top-bar d-flex justify-content-between align-items-center w-100">
           <button onClick={() => navigate("/home")} className="back-btn">
