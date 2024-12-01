@@ -3,6 +3,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
 import './Styles/RankStyle.css';
 import medalIcon from '../VIew/Styles/assets/medal-icon.png'; // Make sure you have a medal icon in the assets folder
+import Footer from './Footer.jsx';
 
 const Ranks = () => {
   const [scores, setScores] = useState([]);
@@ -86,6 +87,7 @@ const Ranks = () => {
           </tbody>
         </table>
       </div>
+      <Footer />
     </div>
   );
 };

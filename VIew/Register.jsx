@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
 import { auth } from '../Model/Firebase.js';
-import Footer from '../Components/Footer.jsx';
+import Footer from './Footer.jsx';
 import email from './Styles/assets/email.png';
 
 function Register() {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/regist.css';
-import Footer from '../Components/Footer';
+import Footer from './Footer.jsx';
 
 const auth = getAuth();
 

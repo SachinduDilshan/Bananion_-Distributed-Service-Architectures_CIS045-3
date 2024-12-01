@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Styles/difficult.css';
-import Footer from '../Components/Footer';
+import Footer from './Footer.jsx';
 
 function DifficultySelect({ setDifficulty, user }) {
   const navigate = useNavigate();

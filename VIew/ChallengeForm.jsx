@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { handleFetchUsersAndChallenges, handleChallengeSubmit } from "../Controller/ChallengeController";
 import "./Styles/ChallengeForm.css";
 
+
 function ChallengeForm({ userId }) {
   const [players, setPlayers] = useState([]);
   const [sentChallenges, setSentChallenges] = useState([]);
@@ -111,6 +112,7 @@ function ChallengeForm({ userId }) {
           </button>
         </form>
       </div>
+      
     </div>
   );
 }

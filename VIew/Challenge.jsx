@@ -143,6 +143,7 @@ function Challenge({ userId }) {
       ) : (
         <p>No challenges available.</p>
       )}
+      
     </div>
   );
 }

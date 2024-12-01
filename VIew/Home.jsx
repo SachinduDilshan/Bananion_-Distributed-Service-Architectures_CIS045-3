@@ -4,7 +4,7 @@ import { auth, onAuthStateChanged, getIdToken } from '../Model/Firebase';
 import './Styles/home.css';
 import MathTrivia from './MathTrivia.jsx';
 import picture from './Styles/picture-image.png';
-import Footer from '../Components/Footer';
+import Footer from './Footer.jsx';
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
