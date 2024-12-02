@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
 import './Styles/RankStyle.css';
-import medalIcon from '../VIew/Styles/assets/medal-icon.png'; // Make sure you have a medal icon in the assets folder
+import medalIcon from '../VIew/Styles/assets/medal-icon.png';
 import Footer from './Footer.jsx';
 
 const Ranks = () => {
@@ -14,7 +14,7 @@ const Ranks = () => {
     const fetchScores = async () => {
       const db = getDatabase();
       const usersRef = ref(db, 'users');
-      
+
       try {
         const snapshot = await get(usersRef);
         if (snapshot.exists()) {
@@ -22,18 +22,18 @@ const Ranks = () => {
 
           const processedScores = Object.entries(data).flatMap(([userId, userData]) => {
             const levelScores = Object.values(userData.scores || {}).filter(score => score.difficulty.toLowerCase() === selectedLevel);
-            
+
             if (levelScores.length === 0) return [];
 
             const highestScore = Math.max(...levelScores.map(score => score.score));
             return [{
               userId,
-              name: userData.name, 
+              name: userData.name,
               score: highestScore
             }];
           })
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 10);
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
 
           setScores(processedScores);
         } else {

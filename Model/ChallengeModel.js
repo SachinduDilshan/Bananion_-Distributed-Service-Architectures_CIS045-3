@@ -9,12 +9,12 @@ export const fetchUsersAndChallenges = async (userId, setUserName, setPlayers, s
   const usersData = snapshot.val();
 
   if (usersData) {
-    // Set the current user's name
+
     setUserName(usersData[userId]?.name || "Unnamed User");
 
-    // Set the list of other players
+    //LIst of other players
     const otherPlayers = Object.entries(usersData)
-      .filter(([uid]) => uid !== userId) // Exclude the current user
+      .filter(([uid]) => uid !== userId) // Excluding the current logged in user
       .map(([uid, userData]) => ({
         uid,
         name: userData.name || "Unnamed Player",
@@ -22,7 +22,7 @@ export const fetchUsersAndChallenges = async (userId, setUserName, setPlayers, s
     setPlayers(otherPlayers);
   }
 
-  // Fetch the challenges sent by the current user
+  // Fetch the challenges sent by the logged in user
   const challengesRef = ref(db, `users/${userId}/sentChallenges`);
   onValue(challengesRef, (snapshot) => {
     const challengesData = snapshot.val();
@@ -35,7 +35,7 @@ export const fetchUsersAndChallenges = async (userId, setUserName, setPlayers, s
   });
 };
 
-// Submit a challenge
+
 export const submitChallenge = async (userId, userName, targetPlayer, targetScore, difficulty, players) => {
   const db = getDatabase();
 
@@ -43,7 +43,6 @@ export const submitChallenge = async (userId, userName, targetPlayer, targetScor
     throw new Error("Please fill in all fields!");
   }
 
-  // Define the new challenge
   const challengeRef = ref(db, `users/${targetPlayer}/challenges`);
   const newChallenge = {
     challengerId: userId,
@@ -53,7 +52,7 @@ export const submitChallenge = async (userId, userName, targetPlayer, targetScor
     status: "pending",
   };
 
-  // Push the challenge to the target player's challenges
+  // Pushing the challenge to the target player's challenges
   await push(challengeRef, newChallenge);
 
   // Add the challenge to the current user's sentChallenges

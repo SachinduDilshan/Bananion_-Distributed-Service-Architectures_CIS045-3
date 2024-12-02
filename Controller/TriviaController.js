@@ -19,7 +19,7 @@ const useTriviaController = () => {
             }
         };
 
-        // Fetch a new trivia fact every 7 seconds
+        //a new trivia fact every 7 seconds
         fetchTrivia();
         const interval = setInterval(fetchTrivia, 7000);
 

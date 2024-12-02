@@ -1,4 +1,3 @@
-// ProfileModel.js
 import { getDatabase, ref, get, update } from 'firebase/database';
 
 export const fetchHighestScores = async (userId) => {
@@ -9,7 +8,7 @@ export const fetchHighestScores = async (userId) => {
   try {
     const snapshot = await get(scoresRef);
     const scoresData = snapshot.val();
-    
+
     if (scoresData) {
       Object.values(scoresData).forEach((score) => {
         if (score.difficulty === 'Beginner' && score.score > maxScores.beginner) {
@@ -33,7 +32,7 @@ export const fetchHighestScores = async (userId) => {
 export const updateUserData = async (userId, name, age) => {
   const db = getDatabase();
   const userRef = ref(db, `users/${userId}`);
-  
+
   try {
     await update(userRef, { name, age });
     return { name, age };

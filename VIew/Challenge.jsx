@@ -93,10 +93,10 @@ function Challenge({ userId }) {
             <li
               key={challenge.id}
               className={`list-group-item d-flex justify-content-between align-items-center ${challenge.status === "accepted"
-                  ? "list-group-item-success"
-                  : challenge.status === "declined"
-                    ? "list-group-item-danger"
-                    : ""
+                ? "list-group-item-success"
+                : challenge.status === "declined"
+                  ? "list-group-item-danger"
+                  : ""
                 }`}
             >
               <div>
@@ -134,7 +134,7 @@ function Challenge({ userId }) {
                   className="btn btn-secondary btn-sm"
                   onClick={() => deleteChallenge(challenge.id)}
                 >
-                  <i className="fas fa-trash-alt"></i> 
+                  <i className="fas fa-trash-alt"></i>
                 </button>
               </div>
             </li>
@@ -143,7 +143,7 @@ function Challenge({ userId }) {
       ) : (
         <p>No challenges available.</p>
       )}
-      
+
     </div>
   );
 }

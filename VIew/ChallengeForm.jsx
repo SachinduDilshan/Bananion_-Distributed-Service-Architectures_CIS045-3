@@ -42,13 +42,12 @@ function ChallengeForm({ userId }) {
                   <strong>Score:</strong> {challenge.targetScore}
                 </div>
                 <span
-                  className={`badge ${
-                    challenge.status === "pending"
+                  className={`badge ${challenge.status === "pending"
                       ? "bg-warning"
                       : challenge.status === "accepted"
-                      ? "bg-success"
-                      : "bg-danger"
-                  }`}
+                        ? "bg-success"
+                        : "bg-danger"
+                    }`}
                 >
                   {challenge.status}
                 </span>
@@ -112,7 +111,7 @@ function ChallengeForm({ userId }) {
           </button>
         </form>
       </div>
-      
+
     </div>
   );
 }

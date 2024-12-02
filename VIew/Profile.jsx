@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {fetchHighestScores, updateUserData } from '../Model/ProfileModel';
+import { fetchHighestScores, updateUserData } from '../Model/ProfileModel';
 import { fetchUserData } from '../Controller/ProfileController';
 import './Styles/ProfileStyle.css';
 import picture from './Styles/picture-image.png';
@@ -32,7 +32,7 @@ const Profile = ({ userId }) => {
         setNewName(profileData.name || '');
         setNewAge(profileData.age || '');
       }
-      
+
       const scoresData = await fetchHighestScores(userId);
       setHighestScores({
         beginner: scoresData.beginner || 'N/A',
@@ -113,13 +113,13 @@ const Profile = ({ userId }) => {
               <span>Expert</span>
               <span>{highestScores.expert !== 0 ? highestScores.expert : 'N/A'}</span>
             </div>
-            
+
           </div>
-          
+
         </div>
         <button onClick={() => navigate('/play')} className="Profile-game">Back to Play</button>
       </div>
-      
+
       <Footer />
     </div>
   );

@@ -5,7 +5,7 @@ import * as GameController from '../Controller/GameController';
 import '../View/Styles/gamestyle.css';
 
 
-function GameContainer() {  
+function GameContainer() {
   const totalQuestions = 35;
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ function GameContainer() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
 
-  const [skipCount, setSkipCount] = useState(0); // Track skips
-  const maxSkips = 2; // Max skips per game round
+  const [skipCount, setSkipCount] = useState(0); // Track skips count
+  const maxSkips = 2;
 
   const goToProfile = useCallback(() => {
     navigate('/profile');
@@ -129,7 +129,7 @@ function GameContainer() {
 
         <div className="question-section">
           <p className="question-prompt">Find the hidden number...</p>
-          
+
           <div className="question-answer-container">
             {question ? (
               <img src={question} alt="Game question" className="question-image" />
@@ -147,8 +147,8 @@ function GameContainer() {
               />
               <button onClick={handleSubmitAnswer} className="submit-button">
                 Submit Answer
-              </button><br></br>      
-      
+              </button><br></br>
+
               <h6 className='skip-word'>Click Skip Quiz if you don't know the answer...</h6>
               <h4>🫤👇</h4>
               <button
@@ -162,7 +162,7 @@ function GameContainer() {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }

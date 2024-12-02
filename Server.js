@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import authenticateUser from './Middleware/authMiddleware.js';
-import getUserData from './Model/getUserData.js'; 
+import getUserData from './Model/getUserData.js';
 import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK
@@ -68,7 +68,7 @@ app.post('/api/createChallenge', authenticateUser, async (req, res) => {
       challengee,
       scoreTarget,
       difficulty,
-      status: "pending", // Pending until accepted
+      status: "pending",
       result: null
     });
     res.status(200).json({ message: 'Challenge created successfully', challengeId: challengeRef.key });
@@ -104,7 +104,7 @@ app.post('/api/acceptChallenge', authenticateUser, async (req, res) => {
 
 // Route: Update challenge result
 app.post('/api/updateChallengeResult', authenticateUser, async (req, res) => {
-  const { challengeId, result } = req.body; // result can be "win" or "lose"
+  const { challengeId, result } = req.body;
 
   if (!challengeId || !result) {
     return res.status(400).json({ error: 'Challenge ID and result are required' });

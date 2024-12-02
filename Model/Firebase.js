@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const database = getDatabase(app); 
+const database = getDatabase(app);
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -26,7 +26,7 @@ onAuthStateChanged(auth, (user) => {
     console.log("No user is logged in.");
   }
 });
-console.log("Firebase initialized:", app.name); 
+console.log("Firebase initialized:", app.name);
 
 
 export { app, auth, database, onAuthStateChanged, getFirebaseIdToken as getIdToken };

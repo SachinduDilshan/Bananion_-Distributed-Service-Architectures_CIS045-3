@@ -1,6 +1,6 @@
 import { fetchUsersAndChallenges, submitChallenge } from "../Model/ChallengeModel";
 
-// Controller to handle fetching users and challenges
+//  to handle fetching users and challenges
 export const handleFetchUsersAndChallenges = async (userId, setUserName, setPlayers, setSentChallenges) => {
   try {
     await fetchUsersAndChallenges(userId, setUserName, setPlayers, setSentChallenges);
@@ -9,7 +9,7 @@ export const handleFetchUsersAndChallenges = async (userId, setUserName, setPlay
   }
 };
 
-// Controller to handle challenge submission
+//  to handle challenge submission
 export const handleChallengeSubmit = async (userId, userName, targetPlayer, targetScore, difficulty, players) => {
   try {
     const message = await submitChallenge(userId, userName, targetPlayer, targetScore, difficulty, players);

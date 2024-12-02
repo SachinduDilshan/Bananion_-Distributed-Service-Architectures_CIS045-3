@@ -22,7 +22,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
-    next(); 
+    next();
   } catch (error) {
     console.error("Authentication Error:", error);
     res.status(403).json({ error: 'Unauthorized: Invalid token' });

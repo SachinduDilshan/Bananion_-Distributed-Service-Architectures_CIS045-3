@@ -66,8 +66,8 @@ const Home = () => {
           <button className="custom-btn" onClick={() => navigate("/givechallenge")}>Create Challenge</button>
           <button className="custom-btn" onClick={() => navigate('/ranks')}>Top Ranks</button>
           <button className="custom-btn" onClick={() => navigate('/profile')}>My Profile</button>
-          
-          
+
+
         </div>
 
         <div className="profile-section">
@@ -76,7 +76,7 @@ const Home = () => {
               <img src={picture} alt="User Profile" className="profile-pic" />
               <p>{userData.name}</p>
               <p>{userData.age} Years</p>
-              
+
             </>
           )}
           <button className="exit-btn" onClick={() => auth.signOut()}>Exit</button>
