@@ -12,6 +12,8 @@ This Math Game is a React-based web application where players solve math equatio
 - **Score Tracking**: Scores are calculated based on the time taken to answer questions correctly, and the highest scores are stored in Firebase.
 - **Profile Page**: Displays user information and highest scores for each difficulty level.
 - **Real-time Database**: Uses Firebase Realtime Database to store scores and user details.
+- - **Challenging Users**: User can challenge another player.
+
 
 ## Technologies Used
 
