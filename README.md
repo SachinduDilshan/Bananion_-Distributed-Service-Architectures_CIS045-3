@@ -18,5 +18,7 @@ This Math Game is a React-based web application where players solve math equatio
 ## Technologies Used
 
 - **Frontend**: React, React Router, Bootstrap
-- **Backend**: Firebase Authentication, Firebase Realtime Database
+- **Backend**: Node.js, express, Firebase Authentication, Firebase Realtime Database
 - **Other Libraries**: Firebase SDK
+
+  I haven't shared the service account due to google's security policies.
